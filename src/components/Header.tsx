@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
+import { PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
-import { IconChat, IconClock, IconPhone, IconPin } from "./icons";
+import { IconCalendar, IconClock, IconPhone, IconPin } from "./icons";
 import LanguageSwitcher from "./LanguageSwitcher";
 import NavLinks from "./NavLinks";
 
@@ -55,10 +55,10 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dict }) {
         <NavLinks links={links} base={base} variant="desktop" />
         <div className="flex items-center gap-2.5">
           <LanguageSwitcher lang={lang} label={dict.nav.language} />
-          <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm hidden sm:inline-flex">
-            <IconChat className="w-4 h-4" />
-            {dict.nav.freeEstimate}
-          </a>
+          <Link href={`${base}/booking`} className="btn btn-primary btn-sm hidden sm:inline-flex">
+            <IconCalendar className="w-4 h-4" />
+            {dict.booking.nav}
+          </Link>
         </div>
       </div>
       <NavLinks links={links} base={base} variant="mobile" />

@@ -4,7 +4,7 @@ import { SERVICES, POSTS } from "@/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; lastModified: Date; changeFrequency: "weekly" | "monthly"; priority: number; images?: string[] }[] = [
-    ...["", "/about", "/services", "/faq", "/blog", "/testimonials", "/contact", "/careers", "/privacy", "/terms"].map((path) => ({
+    ...["", "/about", "/services", "/faq", "/blog", "/testimonials", "/booking", "/contact", "/careers", "/privacy", "/terms"].map((path) => ({
       path,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,

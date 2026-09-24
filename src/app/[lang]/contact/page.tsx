@@ -3,12 +3,11 @@ import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
-import { SERVICES } from "@/data";
 import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
 import Reveal from "@/components/Reveal";
-import QuoteForm from "@/components/QuoteForm";
+import Link from "next/link";
 import LineQr from "@/components/LineQr";
-import { IconChat, IconClock, IconMail, IconPhone, IconPin } from "@/components/icons";
+import { IconArrow, IconCalendar, IconChat, IconClock, IconMail, IconPhone, IconPin } from "@/components/icons";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const locale = toLocale((await params).lang);
@@ -74,7 +73,24 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <QuoteForm dict={dict} services={SERVICES.map((s) => s[locale].title)} privacyHref={`/${locale}/privacy`} />
+            <div className="card p-8 md:p-10">
+              <span className="w-14 h-14 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-lg shadow-sky-600/25">
+                <IconCalendar className="w-7 h-7" />
+              </span>
+              <h2 className="mt-6 text-2xl font-bold text-ink">{dict.booking.title}</h2>
+              <p className="mt-3 text-slate-600 leading-relaxed">{dict.booking.subtitle}</p>
+              <ol className="mt-6 grid gap-2.5">
+                {dict.booking.steps.map((st, i) => (
+                  <li key={st} className="flex items-center gap-3 text-ink font-medium">
+                    <span className="w-7 h-7 rounded-full bg-sky-50 text-sky-700 text-sm font-bold flex items-center justify-center">{i + 1}</span>
+                    {st}
+                  </li>
+                ))}
+              </ol>
+              <Link href={`/${locale}/booking`} className="btn btn-primary btn-lg mt-8">
+                {dict.booking.cta} <IconArrow className="w-4 h-4" />
+              </Link>
+            </div>
           </Reveal>
         </div>
         <div className="container-x mt-6">

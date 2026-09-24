@@ -88,7 +88,7 @@ export default async function LangLayout({
         <Header lang={locale} dict={dict} />
         <main className="flex-1">{children}</main>
         <Footer lang={locale} dict={dict} />
-        <MobileCtaBar dict={dict} />
+        <MobileCtaBar dict={dict} lang={locale} />
         <Analytics />
       </body>
     </html>
