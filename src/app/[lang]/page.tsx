@@ -10,6 +10,7 @@ import AreasSection from "@/components/AreasSection";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
+import ServiceImage from "@/components/ServiceImage";
 import {
   IconArrow,
   IconChat,
@@ -168,16 +169,26 @@ export default async function Home({
               <Reveal key={s.slug} delay={(i % 4) * 80}>
                 <Link
                   href={`${base}/services/${s.slug}`}
-                  className="group block border border-slate-200 rounded-3xl p-6 bg-white card-lift hover:border-sky-300 h-full"
+                  className="group flex flex-col border border-slate-200 rounded-3xl overflow-hidden bg-white card-lift hover:border-sky-300 h-full"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-sky-500/25 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-6 h-6" />
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <ServiceImage
+                      service={s}
+                      alt={t.title}
+                      sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
+                      className="group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <div className="font-bold mt-4 text-lg">{t.title}</div>
-                  <p className="text-sm text-slate-600 mt-1.5 leading-relaxed">{t.short}</p>
-                  <span className="text-sky-700 text-sm font-bold mt-4 inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                    {dict.common.readMore} <IconArrow className="w-4 h-4" />
-                  </span>
+                  <div className="relative p-6 pt-8 flex-1 flex flex-col">
+                    <div className="absolute -top-6 left-6 w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-sky-500/25 ring-4 ring-white">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div className="font-bold text-lg">{t.title}</div>
+                    <p className="text-sm text-slate-600 mt-1.5 leading-relaxed flex-1">{t.short}</p>
+                    <span className="text-sky-700 text-sm font-bold mt-4 inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                      {dict.common.readMore} <IconArrow className="w-4 h-4" />
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             );
