@@ -5,8 +5,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
 import Analytics from "@/components/Analytics";
+import JsonLd from "@/components/JsonLd";
+import { businessSchema, websiteSchema } from "@/lib/schema";
 import { getDictionary } from "@/dictionaries";
-import { EMAIL, LOCALES, LOCALE_META, SITE_NAME, SITE_URL, alternatesFor, toLocale } from "@/lib/site";
+import { LOCALES, LOCALE_META, OG_IMAGE, SITE_NAME, SITE_URL, alternatesFor, toLocale } from "@/lib/site";
 
 const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
@@ -53,36 +55,19 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       title,
       description: dict.meta.siteDescription,
       locale: LOCALE_META[locale].og,
-      images: [{ url: "/hero-cleaning.jpg", alt: SITE_NAME }],
+      images: [OG_IMAGE],
     },
-    twitter: { card: "summary_large_image", images: ["/hero-cleaning.jpg"] },
-    robots: { index: true, follow: true },
+    twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
+    robots: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    // Set these in the hosting environment to verify the site in Google Search Console / Bing Webmaster Tools.
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION,
+      other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
+    },
+    formatDetection: { telephone: true },
   };
 }
 
-function LocalBusinessJsonLd() {
-  const json = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: SITE_NAME,
-    url: SITE_URL,
-    image: `${SITE_URL}/hero-cleaning.jpg`,
-    logo: `${SITE_URL}/logo.png`,
-    telephone: "+66922867433",
-    email: EMAIL,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "300 Soi On Nut 10, Suan Luang",
-      addressLocality: "Bangkok",
-      postalCode: "10250",
-      addressCountry: "TH",
-    },
-    openingHours: "Mo-Su 00:00-23:59",
-    priceRange: "฿฿",
-    availableLanguage: ["English", "Thai", "Burmese", "Chinese", "Russian"],
-  };
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }} />;
-}
 
 export default async function LangLayout({
   children,
@@ -99,7 +84,7 @@ export default async function LangLayout({
       className={`h-full ${jakarta.variable} ${notoThai.variable} ${notoMyanmar.variable}`}
     >
       <body className="min-h-full flex flex-col bg-white text-slate-600 antialiased font-sans pb-16 md:pb-0">
-        <LocalBusinessJsonLd />
+        <JsonLd nodes={[websiteSchema(locale), businessSchema(locale, dict)]} />
         <Header lang={locale} dict={dict} />
         <main className="flex-1">{children}</main>
         <Footer lang={locale} dict={dict} />

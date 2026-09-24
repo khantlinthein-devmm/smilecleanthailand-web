@@ -7,6 +7,9 @@ export const LINE_URL = "https://lin.ee/xHXjraz";
 export const LINE_ID = "@smileclean";
 export const EMAIL = "smileclean.th@gmail.com";
 
+/** 1200×630 social-share image (LINE, Facebook, Google). */
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Smile Clean Thailand — Professional Cleaning Services in Bangkok" };
+
 export const LOCALES = ["en", "th", "my", "zh", "ru"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
@@ -49,7 +52,7 @@ export function pageMeta(locale: Locale, path: string, title: string, descriptio
       title: `${title} | ${SITE_NAME}`,
       description,
       locale: LOCALE_META[locale].og,
-      images: [{ url: "/hero-cleaning.jpg", alt: SITE_NAME }],
+      images: [OG_IMAGE],
     },
   };
 }

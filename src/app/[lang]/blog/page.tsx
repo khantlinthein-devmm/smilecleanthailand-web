@@ -1,3 +1,5 @@
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import { IconArrow } from "@/components/icons";
 import CtaBand from "@/components/CtaBand";
 import Image from "next/image";
@@ -20,6 +22,7 @@ export default async function BlogIndex({ params }: { params: Promise<{ lang: st
   const dict = await getDictionary(locale);
   return (
     <>
+      <JsonLd nodes={[breadcrumbSchema(locale, dict.nav.home, [[dict.nav.blog, "/blog"]])]} />
       <PageHero eyebrow={dict.nav.blog} title={dict.blogSection.pageTitle} subtitle={dict.meta.blogDescription} />
       <section className="section">
         <div className="container-x grid md:grid-cols-3 gap-6">

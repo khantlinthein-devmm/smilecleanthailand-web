@@ -25,6 +25,7 @@ const en = {
     whatsIncluded: "What's included",
   },
   meta: {
+    serviceTitle: "{service} in Bangkok",
     siteTitle: "Cleaning Services in Bangkok",
     siteDescription:
       "One-stop cleaning services in Bangkok: house, condo, deep cleaning, move in/out, office, after renovation. Eco-friendly, 100% guarantee. Book on LINE.",
@@ -206,6 +207,24 @@ const en = {
       },
     ],
   },
+  glance: {
+    title: "Smile Clean Thailand at a glance",
+    summary: "Smile Clean Thailand is a professional cleaning company based in On Nut (Suan Luang), Bangkok. We clean houses, condos and offices across Bangkok, 24 hours a day, and bring all equipment and eco-friendly products.",
+    location: "Location",
+    hours: "Opening hours",
+    services: "Services",
+    booking: "How to book",
+    guarantee: "Guarantee",
+    equipment: "Equipment",
+  },
+  serviceFaq: {
+    q1: "What does {service} include?",
+    q2: "How do I book {service} in Bangkok?",
+    a2: "Send photos or your room size on LINE ({line}) or call {phone}. We are open 24 hours and reply with a clear price.",
+    q3: "Which areas do you cover?",
+    q4: "What if I'm not happy with the result?",
+  },
+  related: "Other services",
   ctaBand: {
     title: "We Offer Free In-Home Estimates, So Why Wait?",
     body: "Book fast, get special deals. Add us on LINE!",
@@ -249,6 +268,7 @@ const th: Dict = {
     whatsIncluded: "สิ่งที่รวมในบริการ",
   },
   meta: {
+    serviceTitle: "{service} กรุงเทพฯ",
     siteTitle: "บริการทำความสะอาดในกรุงเทพฯ",
     siteDescription:
       "บริการทำความสะอาดครบวงจรในกรุงเทพฯ: บ้าน คอนโด ดีพคลีน ย้ายเข้า/ออก ออฟฟิศ หลังรีโนเวท น้ำยารักษ์โลก รับประกัน 100% จองผ่าน LINE",
@@ -420,6 +440,24 @@ const th: Dict = {
       },
     ],
   },
+  glance: {
+    title: "สรุปข้อมูล Smile Clean Thailand",
+    summary: "Smile Clean Thailand เป็นบริษัททำความสะอาดมืออาชีพ ตั้งอยู่ที่อ่อนนุช (สวนหลวง) กรุงเทพฯ ให้บริการทำความสะอาดบ้าน คอนโด และออฟฟิศทั่วกรุงเทพฯ ตลอด 24 ชั่วโมง พร้อมอุปกรณ์และน้ำยารักษ์โลกครบ",
+    location: "ที่ตั้ง",
+    hours: "เวลาทำการ",
+    services: "บริการ",
+    booking: "วิธีจอง",
+    guarantee: "การรับประกัน",
+    equipment: "อุปกรณ์",
+  },
+  serviceFaq: {
+    q1: "บริการ{service}มีอะไรบ้าง?",
+    q2: "จอง{service}ในกรุงเทพฯ อย่างไร?",
+    a2: "ส่งรูปหรือขนาดห้องทาง LINE ({line}) หรือโทร {phone} เราเปิด 24 ชั่วโมง และตอบกลับพร้อมราคาที่ชัดเจน",
+    q3: "ให้บริการพื้นที่ไหนบ้าง?",
+    q4: "ถ้าไม่พอใจผลงานทำอย่างไร?",
+  },
+  related: "บริการอื่นๆ",
   ctaBand: {
     title: "ประเมินราคาถึงบ้านฟรี รออะไรอยู่?",
     body: "จองเร็ว รับดีลพิเศษ แอด LINE เราเลย!",
@@ -461,6 +499,7 @@ const my: Dict = {
     whatsIncluded: "ပါဝင်သော ဝန်ဆောင်မှုများ",
   },
   meta: {
+    serviceTitle: "ဘန်ကောက် {service}",
     siteTitle: "ဘန်ကောက်ရှိ သန့်ရှင်းရေးဝန်ဆောင်မှု",
     siteDescription:
       "ဘန်ကောက်ရှိ သန့်ရှင်းရေးဝန်ဆောင်မှု အစုံအလင် — အိမ်၊ ကွန်ဒို၊ အသေးစိတ်သန့်ရှင်းရေး၊ အိမ်ပြောင်းဝင်/ထွက်၊ ရုံး၊ ပြုပြင်မွမ်းမံပြီးနောက်။ သဘာဝပတ်ဝန်းကျင်နှင့် သင့်တော်သော ပစ္စည်းများ၊ ၁၀၀% အာမခံ။ LINE ဖြင့် ကြိုတင်မှာယူပါ။",
@@ -632,6 +671,24 @@ const my: Dict = {
       },
     ],
   },
+  glance: {
+    title: "Smile Clean Thailand အကျဉ်းချုပ်",
+    summary: "Smile Clean Thailand သည် ဘန်ကောက်၊ အွန်နွတ် (ဆွမ်လွမ်) တွင် အခြေစိုက်သော ပရော်ဖက်ရှင်နယ် သန့်ရှင်းရေးကုမ္ပဏီ ဖြစ်ပါသည်။ ဘန်ကောက်တစ်ဝှမ်းရှိ အိမ်၊ ကွန်ဒိုနှင့် ရုံးများကို ၂၄ နာရီ သန့်ရှင်းပေးပြီး ကိရိယာနှင့် သဘာဝနှင့်သင့်တော်သော ပစ္စည်းအားလုံး ယူလာပါသည်။",
+    location: "တည်နေရာ",
+    hours: "ဖွင့်ချိန်",
+    services: "ဝန်ဆောင်မှုများ",
+    booking: "မှာယူပုံ",
+    guarantee: "အာမခံ",
+    equipment: "ကိရိယာများ",
+  },
+  serviceFaq: {
+    q1: "{service} တွင် ဘာတွေ ပါဝင်သလဲ?",
+    q2: "ဘန်ကောက်တွင် {service} ကို ဘယ်လို မှာယူရမလဲ?",
+    a2: "LINE ({line}) တွင် ဓာတ်ပုံ သို့မဟုတ် အခန်းအရွယ်အစား ပို့ပါ သို့မဟုတ် {phone} သို့ ဖုန်းခေါ်ပါ။ ၂၄ နာရီ ဖွင့်ပြီး ရှင်းလင်းသော ဈေးနှုန်းဖြင့် ပြန်ကြားပါသည်။",
+    q3: "ဘယ်နေရာတွေမှာ ဝန်ဆောင်မှုပေးသလဲ?",
+    q4: "ရလဒ်ကို မကျေနပ်ရင် ဘာလုပ်ရမလဲ?",
+  },
+  related: "အခြား ဝန်ဆောင်မှုများ",
   ctaBand: {
     title: "အိမ်အရောက် အခမဲ့ ဈေးနှုန်းခန့်မှန်းပေးသည် — ဘာကို စောင့်နေမလဲ?",
     body: "မြန်မြန်မှာယူပြီး အထူးလျှော့ဈေး ရယူပါ။ LINE တွင် ကျွန်ုပ်တို့ကို ထည့်ပါ!",
@@ -673,6 +730,7 @@ const zh: Dict = {
     whatsIncluded: "服务内容",
   },
   meta: {
+    serviceTitle: "曼谷{service}",
     siteTitle: "曼谷清洁服务",
     siteDescription:
       "曼谷一站式清洁服务：住宅、公寓、深度清洁、搬入/搬出、办公室、装修后清洁。环保清洁剂，100% 满意保证。通过 LINE 预约。",
@@ -842,6 +900,24 @@ const zh: Dict = {
       },
     ],
   },
+  glance: {
+    title: "Smile Clean Thailand 简介",
+    summary: "Smile Clean Thailand 是一家位于曼谷安努（萱銮区）的专业清洁公司，24 小时为曼谷各区的住宅、公寓和办公室提供清洁服务，自带全部工具和环保清洁产品。",
+    location: "地址",
+    hours: "营业时间",
+    services: "服务项目",
+    booking: "预约方式",
+    guarantee: "服务保证",
+    equipment: "清洁工具",
+  },
+  serviceFaq: {
+    q1: "{service}包括哪些内容？",
+    q2: "如何在曼谷预约{service}？",
+    a2: "通过 LINE（{line}）发送照片或面积，或致电 {phone}。我们 24 小时营业，并会回复明确的报价。",
+    q3: "服务哪些区域？",
+    q4: "如果对清洁结果不满意怎么办？",
+  },
+  related: "其他服务",
   ctaBand: {
     title: "免费上门报价，还等什么？",
     body: "快速预约，享受特别优惠。添加我们的 LINE！",
@@ -883,6 +959,7 @@ const ru: Dict = {
     whatsIncluded: "Что входит",
   },
   meta: {
+    serviceTitle: "{service} в Бангкоке",
     siteTitle: "Клининговые услуги в Бангкоке",
     siteDescription:
       "Клининг в Бангкоке под ключ: дома, кондо, генеральная уборка, уборка при заезде/выезде, офисы, уборка после ремонта. Эко-средства, гарантия 100%. Запись через LINE.",
@@ -1054,6 +1131,24 @@ const ru: Dict = {
       },
     ],
   },
+  glance: {
+    title: "Smile Clean Thailand коротко",
+    summary: "Smile Clean Thailand — профессиональная клининговая компания в районе Он Нут (Суан Луанг), Бангкок. Мы убираем дома, кондо и офисы по всему Бангкоку 24 часа в сутки и привозим всё оборудование и эко-средства.",
+    location: "Адрес",
+    hours: "Часы работы",
+    services: "Услуги",
+    booking: "Как заказать",
+    guarantee: "Гарантия",
+    equipment: "Оборудование",
+  },
+  serviceFaq: {
+    q1: "Что входит в услугу «{service}»?",
+    q2: "Как заказать услугу «{service}» в Бангкоке?",
+    a2: "Пришлите фото или площадь в LINE ({line}) или позвоните {phone}. Мы работаем 24 часа и ответим с точной ценой.",
+    q3: "В каких районах вы работаете?",
+    q4: "Что если результат мне не понравится?",
+  },
+  related: "Другие услуги",
   ctaBand: {
     title: "Бесплатная оценка на дому — чего ждать?",
     body: "Записывайтесь быстро и получайте специальные предложения. Добавьте нас в LINE!",

@@ -1,3 +1,5 @@
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
@@ -26,6 +28,7 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
   ];
   return (
     <>
+      <JsonLd nodes={[breadcrumbSchema(locale, dict.nav.home, [[dict.nav.contact, "/contact"]])]} />
       <PageHero eyebrow={dict.nav.contact} title={dict.contactPage.title} subtitle={dict.meta.contactDescription} />
       <section className="section bg-slate-50">
         <div className="container-x grid lg:grid-cols-[0.85fr_1.15fr] gap-6 items-start">
