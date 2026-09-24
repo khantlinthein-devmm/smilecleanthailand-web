@@ -225,6 +225,14 @@ const en = {
     q4: "What if I'm not happy with the result?",
   },
   related: "Other services",
+  legal: {
+    privacy: "Privacy Policy",
+    terms: "Terms of Service",
+    updated: "Last updated",
+    consent: "By sending, you agree to our",
+    contents: "On this page",
+    questions: "Questions about this page?",
+  },
   ctaBand: {
     title: "We Offer Free In-Home Estimates, So Why Wait?",
     body: "Book fast, get special deals. Add us on LINE!",
@@ -458,6 +466,14 @@ const th: Dict = {
     q4: "ถ้าไม่พอใจผลงานทำอย่างไร?",
   },
   related: "บริการอื่นๆ",
+  legal: {
+    privacy: "นโยบายความเป็นส่วนตัว",
+    terms: "ข้อกำหนดการให้บริการ",
+    updated: "ปรับปรุงล่าสุด",
+    consent: "การส่งข้อความถือว่าคุณยอมรับ",
+    contents: "ในหน้านี้",
+    questions: "มีคำถามเกี่ยวกับหน้านี้?",
+  },
   ctaBand: {
     title: "ประเมินราคาถึงบ้านฟรี รออะไรอยู่?",
     body: "จองเร็ว รับดีลพิเศษ แอด LINE เราเลย!",
@@ -689,6 +705,14 @@ const my: Dict = {
     q4: "ရလဒ်ကို မကျေနပ်ရင် ဘာလုပ်ရမလဲ?",
   },
   related: "အခြား ဝန်ဆောင်မှုများ",
+  legal: {
+    privacy: "ကိုယ်ရေးအချက်အလက် မူဝါဒ",
+    terms: "ဝန်ဆောင်မှု စည်းမျဉ်းများ",
+    updated: "နောက်ဆုံး ပြင်ဆင်သည့်ရက်",
+    consent: "ပို့ခြင်းဖြင့် သင်သဘောတူပါသည် —",
+    contents: "ဤစာမျက်နှာတွင်",
+    questions: "ဤစာမျက်နှာနှင့် ပတ်သက်၍ မေးစရာ ရှိပါသလား?",
+  },
   ctaBand: {
     title: "အိမ်အရောက် အခမဲ့ ဈေးနှုန်းခန့်မှန်းပေးသည် — ဘာကို စောင့်နေမလဲ?",
     body: "မြန်မြန်မှာယူပြီး အထူးလျှော့ဈေး ရယူပါ။ LINE တွင် ကျွန်ုပ်တို့ကို ထည့်ပါ!",
@@ -918,6 +942,14 @@ const zh: Dict = {
     q4: "如果对清洁结果不满意怎么办？",
   },
   related: "其他服务",
+  legal: {
+    privacy: "隐私政策",
+    terms: "服务条款",
+    updated: "最后更新",
+    consent: "发送即表示您同意我们的",
+    contents: "本页目录",
+    questions: "对本页有疑问？",
+  },
   ctaBand: {
     title: "免费上门报价，还等什么？",
     body: "快速预约，享受特别优惠。添加我们的 LINE！",
@@ -1149,6 +1181,14 @@ const ru: Dict = {
     q4: "Что если результат мне не понравится?",
   },
   related: "Другие услуги",
+  legal: {
+    privacy: "Политика конфиденциальности",
+    terms: "Условия обслуживания",
+    updated: "Последнее обновление",
+    consent: "Отправляя запрос, вы принимаете документ:",
+    contents: "Содержание",
+    questions: "Есть вопросы по этой странице?",
+  },
   ctaBand: {
     title: "Бесплатная оценка на дому — чего ждать?",
     body: "Записывайтесь быстро и получайте специальные предложения. Добавьте нас в LINE!",

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { EMAIL, LINE_URL } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
@@ -10,7 +11,7 @@ const FIELD =
  * LINE official-account links can't carry pre-filled text, so the request is
  * copied to the clipboard before LINE opens. Email is offered as a fallback.
  */
-export default function QuoteForm({ dict, services }: { dict: Dict; services: string[] }) {
+export default function QuoteForm({ dict, services, privacyHref }: { dict: Dict; services: string[]; privacyHref: string }) {
   const f = dict.quoteForm;
   const [copied, setCopied] = useState(false);
 
@@ -88,6 +89,12 @@ export default function QuoteForm({ dict, services }: { dict: Dict; services: st
       </button>
       <p className={`text-xs ${copied ? "text-green-600 font-semibold" : "text-slate-500"}`} aria-live="polite">
         {copied ? f.copied : f.note}
+      </p>
+      <p className="text-xs text-slate-500">
+        {dict.legal.consent}{" "}
+        <Link href={privacyHref} className="underline underline-offset-2 hover:text-sky-700">
+          {dict.legal.privacy}
+        </Link>
       </p>
     </form>
   );

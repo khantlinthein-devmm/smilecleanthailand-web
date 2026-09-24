@@ -41,6 +41,8 @@ export async function GET() {
     `- [FAQ](${SITE_URL}/en/faq)`,
     `- [Reviews](${SITE_URL}/en/testimonials)`,
     `- [Contact](${SITE_URL}/en/contact)`,
+    `- [Privacy Policy](${SITE_URL}/en/privacy)`,
+    `- [Terms of Service](${SITE_URL}/en/terms)`,
     `- Other languages: ${LOCALES.filter((l) => l !== "en").map((l) => `[${LOCALE_META[l].label}](${SITE_URL}/${l})`).join(", ")}`,
     "",
   ];

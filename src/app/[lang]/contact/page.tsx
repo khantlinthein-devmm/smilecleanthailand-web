@@ -74,7 +74,7 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <QuoteForm dict={dict} services={SERVICES.map((s) => s[locale].title)} />
+            <QuoteForm dict={dict} services={SERVICES.map((s) => s[locale].title)} privacyHref={`/${locale}/privacy`} />
           </Reveal>
         </div>
         <div className="container-x mt-6">
