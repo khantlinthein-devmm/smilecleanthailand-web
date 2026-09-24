@@ -1,8 +1,8 @@
 export const SITE_URL = "https://smilecleanthailand.com";
 export const SITE_NAME = "Smile Clean Thailand";
-export const PHONE = "0636162829";
-export const PHONE_DISPLAY = "063-616-2829";
-export const PHONE_LINK = "tel:+66636162829";
+export const PHONE = "0922867433";
+export const PHONE_DISPLAY = "092-286-7433";
+export const PHONE_LINK = "tel:+66922867433";
 export const LINE_URL = "https://lin.ee/xHXjraz";
 export const LINE_ID = "@smileclean";
 export const EMAIL = "smileclean.th@gmail.com";

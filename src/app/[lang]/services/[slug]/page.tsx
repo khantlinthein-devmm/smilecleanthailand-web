@@ -7,6 +7,7 @@ import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import Reveal from "@/components/Reveal";
+import ServiceImage from "@/components/ServiceImage";
 import { IconArrow, IconChat, IconCheckCircle, IconPhone, SERVICE_ICONS } from "@/components/icons";
 import type { Metadata } from "next";
 
@@ -37,7 +38,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
     "@context": "https://schema.org",
     "@type": "Service",
     name: t.title,
-    provider: { "@type": "LocalBusiness", name: "Smile Clean Thailand", telephone: "+66636162829" },
+    provider: { "@type": "LocalBusiness", name: "Smile Clean Thailand", telephone: "+66922867433" },
     areaServed: "Bangkok",
     description: t.short,
   };
@@ -56,6 +57,9 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
         </div>
       </Reveal>
       <p className="text-slate-600 mt-4 text-lg leading-relaxed">{t.short}</p>
+      <div className="relative mt-6 aspect-[16/9] rounded-3xl overflow-hidden border border-slate-200 shadow-lg shadow-sky-500/10">
+        <ServiceImage service={s} alt={t.title} sizes="(min-width: 896px) 864px, 100vw" priority />
+      </div>
       <div className="mt-6 grid gap-3">
         {t.body.map((p, i) => <p key={i} className="text-slate-700 leading-relaxed">{p}</p>)}
       </div>

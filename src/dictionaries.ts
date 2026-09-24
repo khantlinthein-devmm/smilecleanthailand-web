@@ -36,7 +36,7 @@ const en = {
     faqDescription: "Answers about booking, equipment, service areas and free estimates for cleaning in Bangkok.",
     blogDescription: "Cleaning tips and checklists for Bangkok homes and condos.",
     testimonialsDescription: "Real Google reviews from Smile Clean Thailand customers in Bangkok.",
-    contactDescription: "Call 063-616-2829 or chat on LINE for a free cleaning estimate in Bangkok. Open 24 hours.",
+    contactDescription: "Call 092-286-7433 or chat on LINE for a free cleaning estimate in Bangkok. Open 24 hours.",
   },
   hero: {
     badge: "Professional Cleaning Services in Bangkok",
@@ -45,7 +45,7 @@ const en = {
     subtitle:
       "House, condo, office, move-in/out, deep cleaning & more. Vetted cleaners, eco-friendly products, 100% satisfaction guarantee.",
     ctaLine: "Book on LINE",
-    ctaCall: "Call 063-616-2829",
+    ctaCall: "Call 092-286-7433",
     trust: "500+ happy customers • 1000+ cleans completed • 30+ cleaners",
     happyCustomers: "Happy customers",
     guarantee: "Service guarantee",
@@ -259,7 +259,7 @@ const th: Dict = {
     faqDescription: "คำตอบเรื่องการจอง อุปกรณ์ พื้นที่ให้บริการ และการประเมินราคาฟรี",
     blogDescription: "เคล็ดลับและเช็กลิสต์ทำความสะอาดบ้านและคอนโดในกรุงเทพฯ",
     testimonialsDescription: "รีวิวจริงจาก Google ของลูกค้า Smile Clean Thailand",
-    contactDescription: "โทร 063-616-2829 หรือแชท LINE เพื่อประเมินราคาฟรี เปิด 24 ชั่วโมง",
+    contactDescription: "โทร 092-286-7433 หรือแชท LINE เพื่อประเมินราคาฟรี เปิด 24 ชั่วโมง",
   },
   hero: {
     badge: "บริการทำความสะอาดมืออาชีพในกรุงเทพฯ",
@@ -268,7 +268,7 @@ const th: Dict = {
     subtitle:
       "ทำความสะอาดบ้าน คอนโด ออฟฟิศ ย้ายเข้า/ออก ดีพคลีน และอื่นๆ แม่บ้านผ่านการตรวจสอบ ผลิตภัณฑ์เป็นมิตรต่อสิ่งแวดล้อม รับประกันความพึงพอใจ 100%",
     ctaLine: "จองผ่าน LINE",
-    ctaCall: "โทร 063-616-2829",
+    ctaCall: "โทร 092-286-7433",
     trust: "ลูกค้าพึงพอใจ 500+ • ทำความสะอาดแล้ว 1000+ • แม่บ้าน 30+ คน",
     happyCustomers: "ลูกค้าพึงพอใจ",
     guarantee: "รับประกันบริการ",
@@ -470,7 +470,7 @@ const my: Dict = {
     faqDescription: "ကြိုတင်မှာယူခြင်း၊ ပစ္စည်းများ၊ ဝန်ဆောင်မှုပေးသည့်နေရာများနှင့် အခမဲ့ဈေးနှုန်းခန့်မှန်းခြင်းဆိုင်ရာ အဖြေများ။",
     blogDescription: "ဘန်ကောက်ရှိ အိမ်နှင့် ကွန်ဒိုများအတွက် သန့်ရှင်းရေး အကြံပြုချက်များ။",
     testimonialsDescription: "Smile Clean Thailand ဖောက်သည်များ၏ Google သုံးသပ်ချက်များ။",
-    contactDescription: "အခမဲ့ ဈေးနှုန်းခန့်မှန်းရန် 063-616-2829 သို့ ဖုန်းခေါ်ပါ သို့မဟုတ် LINE တွင် စကားပြောပါ။ ၂၄ နာရီ ဖွင့်သည်။",
+    contactDescription: "အခမဲ့ ဈေးနှုန်းခန့်မှန်းရန် 092-286-7433 သို့ ဖုန်းခေါ်ပါ သို့မဟုတ် LINE တွင် စကားပြောပါ။ ၂၄ နာရီ ဖွင့်သည်။",
   },
   hero: {
     badge: "ဘန်ကောက်ရှိ ပရော်ဖက်ရှင်နယ် သန့်ရှင်းရေးဝန်ဆောင်မှု",
@@ -479,7 +479,7 @@ const my: Dict = {
     subtitle:
       "အိမ်၊ ကွန်ဒို၊ ရုံး၊ အိမ်ပြောင်းဝင်/ထွက်၊ အသေးစိတ်သန့်ရှင်းရေးနှင့် အခြားများ။ စစ်ဆေးပြီးသော ဝန်ထမ်းများ၊ သဘာဝနှင့်သင့်တော်သော ပစ္စည်းများ၊ ၁၀၀% ကျေနပ်မှုအာမခံ။",
     ctaLine: "LINE ဖြင့် မှာယူရန်",
-    ctaCall: "ဖုန်းခေါ်ရန် 063-616-2829",
+    ctaCall: "ဖုန်းခေါ်ရန် 092-286-7433",
     trust: "ကျေနပ်သော ဖောက်သည် 500+ • သန့်ရှင်းရေး 1000+ ကြိမ် • ဝန်ထမ်း 30+",
     happyCustomers: "ကျေနပ်သော ဖောက်သည်များ",
     guarantee: "ဝန်ဆောင်မှု အာမခံ",
@@ -680,7 +680,7 @@ const zh: Dict = {
     faqDescription: "关于预约、清洁工具、服务区域和免费报价的常见问题解答。",
     blogDescription: "曼谷住宅和公寓的清洁技巧与清单。",
     testimonialsDescription: "Smile Clean Thailand 客户的真实 Google 评价。",
-    contactDescription: "致电 063-616-2829 或通过 LINE 咨询，免费获取曼谷清洁报价。24 小时营业。",
+    contactDescription: "致电 092-286-7433 或通过 LINE 咨询，免费获取曼谷清洁报价。24 小时营业。",
   },
   hero: {
     badge: "曼谷专业清洁服务",
@@ -688,7 +688,7 @@ const zh: Dict = {
     titleB: "清新洁净……我们承诺！",
     subtitle: "住宅、公寓、办公室、搬入/搬出、深度清洁等。经过审核的保洁员，环保清洁产品，100% 满意保证。",
     ctaLine: "LINE 预约",
-    ctaCall: "致电 063-616-2829",
+    ctaCall: "致电 092-286-7433",
     trust: "500+ 满意客户 • 1000+ 次清洁 • 30+ 名保洁员",
     happyCustomers: "满意客户",
     guarantee: "服务保证",
@@ -890,7 +890,7 @@ const ru: Dict = {
     faqDescription: "Ответы о записи, оборудовании, районах обслуживания и бесплатной оценке.",
     blogDescription: "Советы и чек-листы по уборке домов и кондо в Бангкоке.",
     testimonialsDescription: "Реальные отзывы клиентов Smile Clean Thailand из Google.",
-    contactDescription: "Звоните 063-616-2829 или пишите в LINE для бесплатной оценки уборки в Бангкоке. Работаем 24 часа.",
+    contactDescription: "Звоните 092-286-7433 или пишите в LINE для бесплатной оценки уборки в Бангкоке. Работаем 24 часа.",
   },
   hero: {
     badge: "Профессиональный клининг в Бангкоке",
@@ -899,7 +899,7 @@ const ru: Dict = {
     subtitle:
       "Дома, кондо, офисы, уборка при переезде, генеральная уборка и многое другое. Проверенные клинеры, эко-средства, гарантия 100%.",
     ctaLine: "Записаться в LINE",
-    ctaCall: "Позвонить 063-616-2829",
+    ctaCall: "Позвонить 092-286-7433",
     trust: "500+ довольных клиентов • 1000+ уборок • 30+ клинеров",
     happyCustomers: "Довольных клиентов",
     guarantee: "Гарантия качества",

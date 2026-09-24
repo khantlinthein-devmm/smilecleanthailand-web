@@ -5,12 +5,15 @@ type ServiceText = { title: string; short: string; body: string[]; features: str
 export type Service = {
   slug: string;
   icon: string;
+  /** Card / page picture. To use a real photo, put e.g. deep-cleaning.jpg in /public/services/ and change the path. */
+  image: string;
 } & Record<Locale, ServiceText>;
 
 export const SERVICES: Service[] = [
   {
     slug: "house-cleaning",
     icon: "house",
+    image: "/services/house-cleaning.svg",
     en: {
       title: "House Cleaning",
       short: "Regular and one-off house cleaning with all equipment included.",
@@ -57,6 +60,7 @@ export const SERVICES: Service[] = [
   {
     slug: "condo-cleaning",
     icon: "condo",
+    image: "/services/condo-cleaning.svg",
     en: {
       title: "Condo Cleaning",
       short: "Condo deep and routine cleaning, perfect for Bangkok living.",
@@ -100,6 +104,7 @@ export const SERVICES: Service[] = [
   {
     slug: "move-in-move-out",
     icon: "move",
+    image: "/services/move-in-move-out.svg",
     en: {
       title: "Move In / Move Out",
       short: "Get your deposit back with detailed move cleaning.",
@@ -143,6 +148,7 @@ export const SERVICES: Service[] = [
   {
     slug: "after-renovation",
     icon: "renovation",
+    image: "/services/after-renovation.svg",
     en: {
       title: "After Renovation",
       short: "Remove dust, paint and debris after construction.",
@@ -186,6 +192,7 @@ export const SERVICES: Service[] = [
   {
     slug: "junk-removal",
     icon: "junk",
+    image: "/services/junk-removal.svg",
     en: {
       title: "Junk Removal",
       short: "Clear unwanted furniture, junk and clutter fast.",
@@ -223,6 +230,7 @@ export const SERVICES: Service[] = [
   {
     slug: "deep-cleaning",
     icon: "deep",
+    image: "/services/deep-cleaning.svg",
     en: {
       title: "Deep Cleaning",
       short: "Intensive top-to-bottom deep clean for bathrooms & kitchens.",
@@ -266,6 +274,7 @@ export const SERVICES: Service[] = [
   {
     slug: "office-cleaning",
     icon: "office",
+    image: "/services/office-cleaning.svg",
     en: {
       title: "Office Cleaning",
       short: "Keep your workplace clean, healthy and professional.",
@@ -306,6 +315,7 @@ export const SERVICES: Service[] = [
   {
     slug: "air-condition-services",
     icon: "ac",
+    image: "/services/air-condition-services.svg",
     en: {
       title: "Air Condition Services",
       short: "AC cleaning, fixing and maintenance.",
@@ -506,23 +516,23 @@ export const FAQS: Record<Locale, { q: string; a: string }>[] = [
   {
     en: {
       q: "How do I book?",
-      a: "Fastest is LINE (lin.ee/xHXjraz) or call 063-616-2829. We are open 24 hours. Tell us your condo/house size, location and preferred date.",
+      a: "Fastest is LINE (lin.ee/xHXjraz) or call 092-286-7433. We are open 24 hours. Tell us your condo/house size, location and preferred date.",
     },
     th: {
       q: "จองอย่างไร?",
-      a: "เร็วที่สุดคือ LINE (lin.ee/xHXjraz) หรือโทร 063-616-2829 เปิด 24 ชม. แจ้งขนาดห้อง/บ้าน ที่อยู่ และวันที่ต้องการ",
+      a: "เร็วที่สุดคือ LINE (lin.ee/xHXjraz) หรือโทร 092-286-7433 เปิด 24 ชม. แจ้งขนาดห้อง/บ้าน ที่อยู่ และวันที่ต้องการ",
     },
     my: {
       q: "ဘယ်လို မှာယူရမလဲ?",
-      a: "အမြန်ဆုံးမှာ LINE (lin.ee/xHXjraz) သို့မဟုတ် 063-616-2829 သို့ ဖုန်းခေါ်ခြင်း ဖြစ်ပါသည်။ ၂၄ နာရီ ဖွင့်ပါသည်။ ကွန်ဒို/အိမ် အရွယ်အစား၊ နေရာနှင့် လိုချင်သည့်ရက်ကို ပြောပြပါ။",
+      a: "အမြန်ဆုံးမှာ LINE (lin.ee/xHXjraz) သို့မဟုတ် 092-286-7433 သို့ ဖုန်းခေါ်ခြင်း ဖြစ်ပါသည်။ ၂၄ နာရီ ဖွင့်ပါသည်။ ကွန်ဒို/အိမ် အရွယ်အစား၊ နေရာနှင့် လိုချင်သည့်ရက်ကို ပြောပြပါ။",
     },
     zh: {
       q: "如何预约？",
-      a: "最快的方式是 LINE（lin.ee/xHXjraz）或致电 063-616-2829，24 小时营业。请告诉我们您的公寓/房屋面积、位置和期望日期。",
+      a: "最快的方式是 LINE（lin.ee/xHXjraz）或致电 092-286-7433，24 小时营业。请告诉我们您的公寓/房屋面积、位置和期望日期。",
     },
     ru: {
       q: "Как записаться?",
-      a: "Быстрее всего — через LINE (lin.ee/xHXjraz) или по телефону 063-616-2829. Работаем 24 часа. Сообщите площадь кондо/дома, адрес и удобную дату.",
+      a: "Быстрее всего — через LINE (lin.ee/xHXjraz) или по телефону 092-286-7433. Работаем 24 часа. Сообщите площадь кондо/дома, адрес и удобную дату.",
     },
   },
   {
