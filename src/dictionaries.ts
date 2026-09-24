@@ -188,6 +188,24 @@ const en = {
     after: "After",
     drag: "Drag to compare",
   },
+  guarantee: {
+    title: "Our Re-Clean Guarantee",
+    subtitle: "Not happy with any part of the clean? We'll fix it — free.",
+    steps: [
+      {
+        title: "Tell us within 24 hours",
+        body: "Send a message or photos on LINE within 24 hours after your clean.",
+      },
+      {
+        title: "We come back",
+        body: "We arrange a return visit at a time that suits you.",
+      },
+      {
+        title: "Re-cleaned for free",
+        body: "We re-clean the areas you weren't happy with at no extra cost.",
+      },
+    ],
+  },
   ctaBand: {
     title: "We Offer Free In-Home Estimates, So Why Wait?",
     body: "Book fast, get special deals. Add us on LINE!",
@@ -383,6 +401,24 @@ const th: Dict = {
     after: "หลัง",
     drag: "เลื่อนเพื่อเปรียบเทียบ",
   },
+  guarantee: {
+    title: "รับประกันทำความสะอาดซ้ำฟรี",
+    subtitle: "ไม่พอใจจุดไหน? เรากลับมาแก้ให้ฟรี",
+    steps: [
+      {
+        title: "แจ้งเราภายใน 24 ชั่วโมง",
+        body: "ส่งข้อความหรือรูปทาง LINE ภายใน 24 ชั่วโมงหลังทำความสะอาด",
+      },
+      {
+        title: "เรากลับไปแก้ไข",
+        body: "นัดเวลากลับไปในช่วงที่คุณสะดวก",
+      },
+      {
+        title: "ทำความสะอาดซ้ำฟรี",
+        body: "ทำความสะอาดจุดที่คุณไม่พอใจใหม่ โดยไม่มีค่าใช้จ่ายเพิ่ม",
+      },
+    ],
+  },
   ctaBand: {
     title: "ประเมินราคาถึงบ้านฟรี รออะไรอยู่?",
     body: "จองเร็ว รับดีลพิเศษ แอด LINE เราเลย!",
@@ -576,6 +612,24 @@ const my: Dict = {
     after: "ပြီးနောက်",
     drag: "နှိုင်းယှဉ်ရန် ဆွဲပါ",
   },
+  guarantee: {
+    title: "အခမဲ့ ပြန်လည်သန့်ရှင်းပေးမည့် အာမခံ",
+    subtitle: "သန့်ရှင်းရေး တစ်စိတ်တစ်ပိုင်း မကျေနပ်ဘူးလား? အခမဲ့ ပြင်ပေးပါမည်။",
+    steps: [
+      {
+        title: "၂၄ နာရီအတွင်း ပြောပြပါ",
+        body: "သန့်ရှင်းရေးပြီးနောက် ၂၄ နာရီအတွင်း LINE တွင် စာ သို့မဟုတ် ဓာတ်ပုံ ပို့ပါ။",
+      },
+      {
+        title: "ကျွန်ုပ်တို့ ပြန်လာပါမည်",
+        body: "သင့်အဆင်ပြေသော အချိန်တွင် ပြန်လာရန် စီစဉ်ပေးပါမည်။",
+      },
+      {
+        title: "အခမဲ့ ပြန်သန့်ရှင်းပေးမည်",
+        body: "သင်မကျေနပ်သော နေရာများကို အပိုကုန်ကျစရိတ်မရှိဘဲ ပြန်သန့်ရှင်းပေးပါမည်။",
+      },
+    ],
+  },
   ctaBand: {
     title: "အိမ်အရောက် အခမဲ့ ဈေးနှုန်းခန့်မှန်းပေးသည် — ဘာကို စောင့်နေမလဲ?",
     body: "မြန်မြန်မှာယူပြီး အထူးလျှော့ဈေး ရယူပါ။ LINE တွင် ကျွန်ုပ်တို့ကို ထည့်ပါ!",
@@ -766,6 +820,24 @@ const zh: Dict = {
     before: "清洁前",
     after: "清洁后",
     drag: "拖动对比",
+  },
+  guarantee: {
+    title: "免费返工保证",
+    subtitle: "对清洁结果有任何不满意？我们免费返工。",
+    steps: [
+      {
+        title: "24 小时内告诉我们",
+        body: "清洁完成后 24 小时内，通过 LINE 发送消息或照片。",
+      },
+      {
+        title: "我们再次上门",
+        body: "按您方便的时间安排返工上门。",
+      },
+      {
+        title: "免费重新清洁",
+        body: "对您不满意的区域免费重新清洁，不收任何额外费用。",
+      },
+    ],
   },
   ctaBand: {
     title: "免费上门报价，还等什么？",
@@ -959,6 +1031,24 @@ const ru: Dict = {
     before: "До",
     after: "После",
     drag: "Потяните, чтобы сравнить",
+  },
+  guarantee: {
+    title: "Гарантия бесплатной переуборки",
+    subtitle: "Что-то не понравилось? Исправим бесплатно.",
+    steps: [
+      {
+        title: "Сообщите в течение 24 часов",
+        body: "Напишите или пришлите фото в LINE в течение 24 часов после уборки.",
+      },
+      {
+        title: "Мы вернёмся",
+        body: "Приедем повторно в удобное для вас время.",
+      },
+      {
+        title: "Переуберём бесплатно",
+        body: "Бесплатно переуберём места, которыми вы остались недовольны.",
+      },
+    ],
   },
   ctaBand: {
     title: "Бесплатная оценка на дому — чего ждать?",

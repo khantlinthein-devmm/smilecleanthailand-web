@@ -7,6 +7,7 @@ import { SERVICES, POSTS } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
 import AreasSection from "@/components/AreasSection";
+import GuaranteeSection from "@/components/GuaranteeSection";
 import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
 import {
@@ -108,7 +109,7 @@ export default async function Home({
                 <div className="font-extrabold text-lg mt-1">500+</div>
                 <div className="text-xs text-slate-500">{dict.hero.happyCustomers}</div>
               </div>
-              <div className="bg-white rounded-2xl shadow-lg shadow-sky-500/10 border border-sky-100 px-5 py-4 flex items-center gap-3">
+              <a href="#guarantee" className="bg-white rounded-2xl shadow-lg shadow-sky-500/10 border border-sky-100 px-5 py-4 flex items-center gap-3 hover:border-sky-300 transition">
                 <span className="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center shrink-0">
                   <IconShield className="w-5 h-5" />
                 </span>
@@ -116,7 +117,7 @@ export default async function Home({
                   <span className="block font-extrabold">100%</span>
                   <span className="block text-xs text-slate-500">{dict.hero.guarantee}</span>
                 </span>
-              </div>
+              </a>
             </div>
             <div className="mt-6 grid sm:grid-cols-2 gap-2.5">
               {dict.aboutTeaser.points.slice(0, 4).map((p) => (
@@ -185,6 +186,8 @@ export default async function Home({
       </section>
 
       <BeforeAfterSection dict={dict} lang={locale} />
+
+      <GuaranteeSection dict={dict} />
 
       {/* WHY US */}
       <section className="mt-20 bg-gradient-to-b from-slate-50 to-white border-y border-slate-100">

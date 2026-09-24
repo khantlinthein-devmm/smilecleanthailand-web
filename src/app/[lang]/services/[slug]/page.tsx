@@ -5,6 +5,7 @@ import { getDictionary } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
+import GuaranteeSection from "@/components/GuaranteeSection";
 import Reveal from "@/components/Reveal";
 import { IconArrow, IconChat, IconCheckCircle, IconPhone, SERVICE_ICONS } from "@/components/icons";
 import type { Metadata } from "next";
@@ -72,6 +73,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
       </div>
       <div className="-mx-4">
         <HowItWorks dict={dict} />
+        <GuaranteeSection dict={dict} />
       </div>
       <CtaBand lang={locale} />
     </div>
