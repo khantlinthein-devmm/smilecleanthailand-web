@@ -175,6 +175,19 @@ const en = {
     how: "Send your name, phone number and a short introduction on LINE, or call us.",
     cta: "Apply on LINE",
   },
+  lineExtra: {
+    scan: "Scan with your phone to chat on LINE",
+    addId: "Or search our LINE ID:",
+  },
+  googleReviews: "See all reviews on Google",
+  beforeAfter: {
+    eyebrow: "Real results",
+    title: "Before & After",
+    subtitle: "Photos from real jobs by our team.",
+    before: "Before",
+    after: "After",
+    drag: "Drag to compare",
+  },
   ctaBand: {
     title: "We Offer Free In-Home Estimates, So Why Wait?",
     body: "Book fast, get special deals. Add us on LINE!",
@@ -357,6 +370,19 @@ const th: Dict = {
     how: "ส่งชื่อ เบอร์โทร และแนะนำตัวสั้นๆ ทาง LINE หรือโทรหาเรา",
     cta: "สมัครทาง LINE",
   },
+  lineExtra: {
+    scan: "สแกนด้วยมือถือเพื่อแชท LINE",
+    addId: "หรือค้นหา LINE ID ของเรา:",
+  },
+  googleReviews: "ดูรีวิวทั้งหมดบน Google",
+  beforeAfter: {
+    eyebrow: "ผลงานจริง",
+    title: "ก่อน & หลัง",
+    subtitle: "ภาพจากงานจริงของทีมเรา",
+    before: "ก่อน",
+    after: "หลัง",
+    drag: "เลื่อนเพื่อเปรียบเทียบ",
+  },
   ctaBand: {
     title: "ประเมินราคาถึงบ้านฟรี รออะไรอยู่?",
     body: "จองเร็ว รับดีลพิเศษ แอด LINE เราเลย!",
@@ -537,6 +563,19 @@ const my: Dict = {
     how: "သင့်အမည်၊ ဖုန်းနံပါတ်နှင့် မိတ်ဆက်စာတိုကို LINE တွင် ပို့ပါ သို့မဟုတ် ဖုန်းခေါ်ပါ။",
     cta: "LINE ဖြင့် လျှောက်ရန်",
   },
+  lineExtra: {
+    scan: "LINE တွင် စကားပြောရန် ဖုန်းဖြင့် scan ဖတ်ပါ",
+    addId: "သို့မဟုတ် ကျွန်ုပ်တို့၏ LINE ID ကို ရှာပါ:",
+  },
+  googleReviews: "Google တွင် သုံးသပ်ချက်အားလုံး ကြည့်ရန်",
+  beforeAfter: {
+    eyebrow: "အမှန်တကယ် ရလဒ်များ",
+    title: "မတိုင်မီ နှင့် ပြီးနောက်",
+    subtitle: "ကျွန်ုပ်တို့အဖွဲ့၏ အမှန်တကယ် အလုပ်များမှ ဓာတ်ပုံများ။",
+    before: "မတိုင်မီ",
+    after: "ပြီးနောက်",
+    drag: "နှိုင်းယှဉ်ရန် ဆွဲပါ",
+  },
   ctaBand: {
     title: "အိမ်အရောက် အခမဲ့ ဈေးနှုန်းခန့်မှန်းပေးသည် — ဘာကို စောင့်နေမလဲ?",
     body: "မြန်မြန်မှာယူပြီး အထူးလျှော့ဈေး ရယူပါ။ LINE တွင် ကျွန်ုပ်တို့ကို ထည့်ပါ!",
@@ -714,6 +753,19 @@ const zh: Dict = {
     howTitle: "如何申请",
     how: "通过 LINE 发送您的姓名、电话和简短自我介绍，或直接致电我们。",
     cta: "LINE 申请",
+  },
+  lineExtra: {
+    scan: "用手机扫码，LINE 咨询",
+    addId: "或搜索我们的 LINE ID：",
+  },
+  googleReviews: "在 Google 上查看全部评价",
+  beforeAfter: {
+    eyebrow: "真实效果",
+    title: "清洁前后对比",
+    subtitle: "来自我们团队真实工作的照片。",
+    before: "清洁前",
+    after: "清洁后",
+    drag: "拖动对比",
   },
   ctaBand: {
     title: "免费上门报价，还等什么？",
@@ -894,6 +946,19 @@ const ru: Dict = {
     howTitle: "Как откликнуться",
     how: "Отправьте в LINE имя, номер телефона и пару слов о себе или позвоните нам.",
     cta: "Откликнуться в LINE",
+  },
+  lineExtra: {
+    scan: "Отсканируйте телефоном, чтобы написать в LINE",
+    addId: "Или найдите наш LINE ID:",
+  },
+  googleReviews: "Все отзывы в Google",
+  beforeAfter: {
+    eyebrow: "Реальные результаты",
+    title: "До и после",
+    subtitle: "Фото с реальных заказов нашей команды.",
+    before: "До",
+    after: "После",
+    drag: "Потяните, чтобы сравнить",
   },
   ctaBand: {
     title: "Бесплатная оценка на дому — чего ждать?",

@@ -3,8 +3,11 @@ import { getDictionary } from "@/dictionaries";
 import { pageMeta, toLocale } from "@/lib/site";
 import { TESTIMONIALS } from "@/data";
 import CtaBand from "@/components/CtaBand";
+import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
-import { IconStar } from "@/components/icons";
+import { IconArrow, IconStar } from "@/components/icons";
+
+const GOOGLE_REVIEWS_URL = "https://www.google.com/maps/search/?api=1&query=Smile+Clean+Thailand+Bangkok";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const locale = toLocale((await params).lang);
@@ -34,6 +37,18 @@ export default async function Testimonials({ params }: { params: Promise<{ lang:
             </div>
           </Reveal>
         ))}
+      </div>
+      <a
+        href={GOOGLE_REVIEWS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-flex items-center gap-2 border-2 border-slate-200 hover:border-sky-300 hover:text-sky-700 font-bold rounded-full px-6 py-3 transition"
+      >
+        <span className="flex text-amber-400">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} className="w-4 h-4" />)}</span>
+        {dict.googleReviews} <IconArrow className="w-4 h-4" />
+      </a>
+      <div className="-mx-4">
+        <BeforeAfterSection dict={dict} lang={locale} />
       </div>
       <CtaBand lang={locale} />
     </div>

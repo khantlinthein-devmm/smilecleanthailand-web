@@ -617,3 +617,16 @@ export const TESTIMONIALS: { name: string; source: string; stars: number; text: 
     },
   },
 ];
+
+/**
+ * Before/after photos. The section stays hidden until at least one entry exists.
+ * To add a pair: put both photos in /public/before-after/ (landscape, same size,
+ * e.g. 1200×900 JPG) and add an entry like:
+ *
+ *   {
+ *     before: "/before-after/condo-kitchen-before.jpg",
+ *     after: "/before-after/condo-kitchen-after.jpg",
+ *     caption: { en: "Condo kitchen deep clean", th: "ดีพคลีนครัวคอนโด", my: "...", zh: "...", ru: "..." },
+ *   },
+ */
+export const BEFORE_AFTER: { before: string; after: string; caption: Record<Locale, string> }[] = [];

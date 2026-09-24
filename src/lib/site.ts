@@ -4,6 +4,7 @@ export const PHONE = "0636162829";
 export const PHONE_DISPLAY = "063-616-2829";
 export const PHONE_LINK = "tel:+66636162829";
 export const LINE_URL = "https://lin.ee/xHXjraz";
+export const LINE_ID = "@smileclean";
 export const EMAIL = "smileclean.th@gmail.com";
 
 export const LOCALES = ["en", "th", "my", "zh", "ru"] as const;

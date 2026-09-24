@@ -7,6 +7,7 @@ import { SERVICES, POSTS } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
 import AreasSection from "@/components/AreasSection";
+import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
 import {
   IconArrow,
@@ -182,6 +183,8 @@ export default async function Home({
           })}
         </div>
       </section>
+
+      <BeforeAfterSection dict={dict} lang={locale} />
 
       {/* WHY US */}
       <section className="mt-20 bg-gradient-to-b from-slate-50 to-white border-y border-slate-100">
