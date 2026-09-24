@@ -360,11 +360,12 @@ export const SERVICES: Service[] = [
 
 type PostText = { title: string; excerpt: string; body: string[] };
 
-export type Post = { slug: string; date: string } & Record<Locale, PostText>;
+export type Post = { slug: string; date: string; image: string } & Record<Locale, PostText>;
 
 export const POSTS: Post[] = [
   {
     slug: "deep-cleaning-checklist-bangkok-condo",
+    image: "/services/deep-cleaning.svg",
     date: "2025-11-10",
     en: {
       title: "Deep Cleaning Checklist for Bangkok Condos",
@@ -414,6 +415,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: "move-out-cleaning-get-deposit-back",
+    image: "/services/move-in-move-out.svg",
     date: "2025-10-02",
     en: {
       title: "Move-Out Cleaning: How to Get Your Deposit Back",
@@ -463,6 +465,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: "eco-friendly-cleaning-safe-pets-kids",
+    image: "/services/house-cleaning.svg",
     date: "2025-08-18",
     en: {
       title: "Eco-Friendly Cleaning Safe for Pets and Kids",

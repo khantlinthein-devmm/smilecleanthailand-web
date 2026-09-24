@@ -26,7 +26,7 @@ export default function LanguageSwitcher({ lang, label }: { lang: Locale; label:
     <details ref={ref} className="relative">
       <summary
         aria-label={label}
-        className="list-none cursor-pointer select-none inline-flex items-center gap-1.5 text-xs font-bold border border-slate-200 rounded-full px-3 py-1.5 text-slate-600 hover:border-sky-300 hover:text-sky-700 transition"
+        className="list-none cursor-pointer select-none inline-flex items-center gap-1.5 text-xs font-semibold border border-slate-200 rounded-lg px-3 py-2 text-slate-600 hover:border-slate-400 hover:text-ink transition"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5" aria-hidden>
           <circle cx="12" cy="12" r="10" />
@@ -37,7 +37,7 @@ export default function LanguageSwitcher({ lang, label }: { lang: Locale; label:
           <path d="m6 9 6 6 6-6" />
         </svg>
       </summary>
-      <ul className="absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-sky-500/10 py-1.5 z-50">
+      <ul className="absolute right-0 mt-2 w-40 bg-white border border-slate-200 rounded-xl shadow-xl shadow-slate-900/10 py-1.5 z-50">
         {LOCALES.map((l) => (
           <li key={l}>
             <Link

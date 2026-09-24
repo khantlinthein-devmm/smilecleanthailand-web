@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
+import { Plus_Jakarta_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,10 +8,10 @@ import Analytics from "@/components/Analytics";
 import { getDictionary } from "@/dictionaries";
 import { EMAIL, LOCALES, LOCALE_META, SITE_NAME, SITE_URL, alternatesFor, toLocale } from "@/lib/site";
 
-const poppins = Poppins({
+const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -96,9 +96,9 @@ export default async function LangLayout({
   return (
     <html
       lang={LOCALE_META[locale].htmlLang}
-      className={`h-full ${poppins.variable} ${notoThai.variable} ${notoMyanmar.variable}`}
+      className={`h-full ${jakarta.variable} ${notoThai.variable} ${notoMyanmar.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-white text-gray-900 antialiased font-sans pb-16 md:pb-0">
+      <body className="min-h-full flex flex-col bg-white text-slate-600 antialiased font-sans pb-16 md:pb-0">
         <LocalBusinessJsonLd />
         <Header lang={locale} dict={dict} />
         <main className="flex-1">{children}</main>

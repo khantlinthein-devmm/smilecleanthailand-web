@@ -16,7 +16,7 @@ export default function BeforeAfter({
 }) {
   const [pos, setPos] = useState(50);
   return (
-    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200 shadow-lg select-none bg-slate-100">
+    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200 select-none bg-slate-100">
       <Image src={after} alt={`${alt} — ${labels.after}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
       <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <Image src={before} alt={`${alt} — ${labels.before}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />

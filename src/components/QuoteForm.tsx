@@ -4,7 +4,7 @@ import { EMAIL, LINE_URL } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
 
 const FIELD =
-  "w-full min-w-0 border border-slate-200 rounded-2xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent transition";
+  "w-full min-w-0 border border-slate-200 rounded-xl px-4 py-3 bg-white text-ink placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition";
 
 /**
  * LINE official-account links can't carry pre-filled text, so the request is
@@ -56,8 +56,8 @@ export default function QuoteForm({ dict, services }: { dict: Dict; services: st
   }
 
   return (
-    <form onSubmit={sendLine} className="min-w-0 border border-slate-200 rounded-3xl p-7 bg-white grid gap-3">
-      <div className="font-bold text-lg">{f.title}</div>
+    <form onSubmit={sendLine} className="min-w-0 card p-8 grid gap-3.5">
+      <div className="font-bold text-xl text-ink mb-1">{f.title}</div>
       <input name="name" required autoComplete="name" placeholder={f.name} aria-label={f.name} className={FIELD} />
       <input name="phone" required autoComplete="tel" placeholder={f.phone} aria-label={f.phone} className={FIELD} />
       <select name="service" aria-label={f.service} className={FIELD} defaultValue={services[0]}>
@@ -76,13 +76,13 @@ export default function QuoteForm({ dict, services }: { dict: Dict; services: st
         </label>
       </div>
       <textarea name="details" placeholder={f.details} aria-label={f.details} rows={4} className={FIELD} />
-      <button className="btn-primary inline-flex justify-center bg-[#06C755] hover:brightness-95 text-white font-bold rounded-full px-6 py-3.5 shadow-lg shadow-green-500/25">
+      <button className="btn btn-line btn-lg mt-1">
         {f.submitLine}
       </button>
       <button
         type="button"
         onClick={sendEmail}
-        className="border-2 border-slate-200 hover:border-sky-300 hover:text-sky-700 font-bold rounded-full px-6 py-3 transition"
+        className="btn btn-outline"
       >
         {f.submitEmail}
       </button>
