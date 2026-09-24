@@ -13,7 +13,7 @@ import HowItWorks from "@/components/HowItWorks";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import Reveal from "@/components/Reveal";
 import ServiceImage from "@/components/ServiceImage";
-import { IconArrow, IconChat, IconCheckCircle, IconPhone, IconShield, SERVICE_ICONS } from "@/components/icons";
+import { IconArrow, IconCalendar, IconChat, IconCheckCircle, IconPhone, IconShield, SERVICE_ICONS } from "@/components/icons";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -106,6 +106,9 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
                 ))}
               </ul>
               <div className="mt-7 grid gap-2.5">
+                <Link href={`/${locale}/booking?service=${slug}`} className="btn btn-primary">
+                  <IconCalendar className="w-4 h-4" /> {dict.booking.ctaService}
+                </Link>
                 <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
                   <IconChat className="w-4 h-4" /> {dict.hero.ctaLine}
                 </a>

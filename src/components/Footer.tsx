@@ -84,7 +84,14 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
       <div className="border-t border-white/10">
         <div className="container-x py-6 text-xs flex flex-wrap gap-2 justify-between">
           <span>© {new Date().getFullYear()} {dict.footer.rights}</span>
-          <span>smilecleanthailand.com</span>
+          <span className="flex flex-wrap gap-x-5 gap-y-1">
+            <Link href={`${base}/privacy`} className="hover:text-white transition-colors">
+              {dict.legal.privacy}
+            </Link>
+            <Link href={`${base}/terms`} className="hover:text-white transition-colors">
+              {dict.legal.terms}
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

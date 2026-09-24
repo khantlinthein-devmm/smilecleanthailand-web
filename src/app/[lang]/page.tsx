@@ -14,6 +14,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ServiceImage from "@/components/ServiceImage";
 import {
   IconArrow,
+  IconCalendar,
   IconChat,
   IconCheckCircle,
   IconLeaf,
@@ -73,6 +74,10 @@ export default async function Home({
             </h1>
             <p className="mt-6 text-lg text-sky-100/75 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
             <div className="mt-9 flex flex-wrap gap-3">
+              <Link href={`${base}/booking`} className="btn btn-primary btn-lg">
+                <IconCalendar className="w-5 h-5" />
+                {dict.booking.cta}
+              </Link>
               <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-lg">
                 <IconChat className="w-5 h-5" />
                 {dict.hero.ctaLine}

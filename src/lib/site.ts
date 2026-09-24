@@ -6,6 +6,8 @@ export const PHONE_LINK = "tel:+66922867433";
 export const LINE_URL = "https://lin.ee/xHXjraz";
 export const LINE_ID = "@smileclean";
 export const EMAIL = "smileclean.th@gmail.com";
+/** WhatsApp number in international format without "+" (the business phone). */
+export const WHATSAPP_NUMBER = "66922867433";
 
 /** 1200×630 social-share image (LINE, Facebook, Google). */
 export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Smile Clean Thailand — Professional Cleaning Services in Bangkok" };
