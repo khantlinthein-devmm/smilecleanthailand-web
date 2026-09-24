@@ -526,6 +526,13 @@ export const FAQS: Record<Locale, { q: string; a: string }>[] = [
     },
   },
   {
+    en: { q: "What if I'm not happy with the clean?", a: "Tell us within 24 hours after your clean (LINE with photos is easiest). We'll come back and re-clean those areas for free." },
+    th: { q: "ถ้าไม่พอใจงานทำความสะอาดทำอย่างไร?", a: "แจ้งเราภายใน 24 ชั่วโมงหลังทำความสะอาด (ส่งรูปทาง LINE สะดวกที่สุด) เราจะกลับไปทำความสะอาดจุดนั้นใหม่ให้ฟรี" },
+    my: { q: "သန့်ရှင်းရေးကို မကျေနပ်ရင် ဘာလုပ်ရမလဲ?", a: "သန့်ရှင်းရေးပြီးနောက် ၂၄ နာရီအတွင်း ပြောပြပါ (LINE တွင် ဓာတ်ပုံပို့ခြင်းက အလွယ်ဆုံး)။ ကျွန်ုပ်တို့ ပြန်လာပြီး ထိုနေရာများကို အခမဲ့ ပြန်သန့်ရှင်းပေးပါမည်။" },
+    zh: { q: "如果我对清洁不满意怎么办？", a: "请在清洁完成后 24 小时内告诉我们（通过 LINE 发照片最方便）。我们会再次上门，免费重新清洁这些区域。" },
+    ru: { q: "Что если мне не понравится уборка?", a: "Сообщите нам в течение 24 часов после уборки (проще всего — фото в LINE). Мы вернёмся и бесплатно переуберём эти места." },
+  },
+  {
     en: { q: "Do you bring equipment and products?", a: "Yes — all cleaning materials and equipment included, with eco-friendly biodegradable products." },
     th: { q: "มีอุปกรณ์และน้ำยามาเองไหม?", a: "มีครบ — รวมอุปกรณ์และน้ำยาทั้งหมด ใช้น้ำยาย่อยสลายได้เป็นมิตรต่อสิ่งแวดล้อม" },
     my: {
@@ -617,3 +624,16 @@ export const TESTIMONIALS: { name: string; source: string; stars: number; text: 
     },
   },
 ];
+
+/**
+ * Before/after photos. The section stays hidden until at least one entry exists.
+ * To add a pair: put both photos in /public/before-after/ (landscape, same size,
+ * e.g. 1200×900 JPG) and add an entry like:
+ *
+ *   {
+ *     before: "/before-after/condo-kitchen-before.jpg",
+ *     after: "/before-after/condo-kitchen-after.jpg",
+ *     caption: { en: "Condo kitchen deep clean", th: "ดีพคลีนครัวคอนโด", my: "...", zh: "...", ru: "..." },
+ *   },
+ */
+export const BEFORE_AFTER: { before: string; after: string; caption: Record<Locale, string> }[] = [];

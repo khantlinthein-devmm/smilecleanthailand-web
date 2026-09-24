@@ -4,6 +4,8 @@ import { LINE_URL, LOCALES, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from
 import { getDictionary } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import CtaBand from "@/components/CtaBand";
+import HowItWorks from "@/components/HowItWorks";
+import GuaranteeSection from "@/components/GuaranteeSection";
 import Reveal from "@/components/Reveal";
 import { IconArrow, IconChat, IconCheckCircle, IconPhone, SERVICE_ICONS } from "@/components/icons";
 import type { Metadata } from "next";
@@ -68,6 +70,10 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
       <div className="mt-8 flex flex-wrap gap-3">
         <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-full px-7 py-3.5 shadow-lg shadow-sky-500/25"><IconChat className="w-4 h-4" /> {dict.hero.ctaLine}</a>
         <a href={PHONE_LINK} className="inline-flex items-center gap-2 border-2 border-slate-900 hover:bg-slate-900 hover:text-white font-bold rounded-full px-7 py-3.5 transition-all"><IconPhone className="w-4 h-4" /> {PHONE_DISPLAY}</a>
+      </div>
+      <div className="-mx-4">
+        <HowItWorks dict={dict} />
+        <GuaranteeSection dict={dict} />
       </div>
       <CtaBand lang={locale} />
     </div>

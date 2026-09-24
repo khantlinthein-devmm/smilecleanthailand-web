@@ -2,6 +2,7 @@ import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
 import { getDictionary } from "@/dictionaries";
 import { IconArrow, IconChat, IconPhone } from "./icons";
 import Reveal from "./Reveal";
+import LineQr from "./LineQr";
 
 export default async function CtaBand({ lang }: { lang: Locale }) {
   const dict = await getDictionary(lang);
@@ -14,6 +15,7 @@ export default async function CtaBand({ lang }: { lang: Locale }) {
           <div className="relative">
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">{dict.ctaBand.title}</h2>
             <p className="mt-2 text-sky-50/90">{dict.ctaBand.body}</p>
+            <LineQr dict={dict} className="hidden lg:inline-flex mt-5 border-white/0 shadow-lg" />
           </div>
           <div className="relative flex flex-wrap gap-3">
             <a

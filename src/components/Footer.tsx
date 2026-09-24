@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { EMAIL, LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
+import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import { IconChat, IconClock, IconMail, IconPhone, IconPin } from "./icons";
@@ -38,7 +38,7 @@ export default function Footer({
             className="btn-primary inline-flex items-center gap-2 mt-5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold rounded-full px-6 py-2.5 shadow-lg shadow-sky-500/25"
           >
             <IconChat className="w-4 h-4" />
-            {dict.footer.lineButton}
+            LINE: {LINE_ID}
           </a>
         </div>
         <div>
@@ -55,6 +55,12 @@ export default function Footer({
               </li>
             ))}
           </ul>
+          <Link
+            href={`${base}/careers`}
+            className="inline-block mt-5 text-sm font-bold text-sky-300 hover:text-white transition"
+          >
+            {dict.careers.nav} →
+          </Link>
         </div>
         <div>
           <div className="font-bold text-white mb-4">{dict.footer.contactTitle}</div>
