@@ -1,4 +1,4 @@
-import { LINE_URL, PHONE_LINK, type Locale } from "@/lib/site";
+import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
 import { getDictionary } from "@/dictionaries";
 import { IconArrow, IconChat, IconPhone } from "./icons";
 import Reveal from "./Reveal";
@@ -19,6 +19,7 @@ export default async function CtaBand({ lang }: { lang: Locale }) {
             <a
               href={LINE_URL}
               target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2 bg-white text-sky-700 font-bold rounded-full px-7 py-3.5 shadow-lg"
             >
               <IconChat className="w-4 h-4" />
@@ -30,7 +31,7 @@ export default async function CtaBand({ lang }: { lang: Locale }) {
               className="inline-flex items-center gap-2 border border-white/50 hover:bg-white/10 font-bold rounded-full px-7 py-3.5 transition-colors duration-200"
             >
               <IconPhone className="w-4 h-4" />
-              063-616-2829
+              {PHONE_DISPLAY}
             </a>
           </div>
         </div>
