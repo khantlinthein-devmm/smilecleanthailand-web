@@ -1,12 +1,18 @@
 import { getDictionary } from "@/dictionaries";
-import type { Locale } from "@/lib/site";
+import type { Metadata } from "next";
+import { pageMeta, toLocale } from "@/lib/site";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
 import { IconCheckCircle } from "@/components/icons";
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const locale = toLocale((await params).lang);
+  const dict = await getDictionary(locale);
+  return pageMeta(locale, "/about", dict.nav.about, dict.meta.aboutDescription);
+}
+
 export default async function About({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await params;
-  const locale: Locale = lang === "th" ? "th" : "en";
+  const locale = toLocale((await params).lang);
   const dict = await getDictionary(locale);
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">

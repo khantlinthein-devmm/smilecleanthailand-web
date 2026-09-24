@@ -8,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-poppins), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), var(--font-thai), var(--font-myanmar), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, monospace;
 }
 
@@ -22,8 +22,18 @@
 body {
   background: #ffffff;
   color: #171717;
-  font-family: var(--font-poppins), var(--font-thai), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-poppins), var(--font-thai), var(--font-myanmar), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   scroll-behavior: smooth;
+}
+
+/* Burmese script has tall stacked glyphs — tight heading line-heights clip them. */
+html[lang="my"] h1,
+html[lang="my"] h2,
+html[lang="my"] h3 {
+  line-height: 1.6;
+}
+html[lang="my"] body {
+  line-height: 1.8;
 }
 
 /* Smooth reveal on scroll - tuned fast & smooth */

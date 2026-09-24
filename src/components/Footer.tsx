@@ -1,13 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ADDRESS_EN,
-  ADDRESS_TH,
-  EMAIL,
-  LINE_URL,
-  PHONE_LINK,
-  type Locale,
-} from "@/lib/site";
+import { EMAIL, LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import { IconChat, IconClock, IconMail, IconPhone, IconPin } from "./icons";
@@ -41,10 +34,11 @@ export default function Footer({
           <a
             href={LINE_URL}
             target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary inline-flex items-center gap-2 mt-5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold rounded-full px-6 py-2.5 shadow-lg shadow-sky-500/25"
           >
             <IconChat className="w-4 h-4" />
-            LINE: @smileclean
+            {dict.footer.lineButton}
           </a>
         </div>
         <div>
@@ -56,7 +50,7 @@ export default function Footer({
                   href={`${base}/services/${s.slug}`}
                   className="hover:text-white hover:pl-1 transition-all duration-200"
                 >
-                  {lang === "th" ? s.th.title : s.en.title}
+                  {s[lang].title}
                 </Link>
               </li>
             ))}
@@ -65,10 +59,10 @@ export default function Footer({
         <div>
           <div className="font-bold text-white mb-4">{dict.footer.contactTitle}</div>
           <ul className="text-sm grid gap-3">
-            <li className="flex gap-2"><IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-400" />{lang === "th" ? ADDRESS_TH : ADDRESS_EN}</li>
+            <li className="flex gap-2"><IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-400" />{dict.common.address}</li>
             <li>
               <a href={PHONE_LINK} className="inline-flex items-center gap-2 hover:text-white font-semibold transition">
-                <IconPhone className="w-4 h-4 text-sky-400" /> 063-616-2829
+                <IconPhone className="w-4 h-4 text-sky-400" /> {PHONE_DISPLAY}
               </a>
             </li>
             <li>
@@ -76,13 +70,13 @@ export default function Footer({
                 <IconMail className="w-4 h-4 text-sky-400" /> {EMAIL}
               </a>
             </li>
-            <li className="flex gap-2 items-center"><IconClock className="w-4 h-4 text-sky-400" /> 24 Hours</li>
+            <li className="flex gap-2 items-center"><IconClock className="w-4 h-4 text-sky-400" /> {dict.common.hours}</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-sky-100/50 flex flex-wrap gap-2 justify-between">
-          <span>© 2025 {dict.footer.rights}</span>
+          <span>© {new Date().getFullYear()} {dict.footer.rights}</span>
           <span>smilecleanthailand.com</span>
         </div>
       </div>

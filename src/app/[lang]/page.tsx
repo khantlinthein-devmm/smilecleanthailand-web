@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
-import { LINE_URL, PHONE_LINK, SITE_URL, type Locale } from "@/lib/site";
+import { LINE_URL, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
 import { SERVICES, POSTS } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -22,20 +22,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
-  const { lang } = await params;
-  const th = lang === "th";
-  return {
-    title: th
-      ? "บริการทำความสะอาดกรุงเทพฯ | Smile Clean Thailand"
-      : "Cleaning Services Bangkok | Smile Clean Thailand",
-    description: th
-      ? "บริการทำความสะอาดบ้าน คอนโด ดีพคลีน ย้ายเข้า/ออก ออฟฟิศ หลังรีโนเวท พร้อมอุปกรณ์ครบ ประเมินราคาฟรีทาง LINE"
-      : "House, condo, deep, move in/out, office & renovation cleaning in Bangkok. All equipment included. Free estimate on LINE.",
-    alternates: {
-      canonical: `${SITE_URL}/${th ? "th" : "en"}`,
-      languages: { en: `${SITE_URL}/en`, th: `${SITE_URL}/th` },
-    },
-  };
+  const locale = toLocale((await params).lang);
+  const dict = await getDictionary(locale);
+  const meta = pageMeta(locale, "", dict.meta.homeTitle, dict.meta.homeDescription);
+  return { ...meta, title: { absolute: `${dict.meta.homeTitle} | Smile Clean Thailand` } };
 }
 
 export default async function Home({
@@ -43,8 +33,7 @@ export default async function Home({
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  const { lang } = await params;
-  const locale: Locale = lang === "th" ? "th" : "en";
+  const locale = toLocale((await params).lang);
   const dict = await getDictionary(locale);
   const base = `/${locale}`;
   const whyIcons = [IconStar, IconShield, IconLeaf];
@@ -72,6 +61,7 @@ export default async function Home({
               <a
                 href={LINE_URL}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-full px-7 py-3.5 shadow-xl shadow-sky-500/30"
               >
                 <IconChat className="w-5 h-5" />
@@ -113,7 +103,7 @@ export default async function Home({
                   ))}
                 </div>
                 <div className="font-extrabold text-lg mt-1">500+</div>
-                <div className="text-xs text-slate-500">{locale === "th" ? "ลูกค้าพึงพอใจ" : "Happy customers"}</div>
+                <div className="text-xs text-slate-500">{dict.hero.happyCustomers}</div>
               </div>
               <div className="bg-white rounded-2xl shadow-lg shadow-sky-500/10 border border-sky-100 px-5 py-4 flex items-center gap-3">
                 <span className="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center shrink-0">
@@ -121,7 +111,7 @@ export default async function Home({
                 </span>
                 <span>
                   <span className="block font-extrabold">100%</span>
-                  <span className="block text-xs text-slate-500">{locale === "th" ? "รับประกันบริการ" : "Service guarantee"}</span>
+                  <span className="block text-xs text-slate-500">{dict.hero.guarantee}</span>
                 </span>
               </div>
             </div>
@@ -155,18 +145,18 @@ export default async function Home({
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <div className="text-xs font-bold tracking-widest text-sky-600 uppercase">Services</div>
+              <div className="text-xs font-bold tracking-widest text-sky-600 uppercase">{dict.servicesSection.eyebrow}</div>
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-1">{dict.servicesSection.title}</h2>
               <p className="text-slate-600 mt-2">{dict.servicesSection.subtitle}</p>
             </div>
             <Link href={`${base}/services`} className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:gap-3 transition-all">
-              {locale === "th" ? "ดูทั้งหมด" : "View all"} <IconArrow className="w-4 h-4" />
+              {dict.common.viewAll} <IconArrow className="w-4 h-4" />
             </Link>
           </div>
         </Reveal>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {SERVICES.map((s, i) => {
-            const t = locale === "th" ? s.th : s.en;
+            const t = s[locale];
             const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
             return (
               <Reveal key={s.slug} delay={(i % 4) * 80}>
@@ -180,7 +170,7 @@ export default async function Home({
                   <div className="font-bold mt-4 text-lg">{t.title}</div>
                   <p className="text-sm text-slate-600 mt-1.5 leading-relaxed">{t.short}</p>
                   <span className="text-sky-700 text-sm font-bold mt-4 inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                    {locale === "th" ? "อ่านเพิ่มเติม" : "Read More"} <IconArrow className="w-4 h-4" />
+                    {dict.common.readMore} <IconArrow className="w-4 h-4" />
                   </span>
                 </Link>
               </Reveal>
@@ -219,16 +209,16 @@ export default async function Home({
         <Reveal>
           <div className="flex items-end justify-between">
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-              {locale === "th" ? "บทความล่าสุด" : "Cleaning Industry News"}
+              {dict.blogSection.homeTitle}
             </h2>
             <Link href={`${base}/blog`} className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:gap-3 transition-all">
-              {locale === "th" ? "ดูทั้งหมด" : "View all"} <IconArrow className="w-4 h-4" />
+              {dict.common.viewAll} <IconArrow className="w-4 h-4" />
             </Link>
           </div>
         </Reveal>
         <div className="mt-6 grid md:grid-cols-3 gap-4">
           {POSTS.map((p, i) => {
-            const t = locale === "th" ? p.th : p.en;
+            const t = p[locale];
             return (
               <Reveal key={p.slug} delay={i * 90}>
                 <Link
