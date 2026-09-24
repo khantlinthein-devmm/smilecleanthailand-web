@@ -5,83 +5,84 @@ import type { Dict } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import { IconChat, IconClock, IconMail, IconPhone, IconPin } from "./icons";
 
-export default function Footer({
-  lang,
-  dict,
-}: {
-  lang: Locale;
-  dict: Dict;
-}) {
+export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
   const base = `/${lang}`;
+  const company = [
+    { href: `${base}/about`, label: dict.nav.about },
+    { href: `${base}/testimonials`, label: dict.nav.testimonials },
+    { href: `${base}/faq`, label: dict.nav.faqs },
+    { href: `${base}/blog`, label: dict.nav.blog },
+    { href: `${base}/careers`, label: dict.careers.nav },
+    { href: `${base}/contact`, label: dict.nav.contact },
+  ];
+  const heading = "text-sm font-semibold text-white mb-5";
+  const link = "text-sm text-slate-400 hover:text-white transition-colors";
   return (
-    <footer className="bg-gradient-to-b from-sky-950 to-slate-950 text-sky-100/80 mt-20">
-      <div className="mx-auto max-w-6xl px-4 py-14 grid gap-10 md:grid-cols-3">
+    <footer className="bg-ink text-slate-400">
+      <div className="container-x py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
         <div>
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="Smile Clean Thailand logo"
-              width={56}
-              height={56}
-              className="h-14 w-14 rounded-2xl object-cover shadow-lg"
-            />
-            <div className="leading-tight">
-              <div className="font-extrabold text-white text-lg">Smile Clean</div>
-              <div className="text-[11px] font-bold tracking-[0.2em] text-sky-400">THAILAND</div>
-            </div>
-          </div>
-          <p className="text-sm mt-4 leading-relaxed text-sky-100/70">{dict.footer.tagline}</p>
-          <a
-            href={LINE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-2 mt-5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-bold rounded-full px-6 py-2.5 shadow-lg shadow-sky-500/25"
-          >
+          <Link href={base} className="inline-flex items-center gap-3">
+            <Image src="/logo.png" alt="Smile Clean Thailand logo" width={48} height={48} className="h-11 w-11 rounded-xl object-cover" />
+            <span className="leading-none">
+              <span className="block font-bold text-white tracking-tight">Smile Clean</span>
+              <span className="block mt-1 text-[10px] font-bold tracking-[0.24em] text-sky-400">THAILAND</span>
+            </span>
+          </Link>
+          <p className="text-sm mt-5 leading-relaxed max-w-xs">{dict.footer.tagline}</p>
+          <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-sm mt-6">
             <IconChat className="w-4 h-4" />
             LINE: {LINE_ID}
           </a>
         </div>
         <div>
-          <div className="font-bold text-white mb-4">{dict.footer.servicesTitle}</div>
-          <ul className="grid gap-2.5 text-sm">
+          <div className={heading}>{dict.footer.servicesTitle}</div>
+          <ul className="grid gap-3">
             {SERVICES.map((s) => (
               <li key={s.slug}>
-                <Link
-                  href={`${base}/services/${s.slug}`}
-                  className="hover:text-white hover:pl-1 transition-all duration-200"
-                >
+                <Link href={`${base}/services/${s.slug}`} className={link}>
                   {s[lang].title}
                 </Link>
               </li>
             ))}
           </ul>
-          <Link
-            href={`${base}/careers`}
-            className="inline-block mt-5 text-sm font-bold text-sky-300 hover:text-white transition"
-          >
-            {dict.careers.nav} →
-          </Link>
         </div>
         <div>
-          <div className="font-bold text-white mb-4">{dict.footer.contactTitle}</div>
-          <ul className="text-sm grid gap-3">
-            <li className="flex gap-2"><IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-400" />{dict.common.address}</li>
+          <div className={heading}>{dict.footer.companyTitle}</div>
+          <ul className="grid gap-3">
+            {company.map((c) => (
+              <li key={c.href}>
+                <Link href={c.href} className={link}>
+                  {c.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className={heading}>{dict.footer.contactTitle}</div>
+          <ul className="grid gap-4 text-sm">
+            <li className="flex gap-3">
+              <IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-400" />
+              {dict.common.address}
+            </li>
             <li>
-              <a href={PHONE_LINK} className="inline-flex items-center gap-2 hover:text-white font-semibold transition">
+              <a href={PHONE_LINK} className="inline-flex items-center gap-3 font-semibold text-white hover:text-sky-300 transition">
                 <IconPhone className="w-4 h-4 text-sky-400" /> {PHONE_DISPLAY}
               </a>
             </li>
             <li>
-              <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 hover:text-white transition">
+              <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-3 hover:text-white transition">
                 <IconMail className="w-4 h-4 text-sky-400" /> {EMAIL}
               </a>
             </li>
-            <li className="flex gap-2 items-center"><IconClock className="w-4 h-4 text-sky-400" /> {dict.common.hours}</li>
+            <li className="flex gap-3 items-center">
+              <IconClock className="w-4 h-4 text-sky-400" /> {dict.common.hours}
+            </li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-4 text-xs text-sky-100/50 flex flex-wrap gap-2 justify-between">
+        <div className="container-x py-6 text-xs flex flex-wrap gap-2 justify-between">
           <span>© {new Date().getFullYear()} {dict.footer.rights}</span>
           <span>smilecleanthailand.com</span>
         </div>

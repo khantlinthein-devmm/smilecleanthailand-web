@@ -215,6 +215,7 @@ const en = {
   footer: {
     tagline: "We use natural and eco-friendly cleaning products and have a customer satisfaction guarantee.",
     servicesTitle: "Cleaning Services",
+    companyTitle: "Company",
     contactTitle: "Contact Information",
     rights: "Smile Clean Thailand. All rights reserved.",
     lineButton: "Chat on LINE",
@@ -428,6 +429,7 @@ const th: Dict = {
   footer: {
     tagline: "เราใช้น้ำยาทำความสะอาดธรรมชาติและเป็นมิตรต่อสิ่งแวดล้อม พร้อมรับประกันความพึงพอใจ",
     servicesTitle: "บริการทำความสะอาด",
+    companyTitle: "บริษัท",
     contactTitle: "ข้อมูลติดต่อ",
     rights: "Smile Clean Thailand สงวนลิขสิทธิ์",
     lineButton: "แชทผ่าน LINE",
@@ -639,6 +641,7 @@ const my: Dict = {
   footer: {
     tagline: "ကျွန်ုပ်တို့သည် သဘာဝနှင့် ပတ်ဝန်းကျင်နှင့်သင့်တော်သော သန့်ရှင်းရေးပစ္စည်းများကို အသုံးပြုပြီး ဖောက်သည်ကျေနပ်မှုကို အာမခံပါသည်။",
     servicesTitle: "သန့်ရှင်းရေး ဝန်ဆောင်မှုများ",
+    companyTitle: "ကုမ္ပဏီ",
     contactTitle: "ဆက်သွယ်ရန် အချက်အလက်",
     rights: "Smile Clean Thailand. မူပိုင်ခွင့်ရယူထားသည်။",
     lineButton: "LINE တွင် စကားပြော",
@@ -848,6 +851,7 @@ const zh: Dict = {
   footer: {
     tagline: "我们使用天然环保的清洁产品，并提供客户满意保证。",
     servicesTitle: "清洁服务",
+    companyTitle: "公司",
     contactTitle: "联系方式",
     rights: "Smile Clean Thailand 版权所有。",
     lineButton: "LINE 咨询",
@@ -1059,6 +1063,7 @@ const ru: Dict = {
   footer: {
     tagline: "Мы используем натуральные эко-средства и гарантируем, что вы останетесь довольны.",
     servicesTitle: "Услуги уборки",
+    companyTitle: "Компания",
     contactTitle: "Контакты",
     rights: "Smile Clean Thailand. Все права защищены.",
     lineButton: "Написать в LINE",

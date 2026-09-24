@@ -1,3 +1,7 @@
+import { IconChat } from "@/components/icons";
+import { LINE_URL } from "@/lib/site";
+import Image from "next/image";
+import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -31,17 +35,36 @@ export default async function BlogPost({ params }: { params: Promise<{ lang: str
   const t = p[locale];
   const jsonLd = { "@context": "https://schema.org", "@type": "BlogPosting", headline: t.title, inLanguage: locale, image: "https://smilecleanthailand.com/hero-cleaning.jpg", description: t.excerpt, datePublished: p.date, author: { "@type": "Organization", name: "Smile Clean Thailand" } };
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12 animate-fade-up">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:gap-3 transition-all">
-        <IconArrow className="w-4 h-4 rotate-180" /> {dict.common.allPosts}
-      </Link>
-      <div className="text-sm text-slate-400 mt-5">{p.date}</div>
-      <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mt-2 leading-tight">{t.title}</h1>
-      <p className="text-slate-600 mt-4 text-lg leading-relaxed">{t.excerpt}</p>
-      <div className="mt-8 grid gap-5 text-slate-700 leading-relaxed text-lg">
-        {t.body.map((para, i) => <p key={i}>{para}</p>)}
-      </div>
-    </article>
+      <PageHero
+        title={t.title}
+        subtitle={t.excerpt}
+        top={
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+          <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 font-semibold text-sky-300 hover:text-white transition">
+            <IconArrow className="w-4 h-4 rotate-180" /> {dict.common.allPosts}
+          </Link>
+          <time dateTime={p.date} className="text-sky-100/60">{p.date}</time>
+        </div>
+        }
+      />
+      <article className="container-x max-w-3xl section">
+        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-slate-200 bg-sky-50">
+          <Image src={p.image} alt="" fill sizes="(min-width: 768px) 720px, 100vw" unoptimized className="object-cover" />
+        </div>
+        <div className="mt-10 grid gap-6 text-lg text-slate-700 leading-[1.8]">
+          {t.body.map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
+        <div className="mt-12 rounded-2xl bg-sky-50 border border-sky-100 p-7 flex flex-wrap items-center justify-between gap-5">
+          <div className="font-semibold text-ink">{dict.ctaBand.title}</div>
+          <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
+            <IconChat className="w-4 h-4" /> {dict.mobileBar.line}
+          </a>
+        </div>
+      </article>
+    </>
   );
 }

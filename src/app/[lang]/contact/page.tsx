@@ -1,3 +1,4 @@
+import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
 import { SERVICES } from "@/data";
@@ -16,36 +17,69 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function Contact({ params }: { params: Promise<{ lang: string }> }) {
   const locale = toLocale((await params).lang);
   const dict = await getDictionary(locale);
+  const rows = [
+    { icon: IconPhone, label: PHONE_DISPLAY, href: PHONE_LINK, strong: true },
+    { icon: IconChat, label: `LINE: ${LINE_ID}`, href: LINE_URL, strong: true, external: true },
+    { icon: IconMail, label: EMAIL, href: `mailto:${EMAIL}` },
+    { icon: IconClock, label: dict.common.hours },
+    { icon: IconPin, label: dict.common.address },
+  ];
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <Reveal>
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">{dict.contactPage.title}</h1>
-      </Reveal>
-      <div className="mt-8 grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4">
-        <Reveal>
-          <div className="border border-slate-200 rounded-3xl p-7 bg-white h-full">
-            <div className="font-bold text-lg">{dict.contactPage.info}</div>
-            <ul className="mt-4 grid gap-3 text-slate-700">
-              <li className="flex gap-2.5"><IconPin className="w-5 h-5 text-sky-500 shrink-0 mt-0.5" />{dict.common.address}</li>
-              <li><a href={PHONE_LINK} className="inline-flex items-center gap-2.5 font-bold hover:text-sky-700 transition"><IconPhone className="w-5 h-5 text-sky-500" />{PHONE_DISPLAY}</a></li>
-              <li><a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2.5 hover:text-sky-700 transition"><IconMail className="w-5 h-5 text-sky-500" />{EMAIL}</a></li>
-              <li><a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 font-bold text-[#06C755] hover:opacity-80 transition"><IconChat className="w-5 h-5" />LINE: {LINE_ID}</a></li>
-              <li className="flex gap-2.5 items-center"><IconClock className="w-5 h-5 text-sky-500" />{dict.common.hours}</li>
-            </ul>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-full px-6 py-3 shadow-lg shadow-sky-500/25"><IconChat className="w-4 h-4" /> {dict.common.line}</a>
-              <a href={PHONE_LINK} className="inline-flex items-center gap-2 border-2 border-slate-900 hover:bg-slate-900 hover:text-white font-bold rounded-full px-6 py-3 transition-all"><IconPhone className="w-4 h-4" /> {dict.common.call}</a>
+    <>
+      <PageHero eyebrow={dict.nav.contact} title={dict.contactPage.title} subtitle={dict.meta.contactDescription} />
+      <section className="section bg-slate-50">
+        <div className="container-x grid lg:grid-cols-[0.85fr_1.15fr] gap-6 items-start">
+          <Reveal>
+            <div className="card p-8">
+              <div className="font-bold text-xl text-ink">{dict.contactPage.info}</div>
+              <ul className="mt-6 grid gap-4">
+                {rows.map(({ icon: Icon, label, href, strong, external }) => {
+                  const content = (
+                    <>
+                      <span className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5" />
+                      </span>
+                      <span className={strong ? "font-semibold text-ink" : "text-slate-600"}>{label}</span>
+                    </>
+                  );
+                  return (
+                    <li key={label}>
+                      {href ? (
+                        <a
+                          href={href}
+                          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="flex items-center gap-4 hover:text-sky-700 transition"
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <div className="flex items-center gap-4">{content}</div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="mt-8 grid sm:grid-cols-2 gap-2.5">
+                <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line">
+                  <IconChat className="w-4 h-4" /> {dict.mobileBar.line}
+                </a>
+                <a href={PHONE_LINK} className="btn btn-outline">
+                  <IconPhone className="w-4 h-4" /> {dict.common.call}
+                </a>
+              </div>
+              <LineQr dict={dict} className="hidden md:flex mt-6 bg-slate-50" />
             </div>
-            <LineQr dict={dict} className="hidden md:flex mt-6" />
+          </Reveal>
+          <Reveal delay={100}>
+            <QuoteForm dict={dict} services={SERVICES.map((s) => s[locale].title)} />
+          </Reveal>
+        </div>
+        <div className="container-x mt-6">
+          <div className="rounded-2xl overflow-hidden border border-slate-200">
+            <iframe title="map" src="https://www.google.com/maps?q=Onnut+10+Suan+Luang+Bangkok&output=embed" className="w-full h-80 block" loading="lazy" />
           </div>
-        </Reveal>
-        <Reveal delay={100}>
-          <QuoteForm dict={dict} services={SERVICES.map((s) => s[locale].title)} />
-        </Reveal>
-      </div>
-      <div className="mt-6 rounded-3xl overflow-hidden border border-slate-200 shadow-lg">
-        <iframe title="map" src="https://www.google.com/maps?q=Onnut+10+Suan+Luang+Bangkok&output=embed" className="w-full h-80" loading="lazy" />
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 }
