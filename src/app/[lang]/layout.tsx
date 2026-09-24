@@ -4,6 +4,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileCtaBar from "@/components/MobileCtaBar";
+import Analytics from "@/components/Analytics";
 import { getDictionary } from "@/dictionaries";
 import { EMAIL, LOCALES, LOCALE_META, SITE_NAME, SITE_URL, alternatesFor, toLocale } from "@/lib/site";
 
@@ -103,6 +104,7 @@ export default async function LangLayout({
         <main className="flex-1">{children}</main>
         <Footer lang={locale} dict={dict} />
         <MobileCtaBar dict={dict} />
+        <Analytics />
       </body>
     </html>
   );

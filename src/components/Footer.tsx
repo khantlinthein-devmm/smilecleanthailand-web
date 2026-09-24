@@ -55,6 +55,12 @@ export default function Footer({
               </li>
             ))}
           </ul>
+          <Link
+            href={`${base}/careers`}
+            className="inline-block mt-5 text-sm font-bold text-sky-300 hover:text-white transition"
+          >
+            {dict.careers.nav} →
+          </Link>
         </div>
         <div>
           <div className="font-bold text-white mb-4">{dict.footer.contactTitle}</div>

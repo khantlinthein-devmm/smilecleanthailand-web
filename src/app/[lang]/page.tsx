@@ -5,6 +5,8 @@ import { getDictionary } from "@/dictionaries";
 import { LINE_URL, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
 import { SERVICES, POSTS } from "@/data";
 import CtaBand from "@/components/CtaBand";
+import HowItWorks from "@/components/HowItWorks";
+import AreasSection from "@/components/AreasSection";
 import Reveal from "@/components/Reveal";
 import {
   IconArrow,
@@ -140,6 +142,8 @@ export default async function Home({
         </div>
       </section>
 
+      <HowItWorks dict={dict} />
+
       {/* SERVICES */}
       <section className="mx-auto max-w-6xl px-4 mt-20">
         <Reveal>
@@ -203,6 +207,8 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      <AreasSection dict={dict} />
 
       {/* BLOG */}
       <section className="mx-auto max-w-6xl px-4 mt-20">
