@@ -1,7 +1,11 @@
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LINE_URL, LOCALES, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
+import { LINE_URL, LOCALES, LOCALE_META, PHONE_DISPLAY, PHONE_LINK, SITE_URL, pageMeta, toLocale } from "@/lib/site";
+import { BUSINESS_ID, breadcrumbSchema, faqSchema } from "@/lib/schema";
+import { serviceFaqs } from "@/lib/serviceFaq";
+import JsonLd from "@/components/JsonLd";
+import SectionHeader from "@/components/SectionHeader";
 import { getDictionary } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import CtaBand from "@/components/CtaBand";
@@ -24,7 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   if (!s) return {};
   const locale = toLocale(lang);
   const t = s[locale];
-  return pageMeta(locale, `/services/${slug}`, t.title, t.short);
+  const dict = await getDictionary(locale);
+  const meta = pageMeta(locale, `/services/${slug}`, dict.meta.serviceTitle.replace("{service}", t.title), `${t.short} ${t.body[0]}`);
+  return { ...meta, openGraph: { ...meta.openGraph, title: `${t.title} — ${dict.meta.siteTitle}` } };
 }
 
 export default async function ServiceDetail({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -35,17 +41,31 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
   if (!s) notFound();
   const t = s[locale];
   const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: t.title,
-    provider: { "@type": "LocalBusiness", name: "Smile Clean Thailand", telephone: "+66922867433" },
-    areaServed: "Bangkok",
-    description: t.short,
-  };
+  const faqs = serviceFaqs(s, locale, dict);
+  const jsonLd = [
+    {
+      "@type": "Service",
+      "@id": `${SITE_URL}/${locale}/services/${slug}#service`,
+      name: t.title,
+      serviceType: s.en.title,
+      description: `${t.short} ${t.body.join(" ")}`,
+      url: `${SITE_URL}/${locale}/services/${slug}`,
+      image: `${SITE_URL}${s.image}`,
+      provider: { "@id": BUSINESS_ID },
+      areaServed: { "@type": "City", name: "Bangkok" },
+      availableChannel: { "@type": "ServiceChannel", serviceUrl: LINE_URL, servicePhone: PHONE_DISPLAY },
+      inLanguage: LOCALE_META[locale].htmlLang,
+    },
+    breadcrumbSchema(locale, dict.nav.home, [
+      [dict.nav.services, "/services"],
+      [t.title, `/services/${slug}`],
+    ]),
+    faqSchema(faqs),
+  ];
+  const related = SERVICES.filter((x) => x.slug !== slug).slice(0, 4);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd nodes={jsonLd} />
       <PageHero
         title={t.title}
         subtitle={t.short}
@@ -101,6 +121,47 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
               <span className="text-sm font-semibold text-ink">{dict.guarantee.title}</span>
             </a>
           </aside>
+        </div>
+      </section>
+      <section className="section bg-slate-50 border-y border-slate-100">
+        <div className="container-x grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+          <SectionHeader eyebrow={t.title} title={dict.faqPage.title} />
+          <div className="grid gap-3">
+            {faqs.map((f, i) => (
+              <details key={f.q} className="group card px-6 py-5 open:border-sky-200 transition" open={i === 0}>
+                <summary className="font-semibold text-ink cursor-pointer list-none flex justify-between items-center gap-4">
+                  <h3>{f.q}</h3>
+                  <span className="w-8 h-8 shrink-0 rounded-full bg-slate-100 text-slate-500 group-open:bg-sky-600 group-open:text-white group-open:rotate-45 transition flex items-center justify-center text-lg leading-none">+</span>
+                </summary>
+                <p className="text-slate-600 mt-3 leading-relaxed pr-10">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container-x">
+          <SectionHeader
+            title={dict.related}
+            action={
+              <Link href={`/${locale}/services`} className="btn btn-outline">
+                {dict.common.allServices} <IconArrow className="w-4 h-4" />
+              </Link>
+            }
+          />
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {related.map((r) => (
+              <Link key={r.slug} href={`/${locale}/services/${r.slug}`} className="group card card-hover overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
+                  <ServiceImage service={r} alt={r[locale].title} sizes="(min-width: 1024px) 270px, 50vw" className="group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-5">
+                  <div className="font-bold text-ink">{r[locale].title}</div>
+                  <p className="text-sm text-slate-600 mt-1.5 line-clamp-2">{r[locale].short}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
       <HowItWorks dict={dict} className="bg-slate-50 border-t border-slate-100" />

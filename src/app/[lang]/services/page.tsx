@@ -1,3 +1,5 @@
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -21,6 +23,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
   const base = `/${locale}`;
   return (
     <>
+      <JsonLd nodes={[breadcrumbSchema(locale, dict.nav.home, [[dict.nav.services, "/services"]])]} />
       <PageHero eyebrow={dict.servicesSection.eyebrow} title={dict.servicesSection.pageTitle} subtitle={dict.servicesSection.subtitle} />
       <section className="section bg-slate-50">
         <div className="container-x grid sm:grid-cols-2 gap-6">

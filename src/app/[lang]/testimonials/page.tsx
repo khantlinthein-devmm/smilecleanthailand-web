@@ -1,3 +1,5 @@
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
@@ -21,6 +23,7 @@ export default async function Testimonials({ params }: { params: Promise<{ lang:
   const dict = await getDictionary(locale);
   return (
     <>
+      <JsonLd nodes={[breadcrumbSchema(locale, dict.nav.home, [[dict.nav.testimonials, "/testimonials"]])]} />
       <PageHero eyebrow={dict.testimonialsPage.eyebrow} title={dict.testimonialsPage.title} subtitle={dict.testimonialsPage.subtitle}>
         <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="btn btn-white mt-8">
           <span className="flex text-amber-400">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} className="w-4 h-4" />)}</span>

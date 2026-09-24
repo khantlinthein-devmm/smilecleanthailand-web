@@ -1,3 +1,5 @@
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
@@ -13,13 +15,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 
 export default async function Careers({ params }: { params: Promise<{ lang: string }> }) {
   const locale = toLocale((await params).lang);
-  const c = (await getDictionary(locale)).careers;
+  const dict = await getDictionary(locale);
+  const c = dict.careers;
   const lists = [
     { title: c.perksTitle, items: c.perks },
     { title: c.requirementsTitle, items: c.requirements },
   ];
   return (
     <>
+      <JsonLd nodes={[breadcrumbSchema(locale, dict.nav.home, [[c.nav, "/careers"]])]} />
       <PageHero eyebrow={c.nav} title={c.title} subtitle={c.intro}>
         <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-lg mt-8">
           <IconChat className="w-4 h-4" /> {c.cta}

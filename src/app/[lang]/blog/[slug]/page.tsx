@@ -1,11 +1,12 @@
 import { IconChat } from "@/components/icons";
-import { LINE_URL } from "@/lib/site";
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LOCALES, pageMeta, toLocale } from "@/lib/site";
+import { LINE_URL, LOCALES, LOCALE_META, SITE_URL, pageMeta, toLocale } from "@/lib/site";
+import { BUSINESS_ID, breadcrumbSchema } from "@/lib/schema";
+import JsonLd from "@/components/JsonLd";
 import { getDictionary } from "@/dictionaries";
 import { POSTS } from "@/data";
 import { IconArrow } from "@/components/icons";
@@ -33,10 +34,30 @@ export default async function BlogPost({ params }: { params: Promise<{ lang: str
   const p = POSTS.find((x) => x.slug === slug);
   if (!p) notFound();
   const t = p[locale];
-  const jsonLd = { "@context": "https://schema.org", "@type": "BlogPosting", headline: t.title, inLanguage: locale, image: "https://smilecleanthailand.com/hero-cleaning.jpg", description: t.excerpt, datePublished: p.date, author: { "@type": "Organization", name: "Smile Clean Thailand" } };
+  const url = `${SITE_URL}/${locale}/blog/${p.slug}`;
+  const jsonLd = [
+    {
+      "@type": "BlogPosting",
+      "@id": `${url}#article`,
+      headline: t.title,
+      description: t.excerpt,
+      articleBody: t.body.join("\n\n"),
+      inLanguage: LOCALE_META[locale].htmlLang,
+      image: `${SITE_URL}${p.image}`,
+      datePublished: p.date,
+      dateModified: p.date,
+      mainEntityOfPage: url,
+      author: { "@id": BUSINESS_ID },
+      publisher: { "@id": BUSINESS_ID },
+    },
+    breadcrumbSchema(locale, dict.nav.home, [
+      [dict.nav.blog, "/blog"],
+      [t.title, `/blog/${p.slug}`],
+    ]),
+  ];
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd nodes={jsonLd} />
       <PageHero
         title={t.title}
         subtitle={t.excerpt}
