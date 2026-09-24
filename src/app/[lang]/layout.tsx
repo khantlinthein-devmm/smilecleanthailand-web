@@ -68,7 +68,7 @@ function LocalBusinessJsonLd() {
     url: SITE_URL,
     image: `${SITE_URL}/hero-cleaning.jpg`,
     logo: `${SITE_URL}/logo.png`,
-    telephone: "+66636162829",
+    telephone: "+66922867433",
     email: EMAIL,
     address: {
       "@type": "PostalAddress",

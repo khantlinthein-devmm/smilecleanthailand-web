@@ -38,7 +38,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
     "@context": "https://schema.org",
     "@type": "Service",
     name: t.title,
-    provider: { "@type": "LocalBusiness", name: "Smile Clean Thailand", telephone: "+66636162829" },
+    provider: { "@type": "LocalBusiness", name: "Smile Clean Thailand", telephone: "+66922867433" },
     areaServed: "Bangkok",
     description: t.short,
   };
