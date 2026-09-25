@@ -43,7 +43,7 @@ export async function GET() {
     `- [Services](${SITE_URL}/en/services)`,
     `- [FAQ](${SITE_URL}/en/faq)`,
     `- [Reviews](${SITE_URL}/en/testimonials)`,
-    `- [Book online](${SITE_URL}/en/booking): choose a service, add details, then send the booking by LINE, WhatsApp, SMS or email`,
+    `- [Book online](${SITE_URL}/en/booking): choose a service, add details and confirm; the team is notified instantly and contacts the customer by LINE, WhatsApp, SMS, email or phone`,
     `- [Contact](${SITE_URL}/en/contact)`,
     `- [Privacy Policy](${SITE_URL}/en/privacy)`,
     `- [Terms of Service](${SITE_URL}/en/terms)`,

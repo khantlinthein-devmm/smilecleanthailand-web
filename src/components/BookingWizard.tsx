@@ -66,7 +66,9 @@ export default function BookingWizard({
   services,
   privacyHref,
   termsHref,
+  locale,
 }: {
+  locale: string;
   dict: Dict;
   services: ServiceOption[];
   privacyHref: string;
@@ -89,6 +91,10 @@ export default function BookingWizard({
   const [phone, setPhone] = useState("");
   const [channel, setChannel] = useState<ChannelId>("line");
   const [error, setError] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [bookingId, setBookingId] = useState("");
+  const [offline, setOffline] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
   // Rendered on the client only (inside Suspense), so "today" is the visitor's date.
   const today = new Date().toISOString().slice(0, 10);
 
@@ -110,9 +116,9 @@ export default function BookingWizard({
   ];
   const message = useMemo(
     () =>
-      [`${b.messageTitle} — Smile Clean Thailand`, ...rows.filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`)].join("\n"),
+      [`${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`, ...rows.filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`)].join("\n"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [service, propertyType, size, date, time, frequency, area, notes, name, phone],
+    [service, propertyType, size, date, time, frequency, area, notes, name, phone, bookingId],
   );
 
   function goTo(next: number) {
@@ -122,20 +128,54 @@ export default function BookingWizard({
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function onSend(e: React.MouseEvent<HTMLAnchorElement>) {
+  // Sends the booking to /api/booking (saved + team notified). If the server
+  // isn't set up or fails, the customer can still send it through their chat app.
+  async function onConfirm() {
     if (!name.trim() || !phone.trim()) {
-      e.preventDefault();
       setError(true);
       return;
     }
     setError(false);
-    // Backup in case the app ignores the pre-filled text.
-    navigator.clipboard?.writeText(message).catch(() => {});
-    setTimeout(() => setStep(3), 400);
+    setSending(true);
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          locale,
+          serviceSlug: service,
+          service: selected?.title ?? "",
+          propertyType,
+          size,
+          date,
+          time,
+          frequency,
+          area,
+          notes,
+          name,
+          phone,
+          contact: channel,
+          website: honeypot,
+        }),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; id?: string } | null;
+      if (!res.ok || !data?.ok || !data.id) throw new Error(String(res.status));
+      setBookingId(data.id);
+      setOffline(false);
+    } catch {
+      setOffline(true);
+      navigator.clipboard?.writeText(message).catch(() => {});
+    } finally {
+      setSending(false);
+      setStep(3);
+      document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   function reset() {
     setStep(0);
+    setBookingId("");
+    setOffline(false);
     setService("");
     setSize("");
     setDate("");
@@ -248,6 +288,17 @@ export default function BookingWizard({
               <Label optional={b.optional}>{b.notes}</Label>
               <textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={b.notesPlaceholder} rows={3} className={FIELD} />
             </label>
+            {/* Spam trap: hidden from people, filled in by bots */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden
+              className="absolute -left-[9999px] w-px h-px opacity-0"
+            />
             {error && <p className="text-sm font-medium text-red-600">{b.required}</p>}
             <div className="flex justify-between gap-3">
               <button type="button" onClick={() => goTo(0)} className="btn btn-outline">
@@ -287,7 +338,7 @@ export default function BookingWizard({
               </label>
             </div>
             <div>
-              <Label>{b.channel}</Label>
+              <Label>{b.contactQuestion}</Label>
               <div role="radiogroup" aria-label={b.channel} className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
                 {CHANNELS.map(({ id, color }) => {
                   const Icon = CHANNEL_ICONS[id];
@@ -315,7 +366,7 @@ export default function BookingWizard({
                   );
                 })}
               </div>
-              <p className="mt-3 text-sm text-slate-500">{b.channelHint}</p>
+              <p className="mt-3 text-sm text-slate-500">{b.contactHint}</p>
             </div>
 
             <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
@@ -335,19 +386,14 @@ export default function BookingWizard({
               <button type="button" onClick={() => goTo(1)} className="btn btn-outline">
                 <IconArrow className="w-4 h-4 rotate-180" /> {b.back}
               </button>
-              <a
-                href={channelHref(channel, message, `${b.messageTitle} — Smile Clean Thailand`)}
-                onClick={onSend}
-                {...(channel === "line" || channel === "whatsapp" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="btn btn-lg text-white"
-                style={{ backgroundColor: CHANNELS.find((c) => c.id === channel)?.color }}
-              >
-                {(() => {
-                  const Icon = CHANNEL_ICONS[channel];
-                  return <Icon className="w-5 h-5" />;
-                })()}
-                {channel === "call" ? b.callNow.replace("{phone}", PHONE_DISPLAY) : b.send.replace("{channel}", channelName(channel))}
-              </a>
+              <button type="button" onClick={onConfirm} disabled={sending} aria-busy={sending} className="btn btn-primary btn-lg disabled:opacity-70">
+                {sending ? (
+                  <span className="w-5 h-5 rounded-full border-2 border-white/40 border-t-white animate-spin" aria-hidden />
+                ) : (
+                  <IconCheck className="w-5 h-5" />
+                )}
+                {sending ? b.sending : b.confirm}
+              </button>
             </div>
             <p className="text-xs text-slate-500">
               {dict.legal.consent}{" "}
@@ -364,20 +410,42 @@ export default function BookingWizard({
 
         {/* DONE */}
         {step === 3 && (
-          <div className="text-center py-8" role="status">
-            <span className="mx-auto w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+          <div className="text-center py-8" role="status" aria-live="polite">
+            <span
+              className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center ${
+                offline ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"
+              }`}
+            >
               <IconCheck className="w-8 h-8" />
             </span>
-            <h2 className="mt-6 text-2xl font-bold text-ink">{b.doneTitle}</h2>
-            <p className="mt-3 text-slate-600 max-w-md mx-auto leading-relaxed">{b.doneBody}</p>
-            {channel !== "call" && <p className="mt-2 text-sm text-slate-500 max-w-md mx-auto">{b.doneCopied}</p>}
+            <h2 className="mt-6 text-2xl font-bold text-ink">{offline ? b.doneTitle : b.receivedTitle}</h2>
+            {!offline && (
+              <div className="mt-4 inline-flex items-center gap-2 rounded-xl bg-sky-50 border border-sky-100 px-4 py-2 font-mono text-lg font-bold text-sky-700">
+                {bookingId}
+              </div>
+            )}
+            <p className="mt-4 text-slate-600 max-w-md mx-auto leading-relaxed">
+              {offline
+                ? b.offline.replace("{channel}", channelName(channel))
+                : b.receivedBody.replace("{name}", name.trim()).replace("{id}", bookingId).replace("{channel}", channelName(channel))}
+            </p>
+            {offline && channel !== "call" && <p className="mt-2 text-sm text-slate-500 max-w-md mx-auto">{b.doneCopied}</p>}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
-                href={channelHref(channel, message, `${b.messageTitle} — Smile Clean Thailand`)}
+                href={channelHref(channel, message, `${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`)}
                 {...(channel === "line" || channel === "whatsapp" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="btn btn-outline"
+                className={offline ? "btn btn-lg text-white" : "btn btn-outline"}
+                style={offline ? { backgroundColor: CHANNELS.find((c) => c.id === channel)?.color } : undefined}
               >
-                {channel === "call" ? b.callNow.replace("{phone}", PHONE_DISPLAY) : b.send.replace("{channel}", channelName(channel))}
+                {(() => {
+                  const Icon = CHANNEL_ICONS[channel];
+                  return <Icon className="w-4 h-4" />;
+                })()}
+                {channel === "call"
+                  ? b.callNow.replace("{phone}", PHONE_DISPLAY)
+                  : offline
+                    ? b.send.replace("{channel}", channelName(channel))
+                    : b.chatNow.replace("{channel}", channelName(channel))}
               </a>
               <button type="button" onClick={reset} className="btn btn-primary">
                 {b.again}

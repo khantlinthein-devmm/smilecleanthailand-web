@@ -34,6 +34,7 @@ export default async function Booking({ params }: { params: Promise<{ lang: stri
         <div className="container-x grid lg:grid-cols-[1fr_20rem] gap-6 items-start">
           <Suspense fallback={<div className="card h-[32rem] animate-pulse bg-white" />}>
             <BookingWizard
+              locale={locale}
               dict={dict}
               services={services}
               privacyHref={`/${locale}/privacy`}
