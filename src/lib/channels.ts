@@ -9,7 +9,7 @@ export const CHANNELS: { id: ChannelId; color: string }[] = [
   { id: "whatsapp", color: "#25d366" },
   { id: "sms", color: "#0284c7" },
   { id: "email", color: "#475569" },
-  { id: "call", color: "#0b1b34" },
+  { id: "call", color: "#1e3a5f" },
 ];
 
 export function channelHref(id: ChannelId, message: string, subject: string): string {

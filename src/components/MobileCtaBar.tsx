@@ -6,7 +6,7 @@ import { IconCalendar, IconChat, IconPhone } from "./icons";
 /** Fixed LINE / Call bar shown on phones only. */
 export default function MobileCtaBar({ dict, lang }: { dict: Dict; lang: Locale }) {
   return (
-    <div className="md:hidden fixed inset-x-0 bottom-0 z-50 grid grid-cols-[3.25rem_1fr_3.25rem] gap-2 p-2 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-[0_-8px_24px_rgba(11,27,52,0.08)]">
+    <div className="md:hidden fixed inset-x-0 bottom-0 z-50 grid grid-cols-[3.25rem_1fr_3.25rem] gap-2 p-2 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-[0_-8px_24px_rgba(30,58,95,0.08)]">
       <a
         href={LINE_URL}
         target="_blank"
