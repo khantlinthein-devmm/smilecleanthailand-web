@@ -8,7 +8,7 @@
 const SECRET = "change-me-to-a-long-random-text";
 const HEADERS = [
   "Booking ID", "Received (Bangkok)", "Status", "Service", "Property", "Size", "Date", "Time",
-  "Frequency", "Area / address", "Notes", "Name", "Phone", "Contact by", "Language",
+  "Frequency", "Area / address", "Notes", "Name", "Phone", "Contact by", "LINE ID / WhatsApp / Telegram / email", "Language",
 ];
 
 function doPost(e) {
@@ -25,7 +25,7 @@ function doPost(e) {
   }
   sheet.appendRow([
     data.id, data.createdAtBangkok, "New", data.service, data.propertyType, data.size, data.date, data.time,
-    data.frequency, data.area, data.notes, data.name, "'" + data.phone, data.contact, data.locale,
+    data.frequency, data.area, data.notes, data.name, "'" + data.phone, data.contact, "'" + (data.handle || ""), data.locale,
   ]);
   return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(ContentService.MimeType.JSON);
 }

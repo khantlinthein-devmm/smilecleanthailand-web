@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { Dict } from "@/dictionaries";
-import { CHANNELS, channelHref, type ChannelId } from "@/lib/channels";
+import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId } from "@/lib/channels";
 import { PHONE_DISPLAY } from "@/lib/site";
-import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconWhatsApp } from "./icons";
+import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
 
 type ServiceOption = { slug: string; title: string; short: string; image: string };
 
@@ -16,6 +16,7 @@ const FIELD =
 const CHANNEL_ICONS: Record<ChannelId, (p: { className?: string }) => React.ReactNode> = {
   line: IconChat,
   whatsapp: IconWhatsApp,
+  telegram: IconTelegram,
   sms: IconSms,
   email: IconMail,
   call: IconPhone,
@@ -90,6 +91,12 @@ export default function BookingWizard({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [channel, setChannel] = useState<ChannelId>("line");
+  // One value per app, so switching back and forth keeps what was typed.
+  const [handles, setHandles] = useState<Partial<Record<ChannelId, string>>>({});
+  const handle = (handles[channel] ?? "").trim();
+  const asksHandle = HANDLE_CHANNELS.includes(channel);
+  const handleMissing =
+    (HANDLE_REQUIRED.includes(channel) && !handle) || (channel === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(handle));
   const [error, setError] = useState(false);
   const [sending, setSending] = useState(false);
   const [bookingId, setBookingId] = useState("");
@@ -100,7 +107,7 @@ export default function BookingWizard({
 
   const selected = services.find((s) => s.slug === service);
   const channelName = (id: ChannelId) =>
-    id === "line" ? "LINE" : id === "whatsapp" ? "WhatsApp" : id === "sms" ? "SMS" : id === "email" ? b.emailName : b.callName;
+    id === "line" ? "LINE" : id === "whatsapp" ? "WhatsApp" : id === "telegram" ? "Telegram" : id === "sms" ? "SMS" : id === "email" ? b.emailName : b.callName;
 
   const rows: [string, string][] = [
     [b.steps[0], selected?.title ?? ""],
@@ -113,12 +120,13 @@ export default function BookingWizard({
     [b.notes, notes],
     [b.name, name],
     [b.phone, phone],
+    ...(asksHandle && handle ? [[b.handleLabel[channel as keyof typeof b.handleLabel], handle] as [string, string]] : []),
   ];
   const message = useMemo(
     () =>
       [`${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`, ...rows.filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`)].join("\n"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [service, propertyType, size, date, time, frequency, area, notes, name, phone, bookingId],
+    [service, propertyType, size, date, time, frequency, area, notes, name, phone, channel, handle, bookingId],
   );
 
   function goTo(next: number) {
@@ -131,7 +139,7 @@ export default function BookingWizard({
   // Sends the booking to /api/booking (saved + team notified). If the server
   // isn't set up or fails, the customer can still send it through their chat app.
   async function onConfirm() {
-    if (!name.trim() || !phone.trim()) {
+    if (!name.trim() || !phone.trim() || handleMissing) {
       setError(true);
       return;
     }
@@ -155,6 +163,7 @@ export default function BookingWizard({
           name,
           phone,
           contact: channel,
+          handle: asksHandle ? handle : "",
           website: honeypot,
         }),
       });
@@ -339,7 +348,7 @@ export default function BookingWizard({
             </div>
             <div>
               <Label>{b.contactQuestion}</Label>
-              <div role="radiogroup" aria-label={b.channel} className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+              <div role="radiogroup" aria-label={b.channel} className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
                 {CHANNELS.map(({ id, color }) => {
                   const Icon = CHANNEL_ICONS[id];
                   const active = channel === id;
@@ -366,6 +375,25 @@ export default function BookingWizard({
                   );
                 })}
               </div>
+              {asksHandle && (
+                <label className="mt-4 block">
+                  <Label optional={channel === "whatsapp" ? b.optional : undefined}>
+                    {b.handleLabel[channel as keyof typeof b.handleLabel]}
+                    {channel !== "whatsapp" && " *"}
+                  </Label>
+                  <input
+                    value={handles[channel] ?? ""}
+                    onChange={(e) => setHandles((h) => ({ ...h, [channel]: e.target.value }))}
+                    placeholder={b.handlePlaceholder[channel as keyof typeof b.handlePlaceholder]}
+                    type={channel === "email" ? "email" : channel === "whatsapp" ? "tel" : "text"}
+                    autoComplete={channel === "email" ? "email" : channel === "whatsapp" ? "tel" : "off"}
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    aria-invalid={error && handleMissing}
+                    className={`${FIELD} ${error && handleMissing ? "border-red-400 ring-2 ring-red-400/20" : ""}`}
+                  />
+                </label>
+              )}
               <p className="mt-3 text-sm text-slate-500">{b.contactHint}</p>
             </div>
 
@@ -433,7 +461,7 @@ export default function BookingWizard({
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href={channelHref(channel, message, `${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`)}
-                {...(channel === "line" || channel === "whatsapp" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                {...(channel === "line" || channel === "whatsapp" || channel === "telegram" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className={offline ? "btn btn-lg text-white" : "btn btn-outline"}
                 style={offline ? { backgroundColor: CHANNELS.find((c) => c.id === channel)?.color } : undefined}
               >
