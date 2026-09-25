@@ -1,3 +1,4 @@
+import Bubbles3D from "./Bubbles3D";
 import { LINE_URL } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
 import Reveal from "./Reveal";
@@ -9,6 +10,7 @@ export default function GuaranteeSection({ dict }: { dict: Dict }) {
     <section id="guarantee" className="relative overflow-hidden bg-brand text-white section scroll-mt-32">
       <div aria-hidden className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_70%)]" />
       <div aria-hidden className="absolute -top-32 -right-32 w-[30rem] h-[30rem] rounded-full bg-white/10 blur-3xl" />
+      <Bubbles3D className="absolute inset-0" count={6} />
       <div className="relative container-x grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <Reveal>
           <span className="w-14 h-14 rounded-2xl bg-white text-sky-600 flex items-center justify-center shadow-xl shadow-sky-900/20">

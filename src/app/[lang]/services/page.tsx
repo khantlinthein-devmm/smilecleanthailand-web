@@ -1,3 +1,4 @@
+import Tilt from "@/components/Tilt";
 import WhatWeClean from "@/components/WhatWeClean";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -33,6 +34,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
             const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
             return (
               <Reveal key={s.slug} delay={(i % 2) * 90}>
+                <Tilt max={5}>
                 <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
                   <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
                     <ServiceImage service={s} alt={t.title} sizes="(min-width: 640px) 50vw, 100vw" className="group-hover:scale-105 transition-transform duration-500" />
@@ -58,6 +60,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
                     </span>
                   </div>
                 </Link>
+                </Tilt>
               </Reveal>
             );
           })}

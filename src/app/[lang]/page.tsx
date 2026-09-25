@@ -1,3 +1,5 @@
+import Tilt from "@/components/Tilt";
+import Bubbles3D from "@/components/Bubbles3D";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,6 +63,7 @@ export default async function Home({
       {/* HERO */}
       <section className="relative bg-brand text-white">
         <div aria-hidden className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
+        <Bubbles3D className="absolute inset-0" count={14} />
         <div aria-hidden className="absolute -top-48 -left-40 w-[40rem] h-[40rem] rounded-full bg-white/10 blur-3xl" />
         <div className="relative container-x pt-14 pb-28 md:pt-20 md:pb-36 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
           <div className="animate-fade-up">
@@ -163,6 +166,7 @@ export default async function Home({
               const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
               return (
                 <Reveal key={s.slug} delay={(i % 4) * 70}>
+                  <Tilt>
                   <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
                     <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
                       <ServiceImage
@@ -185,6 +189,7 @@ export default async function Home({
                       </span>
                     </div>
                   </Link>
+                  </Tilt>
                 </Reveal>
               );
             })}
