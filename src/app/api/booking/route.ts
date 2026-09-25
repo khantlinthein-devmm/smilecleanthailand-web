@@ -9,6 +9,7 @@
 import { NextResponse } from "next/server";
 import { newBookingId, teamMessage, validateBooking, type Booking } from "@/lib/booking";
 import { SITE_URL } from "@/lib/site";
+import { errorText } from "@/lib/errorText";
 
 export const runtime = "nodejs";
 
@@ -118,6 +119,13 @@ export async function POST(req: Request) {
   results.forEach((r, i) => {
     if (r.status === "rejected") console.error(`[booking ${booking.id}] ${jobs[i].name} failed:`, r.reason);
   });
-  if (delivered.length === 0) return NextResponse.json({ ok: false, error: "delivery_failed" }, { status: 502 });
+  if (delivered.length === 0) {
+    // Short reasons (e.g. "api.line.me 401", "fetch failed: ETIMEDOUT") to help set-up; never includes tokens.
+    const failed = jobs.map((j, i) => {
+      const r = results[i];
+      return { name: j.name, reason: r.status === "rejected" ? errorText(r.reason) : "" };
+    });
+    return NextResponse.json({ ok: false, error: "delivery_failed", failed }, { status: 502 });
+  }
   return NextResponse.json({ ok: true, id: booking.id, delivered });
 }

@@ -101,6 +101,8 @@ export default function BookingWizard({
   const [sending, setSending] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [offline, setOffline] = useState(false);
+  // Why online sending failed (e.g. "502 line: fetch failed"), shown small to help set-up.
+  const [failReason, setFailReason] = useState("");
   const [honeypot, setHoneypot] = useState("");
   // Rendered on the client only (inside Suspense), so "today" is the visitor's date.
   const today = new Date().toISOString().slice(0, 10);
@@ -167,11 +169,17 @@ export default function BookingWizard({
           website: honeypot,
         }),
       });
-      const data = (await res.json().catch(() => null)) as { ok?: boolean; id?: string } | null;
-      if (!res.ok || !data?.ok || !data.id) throw new Error(String(res.status));
+      const data = (await res.json().catch(() => null)) as
+        | { ok?: boolean; id?: string; error?: string; failed?: { name: string; reason: string }[] }
+        | null;
+      if (!res.ok || !data?.ok || !data.id) {
+        const detail = data?.failed?.map((f) => `${f.name}: ${f.reason}`).join(" · ") || data?.error || "";
+        throw new Error(`${res.status}${detail ? ` ${detail}` : ""}`);
+      }
       setBookingId(data.id);
       setOffline(false);
-    } catch {
+    } catch (e) {
+      setFailReason(e instanceof Error ? e.message : String(e));
       setOffline(true);
       navigator.clipboard?.writeText(message).catch(() => {});
     } finally {
@@ -458,6 +466,7 @@ export default function BookingWizard({
                 : b.receivedBody.replace("{name}", name.trim()).replace("{id}", bookingId).replace("{channel}", channelName(channel))}
             </p>
             {offline && channel !== "call" && <p className="mt-2 text-sm text-slate-500 max-w-md mx-auto">{b.doneCopied}</p>}
+            {offline && failReason && <p className="mt-3 text-[11px] text-slate-400 max-w-md mx-auto break-words">Error {failReason}</p>}
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href={channelHref(channel, message, `${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`)}
