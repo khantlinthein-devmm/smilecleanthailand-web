@@ -16,9 +16,9 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
     { href: `${base}/contact`, label: dict.nav.contact },
   ];
   const heading = "text-sm font-semibold text-white mb-5";
-  const link = "text-sm text-slate-400 hover:text-white transition-colors";
+  const link = "text-sm text-slate-300 hover:text-white transition-colors";
   return (
-    <footer className="bg-ink text-slate-400">
+    <footer className="bg-ink text-slate-300">
       <div className="container-x py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
         <div>
           <Link href={base} className="inline-flex items-center gap-3">
