@@ -21,6 +21,22 @@ function validSignature(body: string, signature: string | null, secret: string) 
   return given.length === expected.length && timingSafeEqual(given, expected);
 }
 
+/** Setup check: open this URL in a browser. Shows only whether each setting exists, never its value. */
+export async function GET() {
+  const has = (k: string) => Boolean(process.env[k]?.trim());
+  const status = {
+    LINE_CHANNEL_SECRET: has("LINE_CHANNEL_SECRET"),
+    LINE_CHANNEL_ACCESS_TOKEN: has("LINE_CHANNEL_ACCESS_TOKEN"),
+    LINE_NOTIFY_TO: has("LINE_NOTIFY_TO"),
+    GOOGLE_SHEET_WEBHOOK_URL: has("GOOGLE_SHEET_WEBHOOK_URL"),
+  };
+  const ready = status.LINE_CHANNEL_SECRET && status.LINE_CHANNEL_ACCESS_TOKEN;
+  return NextResponse.json(
+    { webhook: ready ? "ready" : "missing LINE_CHANNEL_SECRET or LINE_CHANNEL_ACCESS_TOKEN", env: process.env.VERCEL_ENV ?? "local", ...status },
+    { headers: { "Cache-Control": "no-store" } },
+  );
+}
+
 export async function POST(req: Request) {
   const secret = process.env.LINE_CHANNEL_SECRET?.trim();
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN?.trim();
