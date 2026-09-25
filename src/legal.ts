@@ -26,7 +26,7 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
       {
         heading: "Personal data we collect",
         items: [
-          "Contact details: your name, phone number, LINE ID and email address.",
+          "Contact details: your name, phone number, LINE ID, WhatsApp or Telegram number and email address.",
           "Service details: your address or area, property size, preferred date and time, and any notes or photos you send us.",
           "Messages you send us by LINE, phone, email or through our quote form.",
           "Basic technical data, such as browser type and pages visited, if analytics is turned on for our website (see \"Cookies and analytics\").",
@@ -123,7 +123,7 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
       {
         heading: "ข้อมูลส่วนบุคคลที่เราเก็บ",
         items: [
-          "ข้อมูลติดต่อ: ชื่อ เบอร์โทรศัพท์ LINE ID และอีเมล",
+          "ข้อมูลติดต่อ: ชื่อ เบอร์โทรศัพท์ LINE ID เบอร์ WhatsApp หรือ Telegram และอีเมล",
           "ข้อมูลการใช้บริการ: ที่อยู่หรือพื้นที่ ขนาดที่พัก วันและเวลาที่ต้องการ รวมถึงรายละเอียดหรือรูปภาพที่คุณส่งให้เรา",
           "ข้อความที่คุณส่งถึงเราทาง LINE โทรศัพท์ อีเมล หรือแบบฟอร์มขอใบเสนอราคา",
           "ข้อมูลทางเทคนิคพื้นฐาน เช่น ประเภทเบราว์เซอร์และหน้าที่เข้าชม หากเปิดใช้ระบบวิเคราะห์บนเว็บไซต์ (ดูหัวข้อ \"คุกกี้และการวิเคราะห์\")",
@@ -216,7 +216,7 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
       {
         heading: "ကျွန်ုပ်တို့ စုဆောင်းသော အချက်အလက်များ",
         items: [
-          "ဆက်သွယ်ရန် အချက်အလက်: အမည်၊ ဖုန်းနံပါတ်၊ LINE ID နှင့် အီးမေးလ်။",
+          "ဆက်သွယ်ရန် အချက်အလက်: အမည်၊ ဖုန်းနံပါတ်၊ LINE ID၊ WhatsApp သို့မဟုတ် Telegram နံပါတ်နှင့် အီးမေးလ်။",
           "ဝန်ဆောင်မှု အချက်အလက်: လိပ်စာ သို့မဟုတ် နေရာ၊ အိမ်အရွယ်အစား၊ လိုချင်သည့်ရက်နှင့် အချိန်၊ သင်ပို့သော မှတ်ချက် သို့မဟုတ် ဓာတ်ပုံများ။",
           "LINE၊ ဖုန်း၊ အီးမေးလ် သို့မဟုတ် ဈေးနှုန်းတောင်းခံ form မှတစ်ဆင့် သင်ပို့သော စာများ။",
           "website တွင် analytics ဖွင့်ထားပါက browser အမျိုးအစားနှင့် ကြည့်ရှုသော စာမျက်နှာများကဲ့သို့ အခြေခံ နည်းပညာ အချက်အလက် (\"Cookies နှင့် analytics\" ကို ကြည့်ပါ)။",
@@ -306,7 +306,7 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
       {
         heading: "我们收集的个人数据",
         items: [
-          "联系方式：姓名、电话号码、LINE ID 和电子邮箱。",
+          "联系方式：姓名、电话号码、LINE ID、WhatsApp 或 Telegram 号码和电子邮箱。",
           "服务信息：地址或区域、房屋面积、期望日期和时间，以及您发送给我们的备注或照片。",
           "您通过 LINE、电话、电子邮件或报价表单发送给我们的信息。",
           "如果网站开启了分析功能，还包括浏览器类型、访问页面等基本技术数据（见“Cookie 与分析”）。",
@@ -393,7 +393,7 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
       {
         heading: "Какие данные мы собираем",
         items: [
-          "Контактные данные: имя, номер телефона, LINE ID и адрес электронной почты.",
+          "Контактные данные: имя, номер телефона, LINE ID, номер WhatsApp или Telegram и адрес электронной почты.",
           "Данные об услуге: адрес или район, площадь, желаемые дата и время, а также заметки или фото, которые вы нам присылаете.",
           "Сообщения, которые вы отправляете нам через LINE, по телефону, электронной почте или через форму запроса.",
           "Базовые технические данные, например тип браузера и просмотренные страницы, если на сайте включена аналитика (см. «Файлы cookie и аналитика»).",

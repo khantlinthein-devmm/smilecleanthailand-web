@@ -1,5 +1,5 @@
 // Shared booking types, validation and message formatting (server + client).
-import type { ChannelId } from "@/lib/channels";
+import { HANDLE_REQUIRED, type ChannelId } from "@/lib/channels";
 
 export type BookingInput = {
   locale: string;
@@ -15,16 +15,18 @@ export type BookingInput = {
   name: string;
   phone: string;
   contact: ChannelId;
+  /** The customer's LINE ID, WhatsApp/Telegram number or email for the chosen channel. */
+  handle: string;
   /** Honeypot: real visitors never fill this in. */
   website?: string;
 };
 
 export type Booking = BookingInput & { id: string; createdAt: string };
 
-const CONTACTS: ChannelId[] = ["line", "whatsapp", "sms", "email", "call"];
+const CONTACTS: ChannelId[] = ["line", "whatsapp", "telegram", "sms", "email", "call"];
 const LIMITS: Partial<Record<keyof BookingInput, number>> = {
   locale: 5, serviceSlug: 60, service: 120, propertyType: 60, size: 120, date: 10, time: 60,
-  frequency: 60, area: 200, notes: 1000, name: 100, phone: 40,
+  frequency: 60, area: 200, notes: 1000, name: 100, phone: 40, handle: 100,
 };
 
 /** Returns a cleaned booking, or an error code. */
@@ -46,11 +48,14 @@ export function validateBooking(raw: unknown): { ok: true; data: BookingInput } 
     name: str("name"),
     phone: str("phone"),
     contact: CONTACTS.includes(r.contact as ChannelId) ? (r.contact as ChannelId) : "line",
+    handle: str("handle"),
     website: typeof r.website === "string" ? r.website : "",
   };
   if (data.website) return { ok: false, error: "spam" };
   if (!data.service || !data.area || !data.name) return { ok: false, error: "missing" };
   if ((data.phone.match(/\d/g) ?? []).length < 6) return { ok: false, error: "phone" };
+  if (HANDLE_REQUIRED.includes(data.contact) && !data.handle) return { ok: false, error: "handle" };
+  if (data.contact === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.handle)) return { ok: false, error: "handle" };
   if (data.date && !/^\d{4}-\d{2}-\d{2}$/.test(data.date)) return { ok: false, error: "date" };
   return { ok: true, data };
 }
@@ -64,7 +69,8 @@ export function newBookingId(now = new Date()) {
   return `SC-${ymd}-${Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("")}`;
 }
 
-const CONTACT_LABEL: Record<ChannelId, string> = { line: "LINE", whatsapp: "WhatsApp", sms: "SMS", email: "Email", call: "Phone call" };
+const CONTACT_LABEL: Record<ChannelId, string> = { line: "LINE", whatsapp: "WhatsApp", telegram: "Telegram", sms: "SMS", email: "Email", call: "Phone call" };
+const HANDLE_LABEL: Partial<Record<ChannelId, string>> = { line: "LINE ID", whatsapp: "WhatsApp", telegram: "Telegram", email: "Email" };
 
 /** Plain-text notification for the team (LINE / Telegram / email). */
 export function teamMessage(b: Booking, siteUrl: string) {
@@ -81,6 +87,7 @@ export function teamMessage(b: Booking, siteUrl: string) {
     `Customer: ${b.name}`,
     `Phone: ${b.phone}`,
     `Contact by: ${CONTACT_LABEL[b.contact]}`,
+    ...(HANDLE_LABEL[b.contact] ? [`${HANDLE_LABEL[b.contact]}: ${b.handle || `${b.phone} (same as phone)`}`] : []),
     `Language: ${b.locale.toUpperCase()}`,
   ];
   return [`🧽 New booking ${b.id}`, "", ...job, "", ...customer, "", `Sent: ${sent} (Bangkok) · ${siteUrl}`].join("\n");

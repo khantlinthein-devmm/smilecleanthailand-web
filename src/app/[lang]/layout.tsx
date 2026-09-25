@@ -1,7 +1,7 @@
 import ScrollState from "@/components/ScrollState";
 import PageTransition from "@/components/PageTransition";
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
+import localFont from "next/font/local";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,23 +12,25 @@ import { businessSchema, websiteSchema } from "@/lib/schema";
 import { getDictionary } from "@/dictionaries";
 import { LOCALES, LOCALE_META, OG_IMAGE, SITE_NAME, SITE_URL, alternatesFor, toLocale } from "@/lib/site";
 
-const jakarta = Plus_Jakarta_Sans({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
+// Fonts are bundled in the repo (variable woff2, SIL OFL) so the build never
+// has to download from Google Fonts; some hosts' build servers can't.
+const jakarta = localFont({
+  src: "../fonts/plus-jakarta-sans.woff2",
+  weight: "200 800",
   variable: "--font-jakarta",
   display: "swap",
 });
 
-const notoThai = Noto_Sans_Thai({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["thai", "latin"],
+const notoThai = localFont({
+  src: "../fonts/noto-sans-thai.woff2",
+  weight: "100 900",
   variable: "--font-thai",
   display: "swap",
 });
 
-const notoMyanmar = Noto_Sans_Myanmar({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["myanmar"],
+const notoMyanmar = localFont({
+  src: "../fonts/noto-sans-myanmar.woff2",
+  weight: "100 900",
   variable: "--font-myanmar",
   display: "swap",
   preload: false,
