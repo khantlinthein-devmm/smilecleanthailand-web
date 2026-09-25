@@ -1,3 +1,4 @@
+import Bubbles3D from "./Bubbles3D";
 /** Top banner for inner pages: eyebrow, title and optional intro, on a soft tinted background. */
 export default function PageHero({
   eyebrow,
@@ -17,6 +18,7 @@ export default function PageHero({
     <section className="relative overflow-hidden bg-brand text-white">
       <div aria-hidden className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       <div aria-hidden className="absolute -top-40 right-0 w-[36rem] h-[36rem] rounded-full bg-white/10 blur-3xl" />
+      <Bubbles3D className="absolute inset-y-0 right-0 w-full lg:w-1/2" count={6} />
       <div className="relative container-x py-14 md:py-20 animate-fade-up">
         {top && <div className="mb-6">{top}</div>}
         {eyebrow && <div className="eyebrow !text-white/90">{eyebrow}</div>}
