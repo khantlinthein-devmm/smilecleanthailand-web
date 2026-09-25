@@ -21,6 +21,9 @@ export function businessSchema(locale: Locale, dict: Dict) {
     telephone: TEL,
     email: EMAIL,
     priceRange: "฿฿",
+    founder: { "@type": "Person", name: "Miss P" },
+    paymentAccepted: "Bank transfer, Credit card, Debit card",
+    currenciesAccepted: "THB",
     address: {
       "@type": "PostalAddress",
       streetAddress: "300 Soi On Nut 10",
