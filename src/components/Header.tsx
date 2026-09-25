@@ -18,8 +18,8 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dict }) {
     { href: `${base}/contact`, label: dict.nav.contact },
   ];
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/80">
-      <div className="bg-brand-deep text-white/90 text-xs">
+    <header className="site-header sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/80">
+      <div className="site-topbar bg-brand-deep text-white/90 text-xs">
         <div className="container-x py-2 flex items-center justify-between gap-4">
           <div className="flex items-center gap-5 min-w-0">
             <span className="hidden sm:inline-flex items-center gap-1.5 truncate">
@@ -37,7 +37,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dict }) {
           </a>
         </div>
       </div>
-      <div className="container-x h-[4.5rem] flex items-center justify-between gap-4">
+      <div className="site-headrow container-x h-[4.5rem] flex items-center justify-between gap-4">
         <Link href={base} className="flex items-center gap-3 shrink-0">
           <Image
             src="/logo.png"

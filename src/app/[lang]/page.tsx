@@ -1,3 +1,5 @@
+import SplitWords from "@/components/SplitWords";
+import Parallax from "@/components/Parallax";
 import Tilt from "@/components/Tilt";
 import Bubbles3D from "@/components/Bubbles3D";
 import type { Metadata } from "next";
@@ -61,9 +63,9 @@ export default async function Home({
   return (
     <div className="overflow-hidden">
       {/* HERO */}
-      <section className="relative bg-brand text-white">
-        <div aria-hidden className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
-        <Bubbles3D className="absolute inset-0" count={14} />
+      <Parallax className="relative bg-brand text-white">
+        <div aria-hidden className="depth-back absolute -inset-4 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
+        <Bubbles3D className="depth-mid absolute inset-0" count={14} />
         <div aria-hidden className="absolute -top-48 -left-40 w-[40rem] h-[40rem] rounded-full bg-white/10 blur-3xl" />
         <div className="relative container-x pt-14 pb-28 md:pt-20 md:pb-36 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
           <div className="animate-fade-up">
@@ -71,9 +73,11 @@ export default async function Home({
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               {dict.hero.badge}
             </span>
-            <h1 className="mt-6 text-[2.5rem] leading-[1.1] md:text-6xl md:leading-[1.05] font-bold tracking-tight">
-              {dict.hero.titleA}
-              <span className="block mt-4 text-2xl md:text-3xl font-semibold tracking-normal text-sky-100">{dict.hero.titleB}</span>
+            <h1 className="mt-6 text-[2.5rem] leading-[1.1] md:text-6xl md:leading-[1.05] font-bold tracking-tight [perspective:900px]">
+              <SplitWords text={dict.hero.titleA} delay={150} />
+              <span className="block mt-4 text-2xl md:text-3xl font-semibold tracking-normal text-sky-100">
+                <SplitWords text={dict.hero.titleB} delay={450} />
+              </span>
             </h1>
             <p className="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
             <div className="mt-9 flex flex-wrap gap-3">
@@ -100,7 +104,7 @@ export default async function Home({
             </ul>
           </div>
 
-          <div className="relative animate-fade-up" style={{ animationDelay: "120ms" }}>
+          <div className="depth-mid"><div className="relative animate-fade-up" style={{ animationDelay: "120ms" }}>
             <div className="relative rounded-3xl overflow-hidden ring-4 ring-white/25 shadow-2xl shadow-sky-900/30">
               <Image
                 src="/hero-cleaning.jpg"
@@ -129,9 +133,9 @@ export default async function Home({
                 <span className="block text-xs text-slate-500">{dict.hero.guarantee}</span>
               </span>
             </a>
-          </div>
+          </div></div>
         </div>
-      </section>
+      </Parallax>
 
       {/* STATS */}
       <section className="relative container-x -mt-16 md:-mt-20 z-10">

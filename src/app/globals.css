@@ -119,3 +119,46 @@ html[lang="my"] body {
     background-size: 48px 48px;
   }
 }
+
+/* ---------- Motion: page transition, 3D titles, parallax, glass header ---------- */
+
+/* Fogged glass pane wiped by the squeegee between pages */
+.squeegee-fog {
+  background:
+    radial-gradient(circle at 12% 18%, rgb(255 255 255 / .85) 0 3px, transparent 4px),
+    radial-gradient(circle at 63% 42%, rgb(255 255 255 / .75) 0 2px, transparent 3px),
+    radial-gradient(circle at 38% 71%, rgb(255 255 255 / .8) 0 4px, transparent 5px),
+    radial-gradient(circle at 86% 84%, rgb(255 255 255 / .7) 0 2.5px, transparent 3.5px),
+    linear-gradient(135deg, rgb(186 230 253 / .96), rgb(240 249 255 / .97));
+  background-size: 190px 170px, 150px 210px, 230px 190px, 170px 150px, 100% 100%;
+}
+
+/* Heading words rise and turn into place in 3D */
+.split-word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  animation: word-rise 0.75s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+@keyframes word-rise {
+  from { opacity: 0; transform: translateY(0.55em) rotateX(-80deg); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Mouse parallax layers inside <Parallax> (uses --mx / --my) */
+.depth-back, .depth-mid, .depth-front { transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); will-change: transform; }
+.depth-back { transform: translate3d(calc(var(--mx, 0) * -10px), calc(var(--my, 0) * -8px), 0); }
+.depth-mid { transform: translate3d(calc(var(--mx, 0) * 18px), calc(var(--my, 0) * 14px), 0); }
+.depth-front { transform: translate3d(calc(var(--mx, 0) * -6px), calc(var(--my, 0) * -4px), 0); }
+
+/* Header: compact frosted glass once the page is scrolled */
+.site-topbar { max-height: 3rem; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; }
+.site-headrow { transition: height 0.3s ease; }
+.site-header { transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+html[data-scrolled] .site-topbar { max-height: 0; opacity: 0; }
+html[data-scrolled] .site-headrow { height: 3.75rem; }
+html[data-scrolled] .site-header { background-color: rgb(255 255 255 / .72); box-shadow: 0 12px 32px -20px rgb(2 132 199 / .5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .split-word { animation: none; }
+  .depth-back, .depth-mid, .depth-front { transform: none; transition: none; }
+}

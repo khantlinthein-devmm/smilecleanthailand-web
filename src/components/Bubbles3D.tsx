@@ -17,6 +17,9 @@ export default function Bubbles3D({ count = 14, className = "" }: { count?: numb
     let cleanup = () => {};
 
     (async () => {
+      // Start after the page-change wipe (~0.75 s) so the two never compete for the main thread.
+      await new Promise((r) => setTimeout(r, 800));
+      if (disposed) return;
       const THREE = await import("three");
       if (disposed) return;
 
