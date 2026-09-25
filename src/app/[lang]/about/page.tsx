@@ -6,6 +6,7 @@ import SectionHeader from "@/components/SectionHeader";
 import PageHero from "@/components/PageHero";
 import { getDictionary } from "@/dictionaries";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { pageMeta, toLocale } from "@/lib/site";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -37,7 +38,7 @@ export default async function About({ params }: { params: Promise<{ lang: string
       </section>
       {/* STORY */}
       <section className="section">
-        <div className="container-x grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-start">
+        <div className="container-x grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
           <div>
             <SectionHeader eyebrow={a.storyEyebrow} title={a.storyTitle} />
             <Reveal>
@@ -46,27 +47,38 @@ export default async function About({ params }: { params: Promise<{ lang: string
                   <p key={p}>{p}</p>
                 ))}
               </div>
+              <div className="mt-8 grid sm:grid-cols-2 gap-4">
+                {[
+                  [a.missionTitle, a.mission],
+                  [a.visionTitle, a.vision],
+                ].map(([t, b]) => (
+                  <div key={t} className="card p-6">
+                    <div className="eyebrow">{t}</div>
+                    <p className="mt-3 text-sm text-ink leading-relaxed">{b}</p>
+                  </div>
+                ))}
+              </div>
             </Reveal>
           </div>
           <Reveal delay={100}>
-            <div className="grid gap-4">
-              <div className="card p-7 flex items-center gap-5 bg-slate-50">
-                <span className="w-16 h-16 rounded-2xl bg-ink text-white text-2xl font-bold flex items-center justify-center shrink-0">P</span>
-                <span>
-                  <span className="block text-xl font-bold text-ink">{a.founder}</span>
-                  <span className="block text-sm text-slate-500 mt-0.5">{a.founderRole}</span>
-                </span>
+            <figure className="relative max-w-md mx-auto lg:mx-0 w-full">
+              <div aria-hidden className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-sky-100 to-sky-50" />
+              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50 to-white border border-slate-200">
+                <Image
+                  src="/personal/personal.jpg"
+                  alt={`${a.founder} — ${a.founderRole}, Smile Clean Thailand`}
+                  width={1280}
+                  height={1280}
+                  sizes="(min-width: 1024px) 420px, 90vw"
+                  className="w-full aspect-[4/5] object-cover object-top mix-blend-multiply"
+                  priority
+                />
               </div>
-              {[
-                [a.missionTitle, a.mission],
-                [a.visionTitle, a.vision],
-              ].map(([t, b]) => (
-                <div key={t} className="card p-7">
-                  <div className="eyebrow">{t}</div>
-                  <p className="mt-3 text-ink leading-relaxed">{b}</p>
-                </div>
-              ))}
-            </div>
+              <figcaption className="absolute left-5 right-5 bottom-5 rounded-2xl bg-white/95 backdrop-blur shadow-xl shadow-slate-900/10 px-5 py-4">
+                <span className="block text-lg font-bold text-ink">{a.founder}</span>
+                <span className="block text-sm text-slate-500">{a.founderRole} · Smile Clean Thailand</span>
+              </figcaption>
+            </figure>
           </Reveal>
         </div>
       </section>
