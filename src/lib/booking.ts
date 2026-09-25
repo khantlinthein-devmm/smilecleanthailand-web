@@ -29,6 +29,23 @@ const LIMITS: Partial<Record<keyof BookingInput, number>> = {
   frequency: 60, area: 200, notes: 1000, name: 100, phone: 40, handle: 100,
 };
 
+/** Turns Thai, Burmese and other native digits (๐๙๒, ၀၉၂…) into 0-9. */
+export function asciiDigits(text: string) {
+  return text.replace(/\p{Nd}/gu, (d) => {
+    const code = d.codePointAt(0)!;
+    // Unicode decimal digits come in runs of ten starting at a code point ending in 0.
+    for (let zero = code; zero > code - 10; zero--) {
+      if (!/\p{Nd}/u.test(String.fromCodePoint(zero - 1))) return String(code - zero);
+    }
+    return d;
+  });
+}
+
+/** Phone numbers need at least 6 digits (in any script). */
+export function validPhone(phone: string) {
+  return (asciiDigits(phone).match(/[0-9]/g) ?? []).length >= 6;
+}
+
 /** Returns a cleaned booking, or an error code. */
 export function validateBooking(raw: unknown): { ok: true; data: BookingInput } | { ok: false; error: string } {
   if (!raw || typeof raw !== "object") return { ok: false, error: "invalid" };
@@ -46,14 +63,14 @@ export function validateBooking(raw: unknown): { ok: true; data: BookingInput } 
     area: str("area"),
     notes: str("notes"),
     name: str("name"),
-    phone: str("phone"),
+    phone: asciiDigits(str("phone")),
     contact: CONTACTS.includes(r.contact as ChannelId) ? (r.contact as ChannelId) : "line",
-    handle: str("handle"),
+    handle: asciiDigits(str("handle")),
     website: typeof r.website === "string" ? r.website : "",
   };
   if (data.website) return { ok: false, error: "spam" };
   if (!data.service || !data.area || !data.name) return { ok: false, error: "missing" };
-  if ((data.phone.match(/\d/g) ?? []).length < 6) return { ok: false, error: "phone" };
+  if (!validPhone(data.phone)) return { ok: false, error: "phone" };
   if (HANDLE_REQUIRED.includes(data.contact) && !data.handle) return { ok: false, error: "handle" };
   if (data.contact === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.handle)) return { ok: false, error: "handle" };
   if (data.date && !/^\d{4}-\d{2}-\d{2}$/.test(data.date)) return { ok: false, error: "date" };

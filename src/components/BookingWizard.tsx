@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import type { Dict } from "@/dictionaries";
 import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId } from "@/lib/channels";
+import { validPhone } from "@/lib/booking";
 import { PHONE_DISPLAY } from "@/lib/site";
 import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
 
@@ -98,6 +99,8 @@ export default function BookingWizard({
   const handleMissing =
     (HANDLE_REQUIRED.includes(channel) && !handle) || (channel === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(handle));
   const [error, setError] = useState(false);
+  // A specific problem the server or the form found (e.g. the phone number), shown above the buttons.
+  const [fieldError, setFieldError] = useState("");
   const [sending, setSending] = useState(false);
   const [bookingId, setBookingId] = useState("");
   const [offline, setOffline] = useState(false);
@@ -146,7 +149,13 @@ export default function BookingWizard({
       return;
     }
     setError(false);
+    if (!validPhone(phone)) {
+      setFieldError(b.phoneInvalid);
+      return;
+    }
+    setFieldError("");
     setSending(true);
+    let stay = false;
     try {
       const res = await fetch("/api/booking", {
         method: "POST",
@@ -172,6 +181,12 @@ export default function BookingWizard({
       const data = (await res.json().catch(() => null)) as
         | { ok?: boolean; id?: string; error?: string; failed?: { name: string; reason: string }[] }
         | null;
+      // A problem with what was typed: stay on the form and say what to fix.
+      if (res.status === 400 && (data?.error === "phone" || data?.error === "handle" || data?.error === "missing")) {
+        setFieldError(data.error === "phone" ? b.phoneInvalid : b.required);
+        stay = true;
+        return;
+      }
       if (!res.ok || !data?.ok || !data.id) {
         const detail = data?.failed?.map((f) => `${f.name}: ${f.reason}`).join(" · ") || data?.error || "";
         throw new Error(`${res.status}${detail ? ` ${detail}` : ""}`);
@@ -184,8 +199,10 @@ export default function BookingWizard({
       navigator.clipboard?.writeText(message).catch(() => {});
     } finally {
       setSending(false);
-      setStep(3);
-      document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (!stay) {
+        setStep(3);
+        document.getElementById("booking")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   }
 
@@ -346,11 +363,14 @@ export default function BookingWizard({
                 <Label>{b.phone} *</Label>
                 <input
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    setFieldError("");
+                  }}
                   type="tel"
                   autoComplete="tel"
-                  aria-invalid={error && !phone.trim()}
-                  className={`${FIELD} ${error && !phone.trim() ? "border-red-400 ring-2 ring-red-400/20" : ""}`}
+                  aria-invalid={(error && !phone.trim()) || fieldError === b.phoneInvalid}
+                  className={`${FIELD} ${(error && !phone.trim()) || fieldError === b.phoneInvalid ? "border-red-400 ring-2 ring-red-400/20" : ""}`}
                 />
               </label>
             </div>
@@ -417,7 +437,11 @@ export default function BookingWizard({
               </dl>
             </div>
 
-            {error && <p className="text-sm font-medium text-red-600">{b.required}</p>}
+            {(error || fieldError) && (
+              <p role="alert" className="text-sm font-medium text-red-600">
+                {error ? b.required : fieldError}
+              </p>
+            )}
             <div className="flex flex-wrap justify-between gap-3">
               <button type="button" onClick={() => goTo(1)} className="btn btn-outline">
                 <IconArrow className="w-4 h-4 rotate-180" /> {b.back}
