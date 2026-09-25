@@ -63,10 +63,10 @@ export default async function BlogPost({ params }: { params: Promise<{ lang: str
         subtitle={t.excerpt}
         top={
           <div className="flex flex-wrap items-center gap-4 text-sm">
-          <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 font-semibold text-sky-300 hover:text-white transition">
+          <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 font-semibold text-white/90 hover:text-white transition">
             <IconArrow className="w-4 h-4 rotate-180" /> {dict.common.allPosts}
           </Link>
-          <time dateTime={p.date} className="text-sky-100/60">{p.date}</time>
+          <time dateTime={p.date} className="text-white/75">{p.date}</time>
         </div>
         }
       />

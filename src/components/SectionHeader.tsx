@@ -20,11 +20,11 @@ export default function SectionHeader({
     <Reveal>
       <div className={`flex flex-wrap items-end gap-6 ${center ? "justify-center text-center" : "justify-between"}`}>
         <div className={center ? "max-w-2xl mx-auto" : "max-w-2xl"}>
-          {eyebrow && <div className={`eyebrow ${dark ? "!text-sky-300" : ""}`}>{eyebrow}</div>}
+          {eyebrow && <div className={`eyebrow ${dark ? "!text-white/90" : ""}`}>{eyebrow}</div>}
           <h2 className={`mt-3 text-3xl md:text-[2.5rem] md:leading-[1.15] font-bold tracking-tight ${dark ? "text-white" : "text-ink"}`}>
             {title}
           </h2>
-          {subtitle && <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-sky-100/75" : "text-slate-600"}`}>{subtitle}</p>}
+          {subtitle && <p className={`mt-4 text-lg leading-relaxed ${dark ? "text-white/85" : "text-slate-600"}`}>{subtitle}</p>}
         </div>
         {action && <div className="shrink-0">{action}</div>}
       </div>

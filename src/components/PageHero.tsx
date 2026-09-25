@@ -14,14 +14,14 @@ export default function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-ink text-white">
+    <section className="relative overflow-hidden bg-brand text-white">
       <div aria-hidden className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black,transparent)]" />
-      <div aria-hidden className="absolute -top-40 right-0 w-[36rem] h-[36rem] rounded-full bg-sky-500/20 blur-3xl" />
+      <div aria-hidden className="absolute -top-40 right-0 w-[36rem] h-[36rem] rounded-full bg-white/10 blur-3xl" />
       <div className="relative container-x py-14 md:py-20 animate-fade-up">
         {top && <div className="mb-6">{top}</div>}
-        {eyebrow && <div className="eyebrow !text-sky-300">{eyebrow}</div>}
+        {eyebrow && <div className="eyebrow !text-white/90">{eyebrow}</div>}
         <h1 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight max-w-3xl">{title}</h1>
-        {subtitle && <p className="mt-5 text-lg text-sky-100/75 max-w-2xl leading-relaxed">{subtitle}</p>}
+        {subtitle && <p className="mt-5 text-lg text-white/85 max-w-2xl leading-relaxed">{subtitle}</p>}
         {children}
       </div>
     </section>
