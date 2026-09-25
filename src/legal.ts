@@ -49,9 +49,9 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
         ],
       },
       {
-        heading: "Our quote form",
+        heading: "Online bookings",
         paragraphs: [
-          "The quote form on our website does not store your details on our servers. When you press \"Send via LINE\", your message is copied on your own device and LINE opens so you can send it to us. When you choose email, your email app opens with the message. Your data reaches us only when you send it.",
+          "When you confirm a booking on our website, the details you enter are sent securely to our booking system. We record them in our booking records (Google Sheets) and notify our team by LINE, Telegram or email so we can contact you. If online sending isn't available, your chat app or email app opens with the booking so you can send it to us yourself.",
         ],
       },
       {
@@ -144,9 +144,9 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
         ],
       },
       {
-        heading: "แบบฟอร์มขอใบเสนอราคา",
+        heading: "การจองออนไลน์",
         paragraphs: [
-          "แบบฟอร์มขอใบเสนอราคาบนเว็บไซต์ไม่ได้บันทึกข้อมูลของคุณไว้ในเซิร์ฟเวอร์ของเรา เมื่อคุณกด \"ส่งผ่าน LINE\" ข้อความจะถูกคัดลอกบนอุปกรณ์ของคุณและ LINE จะเปิดขึ้นเพื่อให้คุณส่งถึงเรา หากเลือกอีเมล แอปอีเมลของคุณจะเปิดพร้อมข้อความ ข้อมูลจะถึงเราก็ต่อเมื่อคุณกดส่งเท่านั้น",
+          "เมื่อคุณยืนยันการจองบนเว็บไซต์ ข้อมูลที่กรอกจะถูกส่งอย่างปลอดภัยไปยังระบบการจองของเรา เราบันทึกไว้ในรายการจอง (Google Sheets) และแจ้งทีมงานทาง LINE, Telegram หรืออีเมล เพื่อติดต่อกลับคุณ หากส่งออนไลน์ไม่ได้ แอปแชทหรืออีเมลของคุณจะเปิดพร้อมรายละเอียดการจองให้คุณส่งถึงเราเอง",
         ],
       },
       {
@@ -237,9 +237,9 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
         ],
       },
       {
-        heading: "ဈေးနှုန်းတောင်းခံ form",
+        heading: "အွန်လိုင်း မှာယူခြင်း",
         paragraphs: [
-          "website ပေါ်ရှိ ဈေးနှုန်းတောင်းခံ form သည် သင့်အချက်အလက်များကို ကျွန်ုပ်တို့၏ server တွင် မသိမ်းဆည်းပါ။ \"LINE ဖြင့် ပို့ရန်\" ကို နှိပ်လျှင် သင့်စာကို သင့်ကိုယ်ပိုင် device ပေါ်တွင် ကူးယူပြီး LINE ပွင့်လာကာ ကျွန်ုပ်တို့ထံ ပို့နိုင်ပါသည်။ အီးမေးလ်ကို ရွေးလျှင် သင့် email app က စာနှင့်အတူ ပွင့်လာပါမည်။ သင်ပို့မှသာ အချက်အလက်များ ကျွန်ုပ်တို့ထံ ရောက်ပါသည်။",
+          "website ပေါ်တွင် မှာယူမှုကို အတည်ပြုသည့်အခါ သင်ဖြည့်သော အချက်အလက်များကို ကျွန်ုပ်တို့၏ မှာယူမှုစနစ်သို့ လုံခြုံစွာ ပို့ပါသည်။ မှာယူမှု မှတ်တမ်း (Google Sheets) တွင် သိမ်းဆည်းပြီး သင့်ကို ဆက်သွယ်နိုင်ရန် ကျွန်ုပ်တို့အဖွဲ့ထံ LINE၊ Telegram သို့မဟုတ် အီးမေးလ်ဖြင့် အကြောင်းကြားပါသည်။ အွန်လိုင်း မပို့နိုင်ပါက သင့် chat app သို့မဟုတ် email app သည် မှာယူမှုနှင့်အတူ ပွင့်လာပြီး ကိုယ်တိုင် ပို့နိုင်ပါသည်။",
         ],
       },
       {
@@ -325,9 +325,9 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
         after: ["我们使用您的数据，是因为提供您所要求的服务需要这些数据，或出于经营和改进业务的合法利益、为遵守法律，或在法律要求时基于您的同意。"],
       },
       {
-        heading: "报价表单",
+        heading: "在线预约",
         paragraphs: [
-          "网站上的报价表单不会将您的信息保存在我们的服务器上。点击“通过 LINE 发送”后，信息会复制到您自己的设备上并打开 LINE，由您发送给我们；选择电子邮件时，会打开您的邮件应用并带上信息。只有在您发送后，数据才会到达我们这里。",
+          "当您在网站上确认预约时，您填写的信息会安全地发送到我们的预约系统。我们会将其保存在预约记录（Google 表格）中，并通过 LINE、Telegram 或电子邮件通知团队与您联系。如果无法在线发送，您的聊天应用或邮件应用会打开并附上预约内容，由您自行发送给我们。",
         ],
       },
       {
@@ -414,9 +414,9 @@ export const PRIVACY: Record<Locale, LegalDoc> = {
         ],
       },
       {
-        heading: "Форма запроса",
+        heading: "Онлайн-заказы",
         paragraphs: [
-          "Форма запроса на нашем сайте не сохраняет ваши данные на наших серверах. Когда вы нажимаете «Отправить в LINE», сообщение копируется на вашем устройстве и открывается LINE, чтобы вы отправили его нам. Если вы выбираете email, открывается ваше почтовое приложение с сообщением. Данные попадают к нам только после того, как вы их отправите.",
+          "Когда вы подтверждаете заказ на сайте, введённые данные безопасно отправляются в нашу систему заказов. Мы сохраняем их в журнале заказов (Google Таблицы) и уведомляем команду через LINE, Telegram или email, чтобы связаться с вами. Если онлайн-отправка недоступна, откроется ваш мессенджер или почта с деталями заказа, чтобы вы отправили его сами.",
         ],
       },
       {

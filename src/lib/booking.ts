@@ -1,0 +1,87 @@
+// Shared booking types, validation and message formatting (server + client).
+import type { ChannelId } from "@/lib/channels";
+
+export type BookingInput = {
+  locale: string;
+  serviceSlug: string;
+  service: string;
+  propertyType: string;
+  size: string;
+  date: string;
+  time: string;
+  frequency: string;
+  area: string;
+  notes: string;
+  name: string;
+  phone: string;
+  contact: ChannelId;
+  /** Honeypot: real visitors never fill this in. */
+  website?: string;
+};
+
+export type Booking = BookingInput & { id: string; createdAt: string };
+
+const CONTACTS: ChannelId[] = ["line", "whatsapp", "sms", "email", "call"];
+const LIMITS: Partial<Record<keyof BookingInput, number>> = {
+  locale: 5, serviceSlug: 60, service: 120, propertyType: 60, size: 120, date: 10, time: 60,
+  frequency: 60, area: 200, notes: 1000, name: 100, phone: 40,
+};
+
+/** Returns a cleaned booking, or an error code. */
+export function validateBooking(raw: unknown): { ok: true; data: BookingInput } | { ok: false; error: string } {
+  if (!raw || typeof raw !== "object") return { ok: false, error: "invalid" };
+  const r = raw as Record<string, unknown>;
+  const str = (k: keyof BookingInput) => (typeof r[k] === "string" ? (r[k] as string).trim().slice(0, LIMITS[k] ?? 200) : "");
+  const data: BookingInput = {
+    locale: str("locale"),
+    serviceSlug: str("serviceSlug"),
+    service: str("service"),
+    propertyType: str("propertyType"),
+    size: str("size"),
+    date: str("date"),
+    time: str("time"),
+    frequency: str("frequency"),
+    area: str("area"),
+    notes: str("notes"),
+    name: str("name"),
+    phone: str("phone"),
+    contact: CONTACTS.includes(r.contact as ChannelId) ? (r.contact as ChannelId) : "line",
+    website: typeof r.website === "string" ? r.website : "",
+  };
+  if (data.website) return { ok: false, error: "spam" };
+  if (!data.service || !data.area || !data.name) return { ok: false, error: "missing" };
+  if ((data.phone.match(/\d/g) ?? []).length < 6) return { ok: false, error: "phone" };
+  if (data.date && !/^\d{4}-\d{2}-\d{2}$/.test(data.date)) return { ok: false, error: "date" };
+  return { ok: true, data };
+}
+
+/** Booking number like SC-250925-7K2Q (Bangkok date + random). */
+export function newBookingId(now = new Date()) {
+  const bkk = new Date(now.getTime() + 7 * 3600 * 1000).toISOString();
+  const ymd = bkk.slice(2, 4) + bkk.slice(5, 7) + bkk.slice(8, 10);
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.getRandomValues(new Uint8Array(4));
+  return `SC-${ymd}-${Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("")}`;
+}
+
+const CONTACT_LABEL: Record<ChannelId, string> = { line: "LINE", whatsapp: "WhatsApp", sms: "SMS", email: "Email", call: "Phone call" };
+
+/** Plain-text notification for the team (LINE / Telegram / email). */
+export function teamMessage(b: Booking, siteUrl: string) {
+  const sent = new Date(b.createdAt).toLocaleString("en-GB", { timeZone: "Asia/Bangkok" });
+  const job = [
+    `Service: ${b.service}`,
+    `Property: ${b.propertyType}${b.size ? ` · ${b.size}` : ""}`,
+    `Date: ${b.date || "not set"} · ${b.time}`,
+    `Frequency: ${b.frequency}`,
+    `Area: ${b.area}`,
+    ...(b.notes ? [`Notes: ${b.notes}`] : []),
+  ];
+  const customer = [
+    `Customer: ${b.name}`,
+    `Phone: ${b.phone}`,
+    `Contact by: ${CONTACT_LABEL[b.contact]}`,
+    `Language: ${b.locale.toUpperCase()}`,
+  ];
+  return [`🧽 New booking ${b.id}`, "", ...job, "", ...customer, "", `Sent: ${sent} (Bangkok) · ${siteUrl}`].join("\n");
+}
