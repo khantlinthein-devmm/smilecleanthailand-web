@@ -16,16 +16,16 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
     { href: `${base}/contact`, label: dict.nav.contact },
   ];
   const heading = "text-sm font-semibold text-white mb-5";
-  const link = "text-sm text-slate-300 hover:text-white transition-colors";
+  const link = "text-sm text-sky-50/85 hover:text-white transition-colors";
   return (
-    <footer className="bg-ink text-slate-300">
+    <footer className="bg-brand-deep text-sky-50/90">
       <div className="container-x py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
         <div>
           <Link href={base} className="inline-flex items-center gap-3">
             <Image src="/logo.png" alt="Smile Clean Thailand logo" width={48} height={48} className="h-11 w-11 rounded-xl object-cover" />
             <span className="leading-none">
               <span className="block font-bold text-white tracking-tight">Smile Clean</span>
-              <span className="block mt-1 text-[10px] font-bold tracking-[0.24em] text-sky-400">THAILAND</span>
+              <span className="block mt-1 text-[10px] font-bold tracking-[0.24em] text-sky-200">THAILAND</span>
             </span>
           </Link>
           <p className="text-sm mt-5 leading-relaxed max-w-xs">{dict.footer.tagline}</p>
@@ -62,26 +62,26 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
           <div className={heading}>{dict.footer.contactTitle}</div>
           <ul className="grid gap-4 text-sm">
             <li className="flex gap-3">
-              <IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-400" />
+              <IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-200" />
               {dict.common.address}
             </li>
             <li>
-              <a href={PHONE_LINK} className="inline-flex items-center gap-3 font-semibold text-white hover:text-sky-300 transition">
-                <IconPhone className="w-4 h-4 text-sky-400" /> {PHONE_DISPLAY}
+              <a href={PHONE_LINK} className="inline-flex items-center gap-3 font-semibold text-white hover:text-sky-100 transition">
+                <IconPhone className="w-4 h-4 text-sky-200" /> {PHONE_DISPLAY}
               </a>
             </li>
             <li>
               <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-3 hover:text-white transition">
-                <IconMail className="w-4 h-4 text-sky-400" /> {EMAIL}
+                <IconMail className="w-4 h-4 text-sky-200" /> {EMAIL}
               </a>
             </li>
             <li className="flex gap-3 items-center">
-              <IconClock className="w-4 h-4 text-sky-400" /> {dict.common.hours}
+              <IconClock className="w-4 h-4 text-sky-200" /> {dict.common.hours}
             </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/20">
         <div className="container-x py-6 text-xs flex flex-wrap gap-2 justify-between">
           <span>© {new Date().getFullYear()} {dict.footer.rights}</span>
           <span className="flex flex-wrap gap-x-5 gap-y-1">

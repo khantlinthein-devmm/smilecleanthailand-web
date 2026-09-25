@@ -59,22 +59,22 @@ export default async function Home({
   return (
     <div className="overflow-hidden">
       {/* HERO */}
-      <section className="relative bg-ink text-white">
+      <section className="relative bg-brand text-white">
         <div aria-hidden className="absolute inset-0 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
-        <div aria-hidden className="absolute -top-48 -left-40 w-[40rem] h-[40rem] rounded-full bg-sky-500/20 blur-3xl" />
+        <div aria-hidden className="absolute -top-48 -left-40 w-[40rem] h-[40rem] rounded-full bg-white/10 blur-3xl" />
         <div className="relative container-x pt-14 pb-28 md:pt-20 md:pb-36 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
           <div className="animate-fade-up">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold text-sky-200 bg-white/[0.06] border border-white/10 rounded-full px-3.5 py-1.5">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               {dict.hero.badge}
             </span>
             <h1 className="mt-6 text-[2.5rem] leading-[1.1] md:text-6xl md:leading-[1.05] font-bold tracking-tight">
               {dict.hero.titleA}
-              <span className="block mt-4 text-2xl md:text-3xl font-semibold tracking-normal text-sky-300">{dict.hero.titleB}</span>
+              <span className="block mt-4 text-2xl md:text-3xl font-semibold tracking-normal text-sky-100">{dict.hero.titleB}</span>
             </h1>
-            <p className="mt-6 text-lg text-sky-100/75 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
+            <p className="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href={`${base}/booking`} className="btn btn-primary btn-lg">
+              <Link href={`${base}/booking`} className="btn btn-white btn-lg">
                 <IconCalendar className="w-5 h-5" />
                 {dict.booking.cta}
               </Link>
@@ -87,10 +87,10 @@ export default async function Home({
                 {PHONE_DISPLAY}
               </a>
             </div>
-            <ul className="mt-10 grid sm:grid-cols-3 gap-3 text-sm text-sky-100/80">
+            <ul className="mt-10 grid sm:grid-cols-3 gap-3 text-sm text-white/90">
               {heroPoints.map((p) => (
                 <li key={p} className="flex gap-2 items-start">
-                  <IconCheckCircle className="w-5 h-5 text-sky-400 shrink-0" />
+                  <IconCheckCircle className="w-5 h-5 text-white shrink-0" />
                   <span>{p}</span>
                 </li>
               ))}
@@ -98,7 +98,7 @@ export default async function Home({
           </div>
 
           <div className="relative animate-fade-up" style={{ animationDelay: "120ms" }}>
-            <div className="relative rounded-3xl overflow-hidden ring-1 ring-white/15 shadow-2xl shadow-black/40">
+            <div className="relative rounded-3xl overflow-hidden ring-4 ring-white/25 shadow-2xl shadow-sky-900/30">
               <Image
                 src="/hero-cleaning.jpg"
                 alt="Smile Clean Thailand professional cleaning"

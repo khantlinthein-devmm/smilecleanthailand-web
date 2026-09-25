@@ -19,19 +19,19 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dict }) {
   ];
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/80">
-      <div className="bg-ink text-sky-100/80 text-xs">
+      <div className="bg-brand-deep text-white/90 text-xs">
         <div className="container-x py-2 flex items-center justify-between gap-4">
           <div className="flex items-center gap-5 min-w-0">
             <span className="hidden sm:inline-flex items-center gap-1.5 truncate">
-              <IconPin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <IconPin className="w-3.5 h-3.5 text-sky-100 shrink-0" />
               <span className="truncate">{dict.common.address}</span>
             </span>
             <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-              <IconClock className="w-3.5 h-3.5 text-sky-400" />
+              <IconClock className="w-3.5 h-3.5 text-sky-100" />
               {dict.common.hours}
             </span>
           </div>
-          <a href={PHONE_LINK} className="font-semibold text-white whitespace-nowrap inline-flex items-center gap-1.5 hover:text-sky-300 transition">
+          <a href={PHONE_LINK} className="font-semibold text-white whitespace-nowrap inline-flex items-center gap-1.5 hover:text-sky-100 transition">
             <IconPhone className="w-3.5 h-3.5" />
             {PHONE_DISPLAY}
           </a>
