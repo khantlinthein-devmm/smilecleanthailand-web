@@ -7,7 +7,7 @@ import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import LineQr from "@/components/LineQr";
-import { IconArrow, IconCalendar, IconChat, IconClock, IconMail, IconPhone, IconPin } from "@/components/icons";
+import { IconArrow, IconCalendar, IconChat, IconCheckCircle, IconClock, IconMail, IconPhone, IconPin } from "@/components/icons";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const locale = toLocale((await params).lang);
@@ -87,6 +87,17 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
                   </li>
                 ))}
               </ol>
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <div className="font-semibold text-ink">{dict.contactPerks.title}</div>
+                <ul className="mt-3 grid sm:grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-600">
+                  {dict.contactPerks.items.map((it) => (
+                    <li key={it} className="flex gap-2 items-start">
+                      <IconCheckCircle className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <Link href={`/${locale}/booking`} className="btn btn-primary btn-lg mt-8">
                 {dict.booking.cta} <IconArrow className="w-4 h-4" />
               </Link>

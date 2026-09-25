@@ -1,3 +1,4 @@
+import WhatWeClean from "@/components/WhatWeClean";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,6 +16,9 @@ import Reveal from "@/components/Reveal";
 import ServiceImage from "@/components/ServiceImage";
 import { IconArrow, IconCalendar, IconChat, IconCheckCircle, IconPhone, IconShield, SERVICE_ICONS } from "@/components/icons";
 import type { Metadata } from "next";
+
+// Services where the "details we take care of" checklist applies.
+const CHECKLIST_SERVICES = ["house-cleaning", "condo-cleaning", "deep-cleaning", "move-in-move-out"];
 
 export function generateStaticParams() {
   const out: { lang: string; slug: string }[] = [];
@@ -167,6 +171,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
           </div>
         </div>
       </section>
+      {CHECKLIST_SERVICES.includes(slug) && <WhatWeClean dict={dict} />}
       <HowItWorks dict={dict} className="bg-slate-50 border-t border-slate-100" />
       <GuaranteeSection dict={dict} />
       <CtaBand lang={locale} />

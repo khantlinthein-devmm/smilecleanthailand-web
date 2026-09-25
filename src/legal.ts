@@ -4,7 +4,7 @@
 // deliberately left to each customer's quote rather than fixed here.
 import type { Locale } from "@/lib/site";
 
-export const LEGAL_UPDATED = "2026-09-24";
+export const LEGAL_UPDATED = "2026-09-25";
 
 export type LegalSection = { heading: string; paragraphs?: string[]; items?: string[]; after?: string[] };
 export type LegalDoc = { title: string; description: string; intro: string; sections: LegalSection[] };
@@ -490,7 +490,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
         items: [
           "Quotes are based on the photos, size and details you give us.",
           "If the job on the day is clearly different from what was described (for example, much larger or dirtier), we will explain and agree any price change with you before continuing.",
-          "Prices and payment methods are confirmed in your quote.",
+          "Prices are confirmed in your quote. Payment is made at the time of service by bank transfer or credit/debit card; we do not accept cash or digital currency.",
         ],
       },
       {
@@ -509,7 +509,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
       {
         heading: "Rescheduling and cancellation",
         paragraphs: [
-          "If you need to change or cancel a booking, please tell us as early as possible, ideally at least 24 hours before. Any cancellation or late-change fee will be stated in your quote.",
+          "If you need to change or cancel a booking, please give us at least 24 hours' notice. Any cancellation or late-change fee will be stated in your quote.",
           "If our team cannot reach you safely (for example, in severe weather), we may need to reschedule. We will agree a new time with you.",
         ],
       },
@@ -560,7 +560,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
         items: [
           "ใบเสนอราคาคิดจากรูปภาพ ขนาด และรายละเอียดที่คุณแจ้ง",
           "หากหน้างานจริงแตกต่างจากที่แจ้งอย่างชัดเจน (เช่น ใหญ่กว่าหรือสกปรกกว่ามาก) เราจะอธิบายและตกลงเรื่องราคากับคุณก่อนดำเนินการต่อ",
-          "ราคาและวิธีการชำระเงินจะระบุไว้ในใบเสนอราคา",
+          "ราคาจะระบุไว้ในใบเสนอราคา ชำระเงินเมื่อรับบริการผ่านการโอนเงินหรือบัตรเครดิต/เดบิต เราไม่รับเงินสดหรือสกุลเงินดิจิทัล",
         ],
       },
       {
@@ -579,7 +579,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
       {
         heading: "การเลื่อนและยกเลิก",
         paragraphs: [
-          "หากต้องการเปลี่ยนหรือยกเลิกการจอง กรุณาแจ้งเราโดยเร็วที่สุด อย่างน้อย 24 ชั่วโมงล่วงหน้าหากเป็นไปได้ ค่าธรรมเนียมการยกเลิกหรือเปลี่ยนแปลงกะทันหัน (ถ้ามี) จะระบุไว้ในใบเสนอราคา",
+          "หากต้องการเปลี่ยนหรือยกเลิกการจอง กรุณาแจ้งล่วงหน้าอย่างน้อย 24 ชั่วโมง ค่าธรรมเนียมการยกเลิกหรือเปลี่ยนแปลงกะทันหัน (ถ้ามี) จะระบุไว้ในใบเสนอราคา",
           "หากทีมงานไม่สามารถเดินทางไปได้อย่างปลอดภัย (เช่น สภาพอากาศรุนแรง) เราอาจต้องเลื่อนนัด และจะตกลงเวลาใหม่กับคุณ",
         ],
       },
@@ -626,7 +626,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
         items: [
           "ဈေးနှုန်းကို သင်ပေးသော ဓာတ်ပုံ၊ အရွယ်အစားနှင့် အသေးစိတ်များအပေါ် အခြေခံပါသည်။",
           "လုပ်ငန်းခွင်တွင် ပြောထားသည်ထက် သိသိသာသာ ကွာခြားပါက (ဥပမာ အများကြီး ပိုကြီး သို့မဟုတ် ပိုညစ်ပတ်ပါက) ဆက်မလုပ်မီ ရှင်းပြပြီး ဈေးနှုန်းကို သင်နှင့် သဘောတူပါမည်။",
-          "ဈေးနှုန်းနှင့် ငွေပေးချေပုံကို သင့်ဈေးနှုန်းတွင် အတည်ပြုပါသည်။",
+          "ဈေးနှုန်းကို သင့်ဈေးနှုန်းစာတွင် အတည်ပြုပါသည်။ ဝန်ဆောင်မှုရယူချိန်တွင် ဘဏ်လွှဲ သို့မဟုတ် credit/debit ကတ်ဖြင့် ပေးချေရပြီး ငွေသား သို့မဟုတ် ဒစ်ဂျစ်တယ်ငွေကြေး လက်မခံပါ။",
         ],
       },
       {
@@ -645,7 +645,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
       {
         heading: "ရက်ရွှေ့ခြင်းနှင့် ပယ်ဖျက်ခြင်း",
         paragraphs: [
-          "မှာယူမှုကို ပြောင်းလဲ သို့မဟုတ် ပယ်ဖျက်လိုပါက တတ်နိုင်သမျှ စောစော၊ ဖြစ်နိုင်လျှင် အနည်းဆုံး ၂၄ နာရီ ကြိုတင် အသိပေးပါ။ ပယ်ဖျက်ခ သို့မဟုတ် နောက်ကျပြောင်းလဲခ ရှိပါက သင့်ဈေးနှုန်းတွင် ဖော်ပြပါမည်။",
+          "မှာယူမှုကို ပြောင်းလဲ သို့မဟုတ် ပယ်ဖျက်လိုပါက အနည်းဆုံး ၂၄ နာရီ ကြိုတင် အသိပေးပါ။ ပယ်ဖျက်ခ သို့မဟုတ် နောက်ကျပြောင်းလဲခ ရှိပါက သင့်ဈေးနှုန်းတွင် ဖော်ပြပါမည်။",
           "ကျွန်ုပ်တို့အဖွဲ့ ဘေးကင်းစွာ မရောက်နိုင်ပါက (ဥပမာ ရာသီဥတု ဆိုးရွားခြင်း) ရက်ရွှေ့ရန် လိုအပ်နိုင်ပြီး အချိန်အသစ်ကို သင်နှင့် သဘောတူပါမည်။",
         ],
       },
@@ -692,7 +692,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
         items: [
           "报价根据您提供的照片、面积和详情制定。",
           "如果当天实际情况与描述明显不同（例如面积大得多或脏得多），我们会先向您说明并就价格变更达成一致，再继续工作。",
-          "价格和付款方式以您的报价为准。",
+          "价格以您的报价为准。服务时通过银行转账或信用卡/借记卡付款，我们不接受现金或数字货币。",
         ],
       },
       {
@@ -711,7 +711,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
       {
         heading: "改期与取消",
         paragraphs: [
-          "如需更改或取消预约，请尽早告知我们，最好提前至少 24 小时。如有取消或临时更改费用，将在您的报价中注明。",
+          "如需更改或取消预约，请至少提前 24 小时告知我们。如有取消或临时更改费用，将在您的报价中注明。",
           "如果我们的团队无法安全到达（例如恶劣天气），可能需要改期，我们会与您商定新的时间。",
         ],
       },
@@ -758,7 +758,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
         items: [
           "Расчёт основан на фото, площади и деталях, которые вы нам сообщили.",
           "Если объём работ на месте явно отличается от описанного (например, гораздо больше или грязнее), мы объясним ситуацию и согласуем с вами изменение цены, прежде чем продолжить.",
-          "Цены и способы оплаты подтверждаются в вашем расчёте.",
+          "Цена подтверждается в вашем расчёте. Оплата производится в момент оказания услуги банковским переводом или кредитной/дебетовой картой; наличные и цифровую валюту мы не принимаем.",
         ],
       },
       {
@@ -777,7 +777,7 @@ export const TERMS: Record<Locale, LegalDoc> = {
       {
         heading: "Перенос и отмена",
         paragraphs: [
-          "Если вам нужно изменить или отменить заказ, сообщите нам как можно раньше, желательно не менее чем за 24 часа. Плата за отмену или позднее изменение, если она есть, указывается в вашем расчёте.",
+          "Если вам нужно изменить или отменить заказ, предупредите нас не менее чем за 24 часа. Плата за отмену или позднее изменение, если она есть, указывается в вашем расчёте.",
           "Если наша команда не может безопасно добраться до вас (например, из-за сильной непогоды), нам может понадобиться перенести визит. Мы согласуем с вами новое время.",
         ],
       },

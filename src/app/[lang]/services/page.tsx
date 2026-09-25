@@ -1,3 +1,4 @@
+import WhatWeClean from "@/components/WhatWeClean";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
@@ -62,6 +63,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
           })}
         </div>
       </section>
+      <WhatWeClean dict={dict} />
       <CtaBand lang={locale} />
     </>
   );
