@@ -1,3 +1,5 @@
+import ScrollState from "@/components/ScrollState";
+import PageTransition from "@/components/PageTransition";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
 import "../globals.css";
@@ -90,6 +92,8 @@ export default async function LangLayout({
         <Footer lang={locale} dict={dict} />
         <MobileCtaBar dict={dict} lang={locale} />
         <Analytics />
+        <ScrollState />
+        <PageTransition />
       </body>
     </html>
   );
