@@ -13,10 +13,10 @@ export const CHANNELS: { id: ChannelId; color: string }[] = [
   { id: "call", color: "#0369a1" },
 ];
 
-/** Channels where we need the customer's account (LINE ID, @username…) to reach them. */
+/** Channels where we need the customer's account (LINE ID, phone number, email) to reach them. */
 export const HANDLE_CHANNELS: ChannelId[] = ["line", "whatsapp", "telegram", "email"];
-/** Of those, the ones where the phone number alone isn't enough. WhatsApp falls back to the phone. */
-export const HANDLE_REQUIRED: ChannelId[] = ["line", "telegram", "email"];
+/** Of those, the ones where the phone number alone isn't enough. WhatsApp and Telegram fall back to the phone. */
+export const HANDLE_REQUIRED: ChannelId[] = ["line", "email"];
 
 export function channelHref(id: ChannelId, message: string, subject: string): string {
   const text = encodeURIComponent(message);

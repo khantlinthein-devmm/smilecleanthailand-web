@@ -377,16 +377,16 @@ export default function BookingWizard({
               </div>
               {asksHandle && (
                 <label className="mt-4 block">
-                  <Label optional={channel === "whatsapp" ? b.optional : undefined}>
+                  <Label optional={HANDLE_REQUIRED.includes(channel) ? undefined : b.optional}>
                     {b.handleLabel[channel as keyof typeof b.handleLabel]}
-                    {channel !== "whatsapp" && " *"}
+                    {HANDLE_REQUIRED.includes(channel) && " *"}
                   </Label>
                   <input
                     value={handles[channel] ?? ""}
                     onChange={(e) => setHandles((h) => ({ ...h, [channel]: e.target.value }))}
                     placeholder={b.handlePlaceholder[channel as keyof typeof b.handlePlaceholder]}
-                    type={channel === "email" ? "email" : channel === "whatsapp" ? "tel" : "text"}
-                    autoComplete={channel === "email" ? "email" : channel === "whatsapp" ? "tel" : "off"}
+                    type={channel === "email" ? "email" : channel === "line" ? "text" : "tel"}
+                    autoComplete={channel === "email" ? "email" : channel === "line" ? "off" : "tel"}
                     autoCapitalize="none"
                     spellCheck={false}
                     aria-invalid={error && handleMissing}

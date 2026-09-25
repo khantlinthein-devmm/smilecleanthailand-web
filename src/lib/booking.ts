@@ -15,7 +15,7 @@ export type BookingInput = {
   name: string;
   phone: string;
   contact: ChannelId;
-  /** The customer's LINE ID, WhatsApp number, Telegram username or email for the chosen channel. */
+  /** The customer's LINE ID, WhatsApp/Telegram number or email for the chosen channel. */
   handle: string;
   /** Honeypot: real visitors never fill this in. */
   website?: string;
