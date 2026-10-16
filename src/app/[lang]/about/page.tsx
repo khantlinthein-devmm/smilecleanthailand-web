@@ -65,12 +65,12 @@ export default async function About({ params }: { params: Promise<{ lang: string
               <div aria-hidden className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-sky-100 to-sky-50" />
               <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-sky-50 to-white border border-slate-200">
                 <Image
-                  src="/personal/personal.jpg"
+                  src="/personal/founder.webp"
                   alt={`${a.founder} — ${a.founderRole}, Smile Clean Thailand`}
-                  width={1280}
-                  height={1280}
+                  width={720}
+                  height={900}
                   sizes="(min-width: 1024px) 420px, 90vw"
-                  className="w-full aspect-[4/5] object-cover object-top mix-blend-multiply"
+                  className="w-full aspect-[4/5] object-cover object-top"
                   priority
                 />
               </div>
