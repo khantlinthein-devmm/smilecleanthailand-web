@@ -13,7 +13,7 @@ export const SERVICES: Service[] = [
   {
     slug: "house-cleaning",
     icon: "house",
-    image: "/services/house-cleaning.svg",
+    image: "/services/house-cleaning.webp",
     en: {
       title: "House Cleaning",
       short: "Regular and one-off house cleaning with all equipment included.",
@@ -65,7 +65,7 @@ export const SERVICES: Service[] = [
   {
     slug: "condo-cleaning",
     icon: "condo",
-    image: "/services/condo-cleaning.svg",
+    image: "/services/condo-cleaning.webp",
     en: {
       title: "Condo Cleaning",
       short: "Condo deep and routine cleaning, perfect for Bangkok living.",
@@ -114,7 +114,7 @@ export const SERVICES: Service[] = [
   {
     slug: "move-in-move-out",
     icon: "move",
-    image: "/services/move-in-move-out.svg",
+    image: "/services/move-in-move-out.webp",
     en: {
       title: "Move In / Move Out",
       short: "Get your deposit back with detailed move cleaning.",
@@ -163,7 +163,7 @@ export const SERVICES: Service[] = [
   {
     slug: "after-renovation",
     icon: "renovation",
-    image: "/services/after-renovation.svg",
+    image: "/services/after-renovation.webp",
     en: {
       title: "After Renovation",
       short: "Remove dust, paint and debris after construction.",
@@ -212,7 +212,7 @@ export const SERVICES: Service[] = [
   {
     slug: "junk-removal",
     icon: "junk",
-    image: "/services/junk-removal.svg",
+    image: "/services/junk-removal.webp",
     en: {
       title: "Junk Removal",
       short: "Clear unwanted furniture, junk and clutter fast.",
@@ -253,7 +253,7 @@ export const SERVICES: Service[] = [
   {
     slug: "deep-cleaning",
     icon: "deep",
-    image: "/services/deep-cleaning.svg",
+    image: "/services/deep-cleaning.webp",
     en: {
       title: "Deep Cleaning",
       short: "Intensive top-to-bottom deep clean for bathrooms & kitchens.",
@@ -304,7 +304,7 @@ export const SERVICES: Service[] = [
   {
     slug: "office-cleaning",
     icon: "office",
-    image: "/services/office-cleaning.svg",
+    image: "/services/office-cleaning.webp",
     en: {
       title: "Office Cleaning",
       short: "Keep your workplace clean, healthy and professional.",
@@ -348,7 +348,7 @@ export const SERVICES: Service[] = [
   {
     slug: "air-condition-services",
     icon: "ac",
-    image: "/services/air-condition-services.svg",
+    image: "/services/air-condition-services.webp",
     en: {
       title: "Air Condition Services",
       short: "AC cleaning, fixing and maintenance.",
@@ -405,7 +405,7 @@ export type Post = { slug: string; date: string; image: string } & Record<Locale
 export const POSTS: Post[] = [
   {
     slug: "deep-cleaning-checklist-bangkok-condo",
-    image: "/services/deep-cleaning.svg",
+    image: "/services/deep-cleaning.webp",
     date: "2025-11-10",
     en: {
       title: "Deep Cleaning Checklist for Bangkok Condos",
@@ -455,7 +455,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: "move-out-cleaning-get-deposit-back",
-    image: "/services/move-in-move-out.svg",
+    image: "/services/move-in-move-out.webp",
     date: "2025-10-02",
     en: {
       title: "Move-Out Cleaning: How to Get Your Deposit Back",
@@ -505,7 +505,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: "eco-friendly-cleaning-safe-pets-kids",
-    image: "/services/house-cleaning.svg",
+    image: "/services/house-cleaning.webp",
     date: "2025-08-18",
     en: {
       title: "Eco-Friendly Cleaning Safe for Pets and Kids",

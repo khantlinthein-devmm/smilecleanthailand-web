@@ -266,7 +266,7 @@ export default async function Home({
                 <Reveal key={p.slug} delay={i * 90}>
                   <Link href={`${base}/blog/${p.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
                     <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
-                      <Image src={p.image} alt="" fill sizes="(min-width: 768px) 370px, 100vw" unoptimized className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={p.image} alt="" fill sizes="(min-width: 768px) 370px, 100vw" unoptimized={p.image.endsWith(".svg")} className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
                       <time dateTime={p.date} className="text-xs font-medium text-slate-400">{p.date}</time>

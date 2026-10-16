@@ -72,7 +72,7 @@ export default async function BlogPost({ params }: { params: Promise<{ lang: str
       />
       <article className="container-x max-w-3xl section">
         <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-slate-200 bg-sky-50">
-          <Image src={p.image} alt="" fill sizes="(min-width: 768px) 720px, 100vw" unoptimized className="object-cover" />
+          <Image src={p.image} alt="" fill sizes="(min-width: 768px) 720px, 100vw" unoptimized={p.image.endsWith(".svg")} className="object-cover" />
         </div>
         <div className="mt-10 grid gap-6 text-lg text-slate-700 leading-[1.8]">
           {t.body.map((para, i) => (
