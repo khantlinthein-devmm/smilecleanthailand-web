@@ -4,7 +4,8 @@ When a customer presses **Confirm booking**, the site calls `POST /api/booking`,
 
 1. gives the booking a number like `SC-260925-7K2Q`,
 2. saves it to a **Google Sheet**, and
-3. notifies the team on **LINE** (and optionally Telegram / email).
+3. notifies the team on **LINE** (and optionally Telegram / email), and
+4. optionally adds it to **Smile Clean CRM → Leads**.
 
 Each destination turns on when its environment variables exist in
 **Vercel → Project → Settings → Environment Variables**. After adding or changing
@@ -79,8 +80,28 @@ quota — check your plan in LINE Official Account Manager.
 2. Vercel: `RESEND_API_KEY`, `BOOKING_EMAIL_TO` (comma-separated),
    optional `BOOKING_EMAIL_FROM` (e.g. `Smile Clean <bookings@smilecleanthailand.com>`).
 
+## 5. Optional: Smile Clean CRM (Leads)
+
+Each booking request also appears in the CRM under **Leads** (source "Website"),
+with the service, date, time, area, notes and how the customer wants to be
+contacted. The office calls the customer, then turns the lead into a customer
+and booking.
+
+1. Make a long random secret, e.g. `openssl rand -hex 32`.
+2. On the CRM server add it to `.env` as `WEBSITE_LEADS_SECRET=<secret>` and
+   restart the API (`docker compose up -d api`).
+3. Vercel:
+
+   | Name | Value |
+   | --- | --- |
+   | `CRM_LEADS_URL` | `https://admin.smilecleanthailand.com/api/v1/website/leads` |
+   | `CRM_LEADS_SECRET` | the same secret |
+
+Sending the same booking twice never creates a second lead.
+
 ## Test
 
 Make a test booking on `/en/booking`. You should see "Booking received!"
-with a booking number, a new row in the sheet, and a LINE message in the group.
+with a booking number, a new row in the sheet, a LINE message in the group, and
+(if set up) a new lead in the CRM.
 Problems are logged in **Vercel → Project → Logs** (search for `[booking`).
