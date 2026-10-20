@@ -4,8 +4,10 @@
 //   Telegram: TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
 //   Email:    RESEND_API_KEY + BOOKING_EMAIL_TO (+ optional BOOKING_EMAIL_FROM)
 //   Sheet:    GOOGLE_SHEET_WEBHOOK_URL (+ GOOGLE_SHEET_SECRET), see docs/booking-setup.md
+//   CRM:      CRM_LEADS_URL + CRM_LEADS_SECRET (adds the request to Smile Clean CRM → Leads)
 // With nothing configured it answers 503 and the website falls back to opening
 // the customer's chat app, so no booking is lost.
+import { createHmac } from "node:crypto";
 import { NextResponse } from "next/server";
 import { newBookingId, teamMessage, validateBooking, type Booking } from "@/lib/booking";
 import { SITE_URL } from "@/lib/site";
@@ -30,7 +32,7 @@ async function post(url: string, body: unknown, headers: Record<string, string> 
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...headers },
-    body: JSON.stringify(body),
+    body: typeof body === "string" ? body : JSON.stringify(body),
     redirect: "follow",
     signal: AbortSignal.timeout(TIMEOUT),
   });
@@ -76,6 +78,19 @@ function destinations(b: Booking) {
           },
           { Authorization: `Bearer ${env("RESEND_API_KEY")}` },
         ),
+    });
+  }
+
+  // The CRM checks an HMAC of the exact body, so sign the string that is sent.
+  // Re-sending the same booking number never creates a second lead.
+  if (env("CRM_LEADS_URL") && env("CRM_LEADS_SECRET")) {
+    jobs.push({
+      name: "crm",
+      run: () => {
+        const body = JSON.stringify(b);
+        const signature = createHmac("sha256", env("CRM_LEADS_SECRET")).update(body).digest("hex");
+        return post(env("CRM_LEADS_URL"), body, { "X-Website-Signature": signature });
+      },
     });
   }
 
