@@ -55,19 +55,19 @@ function Stars({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 const FROM_PRICE: Record<Locale, string> = {
-  th: "เริ่มต้น ฿1,500 (เพิ่มตาม ตร.ม.)",
-  en: "From ฿1,500",
-  zh: "起价 ฿1,500",
-  my: "စတင် ฿1,500",
-  ru: "От ฿1,500",
+  th: "คิดตามขนาด ตร.ม.",
+  en: "Priced by sqm",
+  zh: "按平米计费",
+  my: "စတုရန်းမီတာအလိုက်",
+  ru: "По площади (кв.ม)",
 };
 
 const HERO_PRICE_BADGE: Record<Locale, string> = {
-  th: "เริ่มต้นเพียง 1,500 บาท",
-  en: "Starting from ฿1,500",
-  zh: "起价仅 ฿1,500",
-  my: "စတင်စျေးနှုန်း ฿1,500",
-  ru: "От ฿1,500",
+  th: "ประเมินราคาตามขนาดพื้นที่",
+  en: "Free Estimate by Room Size",
+  zh: "按面积免费估价",
+  my: "အခမဲ့ စျေးနှုန်းတွက်ချက်ပေးခြင်း",
+  ru: "Бесплатная оценка по площади",
 };
 
 export default async function Home({

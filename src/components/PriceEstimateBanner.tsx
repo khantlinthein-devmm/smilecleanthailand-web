@@ -17,48 +17,48 @@ const TEXTS: Record<
 > = {
   th: {
     badge: "ราคาโปร่งใส · คิดตามพื้นที่จริง",
-    title: "เริ่มต้นเพียง ฿1,500 (คำนวณตามขนาด ตร.ม.)",
+    title: "ประเมินราคาตามขนาดพื้นที่จริง (คิดตาม ตร.ม.)",
     subtitle: "หมดกังวลเรื่องราคาบวกเพิ่ม ถ่ายรูปห้องหรือแจ้งขนาด ตร.ม. เพื่อรับราคาประเมินชัดเจนได้ทันที ไม่มีค่าใช้จ่าย",
     lineBtn: "ส่งขนาดห้องประเมินราคาทาง LINE",
     waBtn: "WhatsApp",
     onlineBtn: "จองออนไลน์",
-    formula: "มาตรฐานราคาเริ่มต้น ฿1,500 ปรับตามขนาด ตารางเมตร และสภาพหน้างานจริง",
+    formula: "ประเมินราคาตามขนาดตารางเมตรและประเภทที่พัก ไม่มีบวกเพิ่มหน้างาน",
   },
   en: {
     badge: "Transparent Pricing · Based on Actual Space",
-    title: "Starting from only ฿1,500 (Priced by Sqm)",
+    title: "Transparent Pricing Based on Your Space (Priced by Sqm)",
     subtitle: "No hidden fees. Simply send us room photos or your sqm size for an instant, transparent quote. Free of charge.",
     lineBtn: "Get Instant Quote on LINE",
     waBtn: "WhatsApp",
     onlineBtn: "Book Online",
-    formula: "Standard starting rate ฿1,500, tailored to your room size in square metres.",
+    formula: "Tailored to your square metres and property type with no hidden fees.",
   },
   zh: {
     badge: "价格透明 · 按实际面积计费",
-    title: "起价仅 ฿1,500（按平米大小递增）",
+    title: "根据实际房屋面积估价（按平米计费）",
     subtitle: "拒绝隐形收费。发送房间照片或平米面积，即可免费获取精准透明报价，即时确认排期。",
     lineBtn: "通过 LINE 发送面积获取报价",
     waBtn: "WhatsApp 咨询",
     onlineBtn: "在线预订",
-    formula: "标准起步价 ฿1,500，根据实际房屋平米面积科学计算。",
+    formula: "根据实际平米面积及户型估价，绝无临时加价。",
   },
   my: {
     badge: "ပွင့်လင်းမြင်သာသော စျေးနှုန်း · အမှန်တကယ် အကျယ်အဝန်းအလိုက်",
-    title: "฿1,500 မှ စတင်ပါသည် (စတုရန်းမီတာအလိုက်)",
+    title: "အမှန်တကယ် အကျယ်အဝန်းအလိုက် စျေးနှုန်းတွက်ချက်ခြင်း",
     subtitle: "မလိုလားအပ်သော အပိုကုန်ကျစရိတ်မရှိပါ။ အခန်းဓာတ်ပုံ သို့မဟုတ် အကျယ်အဝန်း စတုရန်းမီတာကို ပို့ပေးရုံဖြင့် အခမဲ့ စျေးနှုန်းတွက်ချက်ပေးပါသည်။",
     lineBtn: "LINE ဖြင့် စျေးနှုန်းမေးမြန်းရန်",
     waBtn: "WhatsApp",
     onlineBtn: "အွန်လိုင်းမှ ဘိုကင်တင်ရန်",
-    formula: "အခြေခံ စတင်စျေး ฿1,500 ဖြစ်ပြီး အခန်း၏ စတုရန်းမီတာအလိုက် တွက်ချက်ပါသည်။",
+    formula: "စတုရန်းမီတာနှင့် နေရာအလိုက် စျေးနှုန်းတွက်ချက်ပေးပါသည်။",
   },
   ru: {
     badge: "Прозрачные расценки · По реальной площади",
-    title: "От ฿1,500 (расчёт по квадратным метрам)",
+    title: "Прозрачный расчёт по реальной площади (кв.м)",
     subtitle: "Никаких скрытых платежей. Отправьте фото или укажите площадь в кв.м для быстрого и бесплатного расчёта стоимости.",
     lineBtn: "Узнать точную цену в LINE",
     waBtn: "WhatsApp",
     onlineBtn: "Онлайн-бронирование",
-    formula: "Базовая ставка от ฿1,500, точная стоимость рассчитывается по площади кв.м.",
+    formula: "Расчёт стоимости зависит от площади помещения и типа недвижимости.",
   },
 };
 
@@ -134,4 +134,3 @@ export default function PriceEstimateBanner({ lang = "en" }: { lang: Locale }) {
     </section>
   );
 }
-
