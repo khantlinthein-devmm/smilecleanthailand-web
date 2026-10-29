@@ -16,6 +16,10 @@ import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceImage from "@/components/ServiceImage";
+import TrustStrip from "@/components/TrustStrip";
+import PricingPackages from "@/components/PricingPackages";
+import HomeReviews from "@/components/HomeReviews";
+import HomeFaq from "@/components/HomeFaq";
 import {
   IconArrow,
   IconCalendar,
@@ -160,6 +164,12 @@ export default async function Home({
         </div>
       </section>
 
+      {/* TRUST & SAFETY STRIP */}
+      <TrustStrip lang={locale} />
+
+      {/* POPULAR PRICING PACKAGES */}
+      <PricingPackages lang={locale} />
+
       <HowItWorks dict={dict} />
 
       {/* SERVICES */}
@@ -253,6 +263,12 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      {/* 5-STAR REVIEWS FROM GOOGLE */}
+      <HomeReviews lang={locale} />
+
+      {/* FAQ SECTION */}
+      <HomeFaq lang={locale} />
 
       <GuaranteeSection dict={dict} />
 
