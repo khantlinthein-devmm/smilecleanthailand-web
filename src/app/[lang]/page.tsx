@@ -7,7 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
 import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, WHATSAPP_NUMBER, pageMeta, toLocale, type Locale } from "@/lib/site";
-import { SERVICES, POSTS } from "@/data";
+import { SERVICES, POSTS, FAQS } from "@/data";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
 import AreasSection from "@/components/AreasSection";
@@ -64,8 +66,11 @@ export default async function Home({
   const whyIcons = [IconStar, IconShield, IconLeaf];
   const heroPoints = [dict.aboutTeaser.points[1], dict.aboutTeaser.points[3], dict.aboutTeaser.points[4]];
 
+  const faqs = FAQS.map((f) => f[locale]);
+
   return (
     <div className="overflow-hidden">
+      <JsonLd nodes={[faqSchema(faqs)]} />
       {/* HERO */}
       <Parallax className="relative bg-brand text-white">
         <div aria-hidden className="depth-back absolute -inset-4 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
