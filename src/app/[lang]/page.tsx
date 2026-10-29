@@ -17,7 +17,6 @@ import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceImage from "@/components/ServiceImage";
 import TrustStrip from "@/components/TrustStrip";
-import PriceEstimateBanner from "@/components/PriceEstimateBanner";
 import HomeReviews from "@/components/HomeReviews";
 import HomeFaq from "@/components/HomeFaq";
 import {
@@ -54,22 +53,6 @@ function Stars({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-const FROM_PRICE: Record<Locale, string> = {
-  th: "คิดตามขนาด ตร.ม.",
-  en: "Priced by sqm",
-  zh: "按平米计费",
-  my: "စတုရန်းမီတာအလိုက်",
-  ru: "По площади (кв.ม)",
-};
-
-const HERO_PRICE_BADGE: Record<Locale, string> = {
-  th: "ประเมินราคาตามขนาดพื้นที่",
-  en: "Free Estimate by Room Size",
-  zh: "按面积免费估价",
-  my: "အခမဲ့ စျေးနှုန်းတွက်ချက်ပေးခြင်း",
-  ru: "Бесплатная оценка по площади",
-};
-
 export default async function Home({
   params,
 }: {
@@ -90,16 +73,10 @@ export default async function Home({
         <div aria-hidden className="absolute -top-48 -left-40 w-[40rem] h-[40rem] rounded-full bg-white/10 blur-3xl" />
         <div className="relative container-x pt-14 pb-28 md:pt-20 md:pb-36 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
           <div className="animate-fade-up">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                {dict.hero.badge}
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-amber-400/20 border border-amber-300/40 rounded-full px-3.5 py-1.5 shadow-sm">
-                <span>🏷️</span>
-                <span>{HERO_PRICE_BADGE[locale]}</span>
-              </span>
-            </div>
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              {dict.hero.badge}
+            </span>
             <h1 className="mt-6 text-[2.5rem] leading-[1.1] md:text-6xl md:leading-[1.05] font-bold tracking-tight [perspective:900px]">
               <SplitWords text={dict.hero.titleA} delay={150} />
               <span className="block mt-4 text-2xl md:text-3xl font-semibold tracking-normal text-sky-100">
@@ -219,16 +196,11 @@ export default async function Home({
                       />
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <span className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-                            <Icon className="w-4 h-4" />
-                          </span>
-                          <div className="font-bold text-ink leading-snug truncate">{t.title}</div>
-                        </div>
-                        <span className="text-[11px] font-bold text-sky-700 bg-sky-50 border border-sky-200/80 rounded-md px-2 py-0.5 whitespace-nowrap shrink-0">
-                          {FROM_PRICE[locale]}
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+                          <Icon className="w-4 h-4" />
                         </span>
+                        <div className="font-bold text-ink leading-snug">{t.title}</div>
                       </div>
                       <p className="text-sm text-slate-600 mt-3 leading-relaxed flex-1">{t.short}</p>
                       <span className="link-arrow mt-5">
@@ -244,10 +216,7 @@ export default async function Home({
         </div>
       </section>
 
-      {/* 4. TRANSPARENT PRICING ESTIMATE (STARTING ฿1,500 BY SQM) */}
-      <PriceEstimateBanner lang={locale} />
-
-      {/* 5. 3 EASY STEPS TO A CLEAN HOME */}
+      {/* 4. 3 EASY STEPS TO A CLEAN HOME */}
       <HowItWorks dict={dict} />
 
       {/* 6. REAL BEFORE & AFTER RESULTS */}
