@@ -174,7 +174,7 @@ export default async function Home({
         </div>
       </Parallax>
 
-      {/* STATS */}
+      {/* 1. STATS */}
       <section className="relative container-x -mt-16 md:-mt-20 z-10">
         <div className="card overflow-hidden shadow-xl shadow-slate-900/5 grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-100">
           {dict.stats.map((s) => (
@@ -186,14 +186,8 @@ export default async function Home({
         </div>
       </section>
 
-      {/* TRUST & SAFETY STRIP */}
+      {/* 2. TRUST & SAFETY BADGES */}
       <TrustStrip lang={locale} />
-
-      {/* PRICE ESTIMATE BANNER (STARTING 1500 THB) */}
-      <PriceEstimateBanner lang={locale} />
-
-
-      <HowItWorks dict={dict} />
 
       {/* SERVICES */}
       <section className="section bg-slate-50 border-y border-slate-100">
@@ -250,7 +244,17 @@ export default async function Home({
         </div>
       </section>
 
+      {/* 4. TRANSPARENT PRICING ESTIMATE (STARTING ฿1,500 BY SQM) */}
+      <PriceEstimateBanner lang={locale} />
+
+      {/* 5. 3 EASY STEPS TO A CLEAN HOME */}
+      <HowItWorks dict={dict} />
+
+      {/* 6. REAL BEFORE & AFTER RESULTS */}
       <BeforeAfterSection dict={dict} lang={locale} />
+
+      {/* 7. 5-STAR GOOGLE REVIEWS (SOCIAL PROOF) */}
+      <HomeReviews lang={locale} />
 
       {/* WHY US */}
       <section className="section">
@@ -292,8 +296,7 @@ export default async function Home({
         </div>
       </section>
 
-      {/* 5-STAR REVIEWS FROM GOOGLE */}
-      <HomeReviews lang={locale} />
+
 
       {/* FAQ SECTION */}
       <HomeFaq lang={locale} />
