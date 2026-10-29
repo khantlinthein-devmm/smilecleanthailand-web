@@ -17,7 +17,6 @@ import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceImage from "@/components/ServiceImage";
 import TrustStrip from "@/components/TrustStrip";
-import PricingPackages from "@/components/PricingPackages";
 import HomeReviews from "@/components/HomeReviews";
 import HomeFaq from "@/components/HomeFaq";
 import {
@@ -167,8 +166,6 @@ export default async function Home({
       {/* TRUST & SAFETY STRIP */}
       <TrustStrip lang={locale} />
 
-      {/* POPULAR PRICING PACKAGES */}
-      <PricingPackages lang={locale} />
 
       <HowItWorks dict={dict} />
 
