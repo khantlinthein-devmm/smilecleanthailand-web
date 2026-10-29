@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
-import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
+import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, WHATSAPP_NUMBER, pageMeta, toLocale } from "@/lib/site";
 import { SERVICES, POSTS } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
@@ -25,6 +25,7 @@ import {
   IconPhone,
   IconShield,
   IconStar,
+  IconWhatsApp,
   SERVICE_ICONS,
 } from "@/components/icons";
 
@@ -88,6 +89,16 @@ export default async function Home({
               <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-lg">
                 <IconChat className="w-5 h-5" />
                 {dict.hero.ctaLine}
+              </a>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="btn btn-lg bg-[#25d366] hover:bg-[#20bd5a] text-white border-0 shadow-md inline-flex items-center gap-2"
+              >
+                <IconWhatsApp className="w-5 h-5" />
+                WhatsApp
               </a>
               <a href={PHONE_LINK} className="btn btn-ghost btn-lg">
                 <IconPhone className="w-4 h-4" />
