@@ -55,6 +55,38 @@ function Stars({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+
+const SERVICE_BADGES: Record<string, Record<Locale, { label: string; style: string }>> = {
+  "condo-cleaning": {
+    th: { label: "⭐ บริการยอดนิยม", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    en: { label: "⭐ Most Popular", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    zh: { label: "⭐ 最受欢迎", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    my: { label: "⭐ လူကြိုက်အများဆုံး", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    ru: { label: "⭐ Хит продаж", style: "bg-amber-500 text-white shadow-amber-500/30" },
+  },
+  "deep-cleaning": {
+    th: { label: "✨ ขจัดคราบฝังลึก", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    en: { label: "✨ Deep Sanitized", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    zh: { label: "✨ 强力去污", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    my: { label: "✨ အထူးသန့်ရှင်းရေး", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    ru: { label: "✨ Глубокая очистка", style: "bg-sky-600 text-white shadow-sky-600/30" },
+  },
+  "move-in-move-out": {
+    th: { label: "🔑 การันตีเงินมัดจำคืน", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    en: { label: "🔑 Deposit Refund Guarantee", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    zh: { label: "🔑 押金全退保障", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    my: { label: "🔑 စပေါ်ငွေ အာမခံ", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    ru: { label: "🔑 Возврат залога 100%", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+  },
+  "after-renovation": {
+    th: { label: "🛠️ เก็บงานละเอียด", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    en: { label: "🛠️ Post-Renovation Pro", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    zh: { label: "🛠️ 装修后精保洁", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    my: { label: "🛠️ ပြုပြင်ပြီးသန့်ရှင်းရေး", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    ru: { label: "🛠️ После ремонта", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+  },
+};
+
 export default async function Home({
   params,
 }: {
@@ -89,29 +121,58 @@ export default async function Home({
               </span>
             </h1>
             <p className="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href={`${base}/booking`} className="btn btn-white btn-lg">
-                <IconCalendar className="w-5 h-5" />
-                {dict.booking.cta}
-              </Link>
-              <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-lg">
-                <IconChat className="w-5 h-5" />
-                {dict.hero.ctaLine}
-              </a>
+            {/* PRIMARY & SECONDARY CTA GROUP */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
               <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                href={LINE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="WhatsApp"
-                className="btn btn-lg bg-[#25d366] hover:bg-[#20bd5a] text-white border-0 shadow-md inline-flex items-center gap-2"
+                className="btn btn-lg bg-[#06C755] hover:bg-[#05b34c] text-white border-0 shadow-lg shadow-[#06C755]/30 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-extrabold flex items-center justify-center gap-2.5 text-base sm:text-lg px-7 py-4 rounded-xl"
               >
-                <IconWhatsApp className="w-5 h-5" />
-                WhatsApp
+                <IconChat className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                <span>{locale === "th" ? "ส่งรูปประเมินราคาฟรีทาง LINE" : dict.hero.ctaLine}</span>
               </a>
-              <a href={PHONE_LINK} className="btn btn-ghost btn-lg">
-                <IconPhone className="w-4 h-4" />
-                {PHONE_DISPLAY}
-              </a>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="btn btn-lg bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-sm transition-all duration-200 inline-flex items-center gap-2 rounded-xl"
+                >
+                  <IconWhatsApp className="w-5 h-5 text-emerald-300" />
+                  <span>WhatsApp</span>
+                </a>
+
+                <a
+                  href={PHONE_LINK}
+                  className="btn btn-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm transition-all duration-200 inline-flex items-center gap-2 rounded-xl"
+                >
+                  <IconPhone className="w-4 h-4" />
+                  <span>{PHONE_DISPLAY}</span>
+                </a>
+              </div>
+            </div>
+
+            {/* RESPONSE TIME & TRUST MICRO-COPY */}
+            <div className="mt-3.5 flex flex-wrap items-center gap-3 text-xs sm:text-sm text-sky-100/95 font-medium">
+              <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                {locale === "th" ? "แอดมินตอบไวใน 5-10 นาที" : "Fast reply within 5-10 mins"}
+              </span>
+              <span>
+                {locale === "th"
+                  ? "• ส่งรูปห้องประเมินราคาฟรี ไม่มีข้อผูกมัด"
+                  : "• Free instant estimate • No app required"}
+              </span>
+              <Link
+                href={`${base}/booking`}
+                className="text-xs text-sky-200 hover:text-white underline underline-offset-4 ml-auto inline-flex items-center gap-1"
+              >
+                <IconCalendar className="w-3.5 h-3.5" />
+                <span>{dict.booking.cta}</span>
+              </Link>
             </div>
             <ul className="mt-10 grid sm:grid-cols-3 gap-3 text-sm text-white/90">
               {heroPoints.map((p) => (
@@ -188,11 +249,17 @@ export default async function Home({
             {SERVICES.map((s, i) => {
               const t = s[locale];
               const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
+              const badge = SERVICE_BADGES[s.slug]?.[locale];
               return (
                 <Reveal key={s.slug} delay={(i % 4) * 70}>
                   <Tilt>
                   <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 bg-white">
                     <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
+                      {badge && (
+                        <span className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-md tracking-tight ${badge.style}`}>
+                          {badge.label}
+                        </span>
+                      )}
                       <ServiceImage
                         service={s}
                         alt={t.title}
