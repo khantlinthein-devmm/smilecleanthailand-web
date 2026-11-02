@@ -218,12 +218,19 @@ export default async function Home({
       </Parallax>
 
       {/* 1. STATS */}
-      <section className="relative container-x -mt-16 md:-mt-20 z-10">
-        <div className="card overflow-hidden shadow-xl shadow-slate-900/5 grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-100">
+      <section className="relative container-x -mt-14 md:-mt-16 z-10">
+        <div className="rounded-3xl overflow-hidden bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {dict.stats.map((s) => (
-            <div key={s.label} className="bg-white p-6 md:p-8 text-center">
-              <div className="text-3xl md:text-4xl font-bold text-ink tracking-tight">{s.value}</div>
-              <div className="mt-1.5 text-sm text-slate-500">{s.label}</div>
+            <div
+              key={s.label}
+              className="p-6 md:py-8 md:px-6 text-center hover:bg-sky-50/40 transition-colors duration-200 group"
+            >
+              <div className="text-3xl md:text-4xl font-black tracking-tight text-ink group-hover:text-sky-600 transition-colors">
+                {s.value}
+              </div>
+              <div className="mt-1.5 text-xs md:text-sm font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+                {s.label}
+              </div>
             </div>
           ))}
         </div>
