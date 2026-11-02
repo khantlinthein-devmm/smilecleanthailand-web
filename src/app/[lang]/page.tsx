@@ -6,8 +6,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
-import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
-import { SERVICES, POSTS } from "@/data";
+import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, WHATSAPP_NUMBER, pageMeta, toLocale, type Locale } from "@/lib/site";
+import { SERVICES, POSTS, FAQS } from "@/data";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
 import CtaBand from "@/components/CtaBand";
 import HowItWorks from "@/components/HowItWorks";
 import AreasSection from "@/components/AreasSection";
@@ -16,6 +18,10 @@ import BeforeAfterSection from "@/components/BeforeAfterSection";
 import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import ServiceImage from "@/components/ServiceImage";
+import TrustStrip from "@/components/TrustStrip";
+import HomeReviews from "@/components/HomeReviews";
+import HomeFaq from "@/components/HomeFaq";
+import PricingSection from "@/components/PricingSection";
 import {
   IconArrow,
   IconCalendar,
@@ -25,6 +31,7 @@ import {
   IconPhone,
   IconShield,
   IconStar,
+  IconWhatsApp,
   SERVICE_ICONS,
 } from "@/components/icons";
 
@@ -36,7 +43,7 @@ export async function generateMetadata({
   const locale = toLocale((await params).lang);
   const dict = await getDictionary(locale);
   const meta = pageMeta(locale, "", dict.meta.homeTitle, dict.meta.homeDescription);
-  return { ...meta, title: { absolute: `${dict.meta.homeTitle} | Smile Clean Thailand` } };
+  return { ...meta, title: { absolute: `Smile Clean Thailand — ${dict.meta.homeTitle}` } };
 }
 
 function Stars({ className = "w-4 h-4" }: { className?: string }) {
@@ -49,6 +56,38 @@ function Stars({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+
+const SERVICE_BADGES: Record<string, Record<Locale, { label: string; style: string }>> = {
+  "condo-cleaning": {
+    th: { label: "⭐ บริการยอดนิยม", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    en: { label: "⭐ Most Popular", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    zh: { label: "⭐ 最受欢迎", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    my: { label: "⭐ လူကြိုက်အများဆုံး", style: "bg-amber-500 text-white shadow-amber-500/30" },
+    ru: { label: "⭐ Хит продаж", style: "bg-amber-500 text-white shadow-amber-500/30" },
+  },
+  "deep-cleaning": {
+    th: { label: "✨ ขจัดคราบฝังลึก", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    en: { label: "✨ Deep Sanitized", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    zh: { label: "✨ 强力去污", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    my: { label: "✨ အထူးသန့်ရှင်းရေး", style: "bg-sky-600 text-white shadow-sky-600/30" },
+    ru: { label: "✨ Глубокая очистка", style: "bg-sky-600 text-white shadow-sky-600/30" },
+  },
+  "move-in-move-out": {
+    th: { label: "🔑 การันตีเงินมัดจำคืน", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    en: { label: "🔑 Deposit Refund Guarantee", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    zh: { label: "🔑 押金全退保障", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    my: { label: "🔑 စပေါ်ငွေ အာမခံ", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+    ru: { label: "🔑 Возврат залога 100%", style: "bg-emerald-600 text-white shadow-emerald-600/30" },
+  },
+  "after-renovation": {
+    th: { label: "🛠️ เก็บงานละเอียด", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    en: { label: "🛠️ Post-Renovation Pro", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    zh: { label: "🛠️ 装修后精保洁", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    my: { label: "🛠️ ပြုပြင်ပြီးသန့်ရှင်းရေး", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+    ru: { label: "🛠️ После ремонта", style: "bg-indigo-600 text-white shadow-indigo-600/30" },
+  },
+};
+
 export default async function Home({
   params,
 }: {
@@ -60,8 +99,11 @@ export default async function Home({
   const whyIcons = [IconStar, IconShield, IconLeaf];
   const heroPoints = [dict.aboutTeaser.points[1], dict.aboutTeaser.points[3], dict.aboutTeaser.points[4]];
 
+  const faqs = FAQS.map((f) => f[locale]);
+
   return (
     <div className="overflow-hidden">
+      <JsonLd nodes={[faqSchema(faqs)]} />
       {/* HERO */}
       <Parallax className="relative bg-brand text-white">
         <div aria-hidden className="depth-back absolute -inset-4 bg-grid [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
@@ -80,19 +122,60 @@ export default async function Home({
               </span>
             </h1>
             <p className="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href={`${base}/booking`} className="btn btn-white btn-lg">
-                <IconCalendar className="w-5 h-5" />
-                {dict.booking.cta}
-              </Link>
-              <a href={LINE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-lg">
-                <IconChat className="w-5 h-5" />
-                {dict.hero.ctaLine}
+            {/* CTA ACTION CONTAINER - BALANCED 2-TIER DESIGN */}
+            <div className="mt-8 max-w-lg space-y-3">
+              {/* PRIMARY LINE BUTTON */}
+              <a
+                href={LINE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden w-full h-14 bg-gradient-to-r from-[#06C755] to-[#05b34c] hover:from-[#05b34c] hover:to-[#049b42] text-white rounded-2xl shadow-xl shadow-[#06C755]/25 hover:shadow-[#06C755]/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-200 font-extrabold flex items-center justify-center gap-3 text-base sm:text-lg border border-white/20"
+              >
+                <span className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <IconChat className="w-5 h-5 text-white" />
+                </span>
+                <span>{locale === "th" ? "ส่งรูปประเมินราคาฟรีทาง LINE" : dict.hero.ctaLine}</span>
               </a>
-              <a href={PHONE_LINK} className="btn btn-ghost btn-lg">
-                <IconPhone className="w-4 h-4" />
-                {PHONE_DISPLAY}
-              </a>
+
+              {/* SECONDARY ROW (PERFECTLY EQUAL DUAL BUTTONS) */}
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 hover:border-white/40 backdrop-blur-md shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2.5 font-bold text-sm"
+                >
+                  <IconWhatsApp className="w-4 h-4 text-emerald-300" />
+                  <span>WhatsApp</span>
+                </a>
+
+                <a
+                  href={PHONE_LINK}
+                  className="h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 hover:border-white/40 backdrop-blur-md shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 font-bold text-sm"
+                >
+                  <IconPhone className="w-4 h-4" />
+                  <span>{PHONE_DISPLAY}</span>
+                </a>
+              </div>
+
+              {/* RESPONSE GUARANTEE & TRUST MICRO-COPY */}
+              <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-sky-100/90 font-medium">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/15">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  {locale === "th" ? "แอดมินตอบไวใน 5-10 นาที" : "Fast reply within 5-10 mins"}
+                </span>
+                <span className="text-white/80 hidden sm:inline">
+                  {locale === "th" ? "• ประเมินราคาฟรี ไม่มีข้อผูกมัด" : "• Free instant estimate"}
+                </span>
+                <Link
+                  href={`${base}/booking`}
+                  className="text-sky-200 hover:text-white underline underline-offset-4 ml-auto inline-flex items-center gap-1 font-semibold"
+                >
+                  <IconCalendar className="w-3.5 h-3.5" />
+                  <span>{dict.booking.cta}</span>
+                </Link>
+              </div>
             </div>
             <ul className="mt-10 grid sm:grid-cols-3 gap-3 text-sm text-white/90">
               {heroPoints.map((p) => (
@@ -137,19 +220,27 @@ export default async function Home({
         </div>
       </Parallax>
 
-      {/* STATS */}
-      <section className="relative container-x -mt-16 md:-mt-20 z-10">
-        <div className="card overflow-hidden shadow-xl shadow-slate-900/5 grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-100">
+      {/* 1. STATS */}
+      <section className="relative container-x -mt-14 md:-mt-16 z-10">
+        <div className="rounded-3xl overflow-hidden bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {dict.stats.map((s) => (
-            <div key={s.label} className="bg-white p-6 md:p-8 text-center">
-              <div className="text-3xl md:text-4xl font-bold text-ink tracking-tight">{s.value}</div>
-              <div className="mt-1.5 text-sm text-slate-500">{s.label}</div>
+            <div
+              key={s.label}
+              className="p-6 md:py-8 md:px-6 text-center hover:bg-sky-50/40 transition-colors duration-200 group"
+            >
+              <div className="text-3xl md:text-4xl font-black tracking-tight text-ink group-hover:text-sky-600 transition-colors">
+                {s.value}
+              </div>
+              <div className="mt-1.5 text-xs md:text-sm font-medium text-slate-500 group-hover:text-slate-700 transition-colors">
+                {s.label}
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <HowItWorks dict={dict} />
+      {/* 2. TRUST & SAFETY BADGES */}
+      <TrustStrip lang={locale} />
 
       {/* SERVICES */}
       <section className="section bg-slate-50 border-y border-slate-100">
@@ -168,29 +259,39 @@ export default async function Home({
             {SERVICES.map((s, i) => {
               const t = s[locale];
               const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
+              const badge = SERVICE_BADGES[s.slug]?.[locale];
               return (
                 <Reveal key={s.slug} delay={(i % 4) * 70}>
                   <Tilt>
-                  <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
+                  <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 bg-white">
                     <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
+                      {badge && (
+                        <span className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-md tracking-tight ${badge.style}`}>
+                          {badge.label}
+                        </span>
+                      )}
                       <ServiceImage
                         service={s}
                         alt={t.title}
                         sizes="(min-width: 1024px) 270px, (min-width: 640px) 50vw, 100vw"
                         className="group-hover:scale-105 transition-transform duration-500"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-sky-950/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </span>
-                        <div className="font-bold text-ink leading-snug">{t.title}</div>
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 ring-2 ring-sky-100/60 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">
+                            <Icon className="w-4 h-4" />
+                          </span>
+                          <div className="font-bold text-ink leading-snug group-hover:text-sky-700 transition-colors">{t.title}</div>
+                        </div>
+                        <p className="text-sm text-slate-600 mt-3 leading-relaxed">{t.short}</p>
                       </div>
-                      <p className="text-sm text-slate-600 mt-3 leading-relaxed flex-1">{t.short}</p>
-                      <span className="link-arrow mt-5">
-                        {dict.common.readMore} <IconArrow className="w-4 h-4" />
-                      </span>
+                      <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-sky-600 group-hover:translate-x-1 transition-transform">
+                        <span>{dict.common.readMore}</span>
+                        <IconArrow className="w-3.5 h-3.5" />
+                      </div>
                     </div>
                   </Link>
                   </Tilt>
@@ -201,7 +302,17 @@ export default async function Home({
         </div>
       </section>
 
+      {/* PRICING TABLE (2 LANGUAGES) */}
+      <PricingSection lang={locale} />
+
+      {/* 4. 3 EASY STEPS TO A CLEAN HOME */}
+      <HowItWorks dict={dict} lang={locale} />
+
+      {/* 6. REAL BEFORE & AFTER RESULTS */}
       <BeforeAfterSection dict={dict} lang={locale} />
+
+      {/* 7. 5-STAR GOOGLE REVIEWS (SOCIAL PROOF) */}
+      <HomeReviews lang={locale} />
 
       {/* WHY US */}
       <section className="section">
@@ -243,6 +354,11 @@ export default async function Home({
         </div>
       </section>
 
+
+
+      {/* FAQ SECTION */}
+      <HomeFaq lang={locale} />
+
       <GuaranteeSection dict={dict} />
 
       <AreasSection dict={dict} className="bg-slate-50 border-b border-slate-100" />
@@ -259,27 +375,53 @@ export default async function Home({
               </Link>
             }
           />
-          <div className="mt-12 grid md:grid-cols-3 gap-5">
-            {POSTS.map((p, i) => {
-              const t = p[locale];
-              return (
-                <Reveal key={p.slug} delay={i * 90}>
-                  <Link href={`${base}/blog/${p.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
-                    <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
-                      <Image src={p.image} alt="" fill sizes="(min-width: 768px) 370px, 100vw" unoptimized={p.image.endsWith(".svg")} className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <time dateTime={p.date} className="text-xs font-medium text-slate-400">{p.date}</time>
-                      <div className="font-bold text-lg text-ink mt-2 leading-snug">{t.title}</div>
-                      <p className="text-sm text-slate-600 mt-2 leading-relaxed flex-1">{t.excerpt}</p>
-                      <span className="link-arrow mt-5">
-                        {dict.common.readMore} <IconArrow className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              );
-            })}
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {[...POSTS]
+              .sort((a, b) => b.date.localeCompare(a.date))
+              .slice(0, 6)
+              .map((p, i) => {
+                const t = p[locale];
+                return (
+                  <Reveal key={p.slug} delay={(i % 3) * 80}>
+                    <Link
+                      href={`${base}/blog/${p.slug}`}
+                      className="group card card-hover flex flex-col overflow-hidden h-full rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 bg-white"
+                    >
+                      <div className="relative aspect-[16/10] overflow-hidden bg-sky-50">
+                        <Image
+                          src={p.image}
+                          alt={t.title}
+                          fill
+                          sizes="(min-width: 768px) 370px, 100vw"
+                          unoptimized={p.image.endsWith(".svg")}
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                        <time
+                          dateTime={p.date}
+                          className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 backdrop-blur-sm text-slate-700 shadow-sm"
+                        >
+                          {p.date}
+                        </time>
+                      </div>
+                      <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="font-bold text-lg text-ink leading-snug group-hover:text-sky-600 transition-colors">
+                            {t.title}
+                          </h3>
+                          <p className="text-sm text-slate-600 mt-2.5 leading-relaxed line-clamp-3">
+                            {t.excerpt}
+                          </p>
+                        </div>
+                        <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform">
+                          <span>{dict.common.readMore}</span>
+                          <IconArrow className="w-3.5 h-3.5" />
+                        </div>
+                      </div>
+                    </Link>
+                  </Reveal>
+                );
+              })}
           </div>
         </div>
       </section>

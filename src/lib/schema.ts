@@ -21,6 +21,13 @@ export function businessSchema(locale: Locale, dict: Dict) {
     telephone: TEL,
     email: EMAIL,
     priceRange: "฿฿",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "500",
+      bestRating: "5",
+      worstRating: "1",
+    },
     founder: { "@type": "Person", name: "Miss P", jobTitle: "Founder & Owner", image: `${SITE_URL}/personal/founder.webp` },
     paymentAccepted: "Bank transfer, Credit card, Debit card",
     currenciesAccepted: "THB",
