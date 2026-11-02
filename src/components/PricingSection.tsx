@@ -388,25 +388,25 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
         </div>
 
         {/* Guarantee Banner */}
-        <div className="mt-12 rounded-2xl bg-gradient-to-r from-sky-900 to-navy-900 p-6 sm:p-8 text-white shadow-lg">
+        <div className="mt-12 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-6 sm:p-8 text-white shadow-xl border border-sky-800/40">
           <div className="grid md:grid-cols-3 gap-6 items-center">
             <div className="md:col-span-1">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-sky-200 backdrop-blur-xs">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 px-3 py-1 text-xs font-semibold text-sky-200">
                 <IconShield className="w-4 h-4 text-sky-300" />
                 Service Guarantee
               </span>
               <h4 className="mt-2 text-lg sm:text-xl font-bold text-white leading-snug">
                 {t.guaranteeTitle}
               </h4>
-              <p className="mt-2 text-xs text-sky-100/80 leading-relaxed">
+              <p className="mt-2 text-xs text-slate-300 leading-relaxed">
                 {t.noteFooter}
               </p>
             </div>
             <div className="md:col-span-2 grid sm:grid-cols-2 gap-3">
               {t.guaranteeItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-2.5 rounded-xl bg-white/5 p-3 backdrop-blur-xs border border-white/10">
+                <div key={i} className="flex items-start gap-2.5 rounded-xl bg-white/10 p-3.5 border border-white/15 shadow-sm">
                   <IconCheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs text-sky-100 leading-relaxed font-medium">{item}</span>
+                  <span className="text-xs text-white leading-relaxed font-medium">{item}</span>
                 </div>
               ))}
             </div>
