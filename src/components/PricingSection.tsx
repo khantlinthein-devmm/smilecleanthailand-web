@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { LINE_URL, WHATSAPP_NUMBER, type Locale } from "@/lib/site";
+import { LINE_URL, type Locale } from "@/lib/site";
 import Reveal from "./Reveal";
 import SectionHeader from "./SectionHeader";
 import { IconArrow, IconCheckCircle, IconChat, IconClock, IconSparkle, IconShield } from "./icons";
@@ -11,6 +12,7 @@ export interface PricingItem {
   id: string;
   category: "residence" | "deep" | "special";
   slug: string;
+  image: string;
   badge?: Record<Locale, string>;
   th: {
     title: string;
@@ -34,6 +36,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "condo-basic",
     category: "residence",
     slug: "condo-cleaning",
+    image: "/services/condo-cleaning.webp",
     badge: {
       th: "⭐ ยอดนิยม",
       en: "⭐ Popular",
@@ -43,10 +46,10 @@ export const PRICING_ITEMS: PricingItem[] = [
     },
     th: {
       title: "คอนโดทำความสะอาดทั่วไป",
-      subtitle: "Condo Basic",
+      subtitle: "Condo Basic Cleaning",
       scope: "พื้นที่ไม่เกิน 30 ตร.ม.",
       duration: "2–4 ชั่วโมง",
-      highlight: "กวาด ถู ดูดฝุ่น ทำความสะอาดห้องน้ำ ระเบียง จัดระเบียบห้องพัก",
+      highlight: "กวาด ถู ดูดฝุ่น ทำความสะอาดห้องน้ำ ระเบียง และจัดระเบียบห้องพัก",
     },
     en: {
       title: "Condo Basic Cleaning",
@@ -61,6 +64,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "condo-deep",
     category: "deep",
     slug: "deep-cleaning",
+    image: "/services/deep-cleaning.webp",
     badge: {
       th: "✨ ขัดล้ำลึก",
       en: "✨ Deep Scrub",
@@ -88,6 +92,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "move-in-out",
     category: "deep",
     slug: "move-in-move-out",
+    image: "/services/move-in-move-out.webp",
     badge: {
       th: "🔑 การันตีตรวจผ่าน",
       en: "🔑 Deposit Refund",
@@ -115,6 +120,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "townhouse-basic",
     category: "residence",
     slug: "house-cleaning",
+    image: "/services/house-cleaning.webp",
     th: {
       title: "ทาวน์เฮาส์ทำความสะอาดทั่วไป",
       subtitle: "Townhouse Basic",
@@ -135,6 +141,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "townhouse-deep",
     category: "deep",
     slug: "deep-cleaning",
+    image: "/services/after-renovation.webp",
     th: {
       title: "ทาวน์เฮาส์บิ๊กคลีนนิ่ง",
       subtitle: "Townhouse Deep Cleaning",
@@ -155,6 +162,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "mattress-cleaning",
     category: "special",
     slug: "deep-cleaning",
+    image: "/services/deep-cleaning.webp",
     badge: {
       th: "🛏️ ฆ่าไรฝุ่น",
       en: "🛏️ Anti-Dustmite",
@@ -182,6 +190,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "sofa-cleaning",
     category: "special",
     slug: "deep-cleaning",
+    image: "/services/house-cleaning.webp",
     th: {
       title: "ซักทำความสะอาดโซฟา 2 ที่นั่ง",
       subtitle: "Sofa Upholstery Cleaning",
@@ -202,6 +211,7 @@ export const PRICING_ITEMS: PricingItem[] = [
     id: "bird-netting",
     category: "special",
     slug: "deep-cleaning",
+    image: "/services/condo-cleaning.webp",
     th: {
       title: "ทำความสะอาดตาข่ายกันนก",
       subtitle: "Bird Netting Cleaning",
@@ -222,17 +232,17 @@ export const PRICING_ITEMS: PricingItem[] = [
 
 const UI_TEXT = {
   th: {
-    eyebrow: "ราคาชัดเจน ไม่มีบวกเพิ่มหน้างาน",
-    title: "อัตราค่าบริการมาตรฐาน",
-    subtitle: "ราคาเริ่มต้นโปร่งใส บริการนำอุปกรณ์และน้ำยาเกรดพาณิชย์ไปเองครบชุด ลูกค้าไม่ต้องเตรียมอะไรไว้เลย",
-    all: "ทั้งหมด (8)",
+    eyebrow: "บริการและอัตราค่าทำความสะอาด",
+    title: "บริการทำความสะอาด & อัตราค่าบริการ",
+    subtitle: "บริการนำอุปกรณ์และน้ำยาเกรดพาณิชย์ไปเองครบชุด ลูกค้าไม่ต้องเตรียมสิ่งใดไว้เลย ราคาโปร่งใส ประเมินได้ทันที",
+    all: "ทั้งหมด (8 บริการ)",
     residence: "บ้าน & คอนโดทั่วไป",
     deep: "บิ๊กคลีนนิ่ง & ย้ายเข้า-ออก",
     special: "ซักเบาะ/ที่นอน & ตาข่าย",
     from: "เริ่มต้น",
     baht: "บาท",
     bookNow: "จองบริการนี้",
-    quickQuote: "ประเมินราคาทาง LINE",
+    quickQuote: "ประเมินราคา LINE",
     equipIncluded: "นำอุปกรณ์และน้ำยาเกรดพาณิชย์ไปเองครบชุด",
     noteFooter: "ราคาประเมินจริงขึ้นอยู่กับขนาดพื้นที่ (ตร.ม.), พิกัดสถานที่ และสภาพหน้างานจริง ยินดีประเมินราคาฟรีผ่านรูปถ่าย",
     guaranteeTitle: "มั่นใจกับมาตรฐาน Smile Clean Thailand",
@@ -244,9 +254,9 @@ const UI_TEXT = {
     ],
   },
   en: {
-    eyebrow: "Transparent Pricing · No Hidden Fees",
-    title: "Standard Service Rates",
-    subtitle: "Clear starting rates. We bring all professional commercial equipment and supplies — you don't need to prepare anything.",
+    eyebrow: "Services & Transparent Rates",
+    title: "Our Cleaning Services & Pricing",
+    subtitle: "We bring all professional commercial equipment and supplies — you don't need to prepare anything. Transparent starting rates.",
     all: "All Services (8)",
     residence: "Home & Condo Basic",
     deep: "Deep Clean & Move-in/out",
@@ -254,7 +264,7 @@ const UI_TEXT = {
     from: "Starting from",
     baht: "THB",
     bookNow: "Book This Service",
-    quickQuote: "Quick Quote on LINE",
+    quickQuote: "LINE Quick Quote",
     equipIncluded: "All commercial equipment & chemicals included",
     noteFooter: "Actual quote depends on exact floor area (sq.m.), location, and on-site condition. Send photos for a free instant estimate.",
     guaranteeTitle: "Why Choose Smile Clean Thailand",
@@ -275,7 +285,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
   const filteredItems = filter === "all" ? PRICING_ITEMS : PRICING_ITEMS.filter((item) => item.category === filter);
 
   return (
-    <section id="pricing" className="section bg-slate-50 border-b border-slate-200/80">
+    <section id="services" className="section bg-slate-50 border-b border-slate-200/80">
       <div className="container-x">
         <SectionHeader
           eyebrow={t.eyebrow}
@@ -295,7 +305,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
               key={tab.id}
               type="button"
               onClick={() => setFilter(tab.id as any)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
+              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 filter === tab.id
                   ? "bg-sky-600 text-white shadow-md shadow-sky-600/25"
                   : "bg-white text-slate-600 border border-slate-200 hover:border-sky-300 hover:text-sky-600"
@@ -306,80 +316,91 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
           ))}
         </div>
 
-        {/* Pricing Cards Grid */}
+        {/* Unified Service & Pricing Cards Grid */}
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {filteredItems.map((item, idx) => {
             const data = isEn ? item.en : item.th;
             const badge = item.badge?.[lang] || item.badge?.th;
             return (
               <Reveal key={item.id} delay={(idx % 4) * 60}>
-                <div className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200/90 p-6 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 h-full">
-                  {badge && (
-                    <span className="absolute -top-3 left-4 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-white shadow-sm shadow-amber-500/20">
-                      {badge}
+                <div className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 h-full overflow-hidden">
+                  
+                  {/* Photo Header */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-sky-50">
+                    <Image
+                      src={item.image}
+                      alt={data.title}
+                      fill
+                      sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
+                    
+                    {badge && (
+                      <span className="absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-white shadow-md shadow-amber-500/30">
+                        {badge}
+                      </span>
+                    )}
+
+                    <span className="absolute bottom-2.5 right-3 z-10 px-2 py-0.5 rounded-md bg-slate-900/75 text-white text-[11px] font-medium backdrop-blur-xs">
+                      {data.scope}
                     </span>
-                  )}
-
-                  <div>
-                    {/* Header */}
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <h3 className="font-bold text-base sm:text-lg text-ink group-hover:text-sky-600 transition-colors leading-snug">
-                          {data.title}
-                        </h3>
-                        <p className="text-xs text-slate-400 font-medium mt-0.5">
-                          {data.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Price Tag */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline gap-1.5">
-                      <span className="text-xs text-slate-500 font-medium">{t.from}</span>
-                      <span className="text-2xl sm:text-3xl font-extrabold text-sky-600 tracking-tight">
-                        ฿{item.startingPriceThb.toLocaleString()}
-                      </span>
-                      <span className="text-xs text-slate-500 font-semibold">{t.baht}</span>
-                    </div>
-
-                    {/* Scope & Time Badges */}
-                    <div className="mt-3 flex flex-wrap gap-1.5 text-[11px]">
-                      <span className="inline-flex items-center gap-1 rounded-md bg-sky-50 px-2 py-0.5 font-medium text-sky-700">
-                        <IconSparkle className="w-3 h-3 text-sky-500" />
-                        {data.scope}
-                      </span>
-                      {data.duration && (
-                        <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 font-medium text-slate-600">
-                          <IconClock className="w-3 h-3 text-slate-400" />
-                          {data.duration}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Highlight Description */}
-                    <p className="mt-3.5 text-xs text-slate-600 leading-relaxed">
-                      {data.highlight}
-                    </p>
                   </div>
 
-                  {/* Actions */}
-                  <div className="mt-6 pt-4 border-t border-slate-100 space-y-2">
-                    <Link
-                      href={`/${lang}/booking?service=${item.slug}`}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-3 py-2 text-xs font-bold text-white hover:bg-sky-500 transition-colors shadow-sm shadow-sky-600/20"
-                    >
-                      <span>{t.bookNow}</span>
-                      <IconArrow className="w-3.5 h-3.5" />
-                    </Link>
-                    <a
-                      href={LINE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-emerald-400 hover:text-emerald-600 transition-colors"
-                    >
-                      <IconChat className="w-3.5 h-3.5 text-emerald-500" />
-                      <span>{t.quickQuote}</span>
-                    </a>
+                  {/* Body Content */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-base sm:text-lg text-ink group-hover:text-sky-600 transition-colors leading-snug">
+                        {data.title}
+                      </h3>
+                      <p className="text-xs text-slate-400 font-medium mt-0.5">
+                        {data.subtitle}
+                      </p>
+
+                      {/* Price Row */}
+                      <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-baseline gap-1.5">
+                        <span className="text-xs text-slate-500 font-medium">{t.from}</span>
+                        <span className="text-2xl sm:text-3xl font-extrabold text-sky-600 tracking-tight">
+                          ฿{item.startingPriceThb.toLocaleString()}
+                        </span>
+                        <span className="text-xs text-slate-500 font-semibold">{t.baht}</span>
+                      </div>
+
+                      {/* Time Duration Badge */}
+                      {data.duration && (
+                        <div className="mt-2.5">
+                          <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
+                            <IconClock className="w-3 h-3 text-slate-400" />
+                            {data.duration}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Highlight Description */}
+                      <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+                        {data.highlight}
+                      </p>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="mt-5 pt-3.5 border-t border-slate-100 space-y-2">
+                      <Link
+                        href={`/${lang}/booking?service=${item.slug}`}
+                        className="w-full flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-3 py-2 text-xs font-bold text-white hover:bg-sky-500 transition-colors shadow-sm shadow-sky-600/20"
+                      >
+                        <span>{t.bookNow}</span>
+                        <IconArrow className="w-3.5 h-3.5" />
+                      </Link>
+                      <a
+                        href={LINE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-emerald-400 hover:text-emerald-600 transition-colors"
+                      >
+                        <IconChat className="w-3.5 h-3.5 text-emerald-500" />
+                        <span>{t.quickQuote}</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -416,4 +437,3 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
     </section>
   );
 }
-

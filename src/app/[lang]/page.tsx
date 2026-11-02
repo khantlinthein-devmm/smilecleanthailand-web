@@ -242,67 +242,7 @@ export default async function Home({
       {/* 2. TRUST & SAFETY BADGES */}
       <TrustStrip lang={locale} />
 
-      {/* SERVICES */}
-      <section className="section bg-slate-50 border-y border-slate-100">
-        <div className="container-x">
-          <SectionHeader
-            eyebrow={dict.servicesSection.eyebrow}
-            title={dict.servicesSection.title}
-            subtitle={dict.servicesSection.subtitle}
-            action={
-              <Link href={`${base}/services`} className="btn btn-outline">
-                {dict.common.viewAll} <IconArrow className="w-4 h-4" />
-              </Link>
-            }
-          />
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {SERVICES.map((s, i) => {
-              const t = s[locale];
-              const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
-              const badge = SERVICE_BADGES[s.slug]?.[locale];
-              return (
-                <Reveal key={s.slug} delay={(i % 4) * 70}>
-                  <Tilt>
-                  <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 bg-white">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
-                      {badge && (
-                        <span className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-md tracking-tight ${badge.style}`}>
-                          {badge.label}
-                        </span>
-                      )}
-                      <ServiceImage
-                        service={s}
-                        alt={t.title}
-                        sizes="(min-width: 1024px) 270px, (min-width: 640px) 50vw, 100vw"
-                        className="group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-sky-950/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 ring-2 ring-sky-100/60 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">
-                            <Icon className="w-4 h-4" />
-                          </span>
-                          <div className="font-bold text-ink leading-snug group-hover:text-sky-700 transition-colors">{t.title}</div>
-                        </div>
-                        <p className="text-sm text-slate-600 mt-3 leading-relaxed">{t.short}</p>
-                      </div>
-                      <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-sky-600 group-hover:translate-x-1 transition-transform">
-                        <span>{dict.common.readMore}</span>
-                        <IconArrow className="w-3.5 h-3.5" />
-                      </div>
-                    </div>
-                  </Link>
-                  </Tilt>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING TABLE (2 LANGUAGES) */}
+      {/* UNIFIED SERVICES & PRICING (ALL-IN-ONE) */}
       <PricingSection lang={locale} />
 
       {/* 4. 3 EASY STEPS TO A CLEAN HOME */}
