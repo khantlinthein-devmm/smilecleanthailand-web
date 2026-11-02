@@ -121,58 +121,60 @@ export default async function Home({
               </span>
             </h1>
             <p className="mt-6 text-lg text-white/85 leading-relaxed max-w-xl">{dict.hero.subtitle}</p>
-            {/* PRIMARY & SECONDARY CTA GROUP */}
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
+            {/* CTA ACTION CONTAINER - BALANCED 2-TIER DESIGN */}
+            <div className="mt-8 max-w-lg space-y-3">
+              {/* PRIMARY LINE BUTTON */}
               <a
                 href={LINE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-lg bg-[#06C755] hover:bg-[#05b34c] text-white border-0 shadow-lg shadow-[#06C755]/30 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-extrabold flex items-center justify-center gap-2.5 text-base sm:text-lg px-7 py-4 rounded-xl"
+                className="group relative overflow-hidden w-full h-14 bg-gradient-to-r from-[#06C755] to-[#05b34c] hover:from-[#05b34c] hover:to-[#049b42] text-white rounded-2xl shadow-xl shadow-[#06C755]/25 hover:shadow-[#06C755]/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-200 font-extrabold flex items-center justify-center gap-3 text-base sm:text-lg border border-white/20"
               >
-                <IconChat className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+                <span className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <IconChat className="w-5 h-5 text-white" />
+                </span>
                 <span>{locale === "th" ? "ส่งรูปประเมินราคาฟรีทาง LINE" : dict.hero.ctaLine}</span>
               </a>
 
-              <div className="flex flex-wrap items-center gap-2.5">
+              {/* SECONDARY ROW (PERFECTLY EQUAL DUAL BUTTONS) */}
+              <div className="grid grid-cols-2 gap-3">
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
-                  className="btn btn-lg bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-sm transition-all duration-200 inline-flex items-center gap-2 rounded-xl"
+                  className="h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 hover:border-white/40 backdrop-blur-md shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2.5 font-bold text-sm"
                 >
-                  <IconWhatsApp className="w-5 h-5 text-emerald-300" />
+                  <IconWhatsApp className="w-4 h-4 text-emerald-300" />
                   <span>WhatsApp</span>
                 </a>
 
                 <a
                   href={PHONE_LINK}
-                  className="btn btn-lg bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm transition-all duration-200 inline-flex items-center gap-2 rounded-xl"
+                  className="h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/20 hover:border-white/40 backdrop-blur-md shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 font-bold text-sm"
                 >
                   <IconPhone className="w-4 h-4" />
                   <span>{PHONE_DISPLAY}</span>
                 </a>
               </div>
-            </div>
 
-            {/* RESPONSE TIME & TRUST MICRO-COPY */}
-            <div className="mt-3.5 flex flex-wrap items-center gap-3 text-xs sm:text-sm text-sky-100/95 font-medium">
-              <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-3 py-1 rounded-full border border-white/20">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                {locale === "th" ? "แอดมินตอบไวใน 5-10 นาที" : "Fast reply within 5-10 mins"}
-              </span>
-              <span>
-                {locale === "th"
-                  ? "• ส่งรูปห้องประเมินราคาฟรี ไม่มีข้อผูกมัด"
-                  : "• Free instant estimate • No app required"}
-              </span>
-              <Link
-                href={`${base}/booking`}
-                className="text-xs text-sky-200 hover:text-white underline underline-offset-4 ml-auto inline-flex items-center gap-1"
-              >
-                <IconCalendar className="w-3.5 h-3.5" />
-                <span>{dict.booking.cta}</span>
-              </Link>
+              {/* RESPONSE GUARANTEE & TRUST MICRO-COPY */}
+              <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-xs text-sky-100/90 font-medium">
+                <span className="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/15">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  {locale === "th" ? "แอดมินตอบไวใน 5-10 นาที" : "Fast reply within 5-10 mins"}
+                </span>
+                <span className="text-white/80 hidden sm:inline">
+                  {locale === "th" ? "• ประเมินราคาฟรี ไม่มีข้อผูกมัด" : "• Free instant estimate"}
+                </span>
+                <Link
+                  href={`${base}/booking`}
+                  className="text-sky-200 hover:text-white underline underline-offset-4 ml-auto inline-flex items-center gap-1 font-semibold"
+                >
+                  <IconCalendar className="w-3.5 h-3.5" />
+                  <span>{dict.booking.cta}</span>
+                </Link>
+              </div>
             </div>
             <ul className="mt-10 grid sm:grid-cols-3 gap-3 text-sm text-white/90">
               {heroPoints.map((p) => (
