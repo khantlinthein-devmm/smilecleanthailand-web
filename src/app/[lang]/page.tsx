@@ -21,6 +21,7 @@ import ServiceImage from "@/components/ServiceImage";
 import TrustStrip from "@/components/TrustStrip";
 import HomeReviews from "@/components/HomeReviews";
 import HomeFaq from "@/components/HomeFaq";
+import PricingSection from "@/components/PricingSection";
 import {
   IconArrow,
   IconCalendar,
@@ -300,6 +301,9 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      {/* PRICING TABLE (2 LANGUAGES) */}
+      <PricingSection lang={locale} />
 
       {/* 4. 3 EASY STEPS TO A CLEAN HOME */}
       <HowItWorks dict={dict} />

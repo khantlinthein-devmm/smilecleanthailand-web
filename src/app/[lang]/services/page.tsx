@@ -1,5 +1,6 @@
 import Tilt from "@/components/Tilt";
 import WhatWeClean from "@/components/WhatWeClean";
+import PricingSection from "@/components/PricingSection";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
@@ -66,6 +67,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
           })}
         </div>
       </section>
+      <PricingSection lang={locale} />
       <WhatWeClean dict={dict} />
       <CtaBand lang={locale} />
     </>
