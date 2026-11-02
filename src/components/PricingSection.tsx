@@ -388,25 +388,42 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
         </div>
 
         {/* Guarantee Banner */}
-        <div className="mt-12 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-6 sm:p-8 text-white shadow-xl border border-sky-800/40">
-          <div className="grid md:grid-cols-3 gap-6 items-center">
-            <div className="md:col-span-1">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 px-3 py-1 text-xs font-semibold text-sky-200">
+        <div className="mt-12 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 p-6 sm:p-8 lg:p-10 text-white shadow-2xl border border-sky-700/40">
+          <div aria-hidden className="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-sky-500/15 blur-3xl pointer-events-none" />
+          <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-500/20 border border-sky-400/30 px-3.5 py-1 text-xs font-semibold text-sky-200">
                 <IconShield className="w-4 h-4 text-sky-300" />
-                Service Guarantee
+                {isEn ? "100% Service Guarantee" : "รับประกันมาตรฐานบริการ 100%"}
               </span>
-              <h4 className="mt-2 text-lg sm:text-xl font-bold text-white leading-snug">
+              <h4 className="mt-3 text-xl sm:text-2xl font-extrabold text-white leading-snug tracking-tight">
                 {t.guaranteeTitle}
               </h4>
-              <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+              <p className="mt-2.5 text-xs sm:text-sm text-slate-200/90 leading-relaxed">
                 {t.noteFooter}
               </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <a
+                  href={LINE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#06C755] hover:bg-[#05b34c] px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-[#06C755]/25 transition-all hover:-translate-y-0.5"
+                >
+                  <IconChat className="w-4 h-4" />
+                  <span>{isEn ? "Send Photos for Free Estimate" : "ส่งรูปประเมินราคาฟรีทาง LINE"}</span>
+                </a>
+              </div>
             </div>
-            <div className="md:col-span-2 grid sm:grid-cols-2 gap-3">
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-3.5">
               {t.guaranteeItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-2.5 rounded-xl bg-white/10 p-3.5 border border-white/15 shadow-sm">
-                  <IconCheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-xs text-white leading-relaxed font-medium">{item}</span>
+                <div
+                  key={i}
+                  className="flex items-start gap-3 rounded-2xl bg-white/10 hover:bg-white/15 transition-colors p-4 border border-white/15 shadow-sm"
+                >
+                  <span className="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0 mt-0.5">
+                    <IconCheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  </span>
+                  <span className="text-xs sm:text-[13px] text-white leading-relaxed font-medium">{item}</span>
                 </div>
               ))}
             </div>

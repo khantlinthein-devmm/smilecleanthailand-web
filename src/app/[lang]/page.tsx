@@ -306,7 +306,7 @@ export default async function Home({
       <PricingSection lang={locale} />
 
       {/* 4. 3 EASY STEPS TO A CLEAN HOME */}
-      <HowItWorks dict={dict} />
+      <HowItWorks dict={dict} lang={locale} />
 
       {/* 6. REAL BEFORE & AFTER RESULTS */}
       <BeforeAfterSection dict={dict} lang={locale} />
@@ -375,27 +375,53 @@ export default async function Home({
               </Link>
             }
           />
-          <div className="mt-12 grid md:grid-cols-3 gap-5">
-            {POSTS.map((p, i) => {
-              const t = p[locale];
-              return (
-                <Reveal key={p.slug} delay={i * 90}>
-                  <Link href={`${base}/blog/${p.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
-                    <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
-                      <Image src={p.image} alt="" fill sizes="(min-width: 768px) 370px, 100vw" unoptimized={p.image.endsWith(".svg")} className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    </div>
-                    <div className="p-6 flex-1 flex flex-col">
-                      <time dateTime={p.date} className="text-xs font-medium text-slate-400">{p.date}</time>
-                      <div className="font-bold text-lg text-ink mt-2 leading-snug">{t.title}</div>
-                      <p className="text-sm text-slate-600 mt-2 leading-relaxed flex-1">{t.excerpt}</p>
-                      <span className="link-arrow mt-5">
-                        {dict.common.readMore} <IconArrow className="w-4 h-4" />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              );
-            })}
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {[...POSTS]
+              .sort((a, b) => b.date.localeCompare(a.date))
+              .slice(0, 6)
+              .map((p, i) => {
+                const t = p[locale];
+                return (
+                  <Reveal key={p.slug} delay={(i % 3) * 80}>
+                    <Link
+                      href={`${base}/blog/${p.slug}`}
+                      className="group card card-hover flex flex-col overflow-hidden h-full rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-sky-300 transition-all duration-300 bg-white"
+                    >
+                      <div className="relative aspect-[16/10] overflow-hidden bg-sky-50">
+                        <Image
+                          src={p.image}
+                          alt={t.title}
+                          fill
+                          sizes="(min-width: 768px) 370px, 100vw"
+                          unoptimized={p.image.endsWith(".svg")}
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                        <time
+                          dateTime={p.date}
+                          className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 backdrop-blur-sm text-slate-700 shadow-sm"
+                        >
+                          {p.date}
+                        </time>
+                      </div>
+                      <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          <h3 className="font-bold text-lg text-ink leading-snug group-hover:text-sky-600 transition-colors">
+                            {t.title}
+                          </h3>
+                          <p className="text-sm text-slate-600 mt-2.5 leading-relaxed line-clamp-3">
+                            {t.excerpt}
+                          </p>
+                        </div>
+                        <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-sky-600 group-hover:translate-x-1 transition-transform">
+                          <span>{dict.common.readMore}</span>
+                          <IconArrow className="w-3.5 h-3.5" />
+                        </div>
+                      </div>
+                    </Link>
+                  </Reveal>
+                );
+              })}
           </div>
         </div>
       </section>

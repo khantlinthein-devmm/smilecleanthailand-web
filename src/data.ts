@@ -605,7 +605,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: "sofa-cleaning-fabric-leather-care",
-    image: "/services/house-cleaning.webp",
+    image: "/hero-cleaning.jpg",
     date: "2025-11-25",
     en: {
       title: "Fabric & Leather Sofa Cleaning: Removing Deep Stains Without Fabric Damage",

@@ -13,11 +13,16 @@ export default function AreasSection({ dict, className = "" }: { dict: Dict; cla
           <p className="mt-6 text-sm text-slate-500">{a.note}</p>
         </div>
         <Reveal>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {a.list.map((area) => (
-              <li key={area} className="flex items-center gap-2.5 card px-4 py-3 text-sm font-medium text-ink">
-                <IconPin className="w-4 h-4 text-sky-500 shrink-0" />
-                {area}
+              <li
+                key={area}
+                className="group flex items-center gap-2.5 card px-4 py-3.5 text-sm font-semibold text-ink border border-slate-200/90 shadow-xs hover:border-sky-300 hover:bg-sky-50/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+              >
+                <span className="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                  <IconPin className="w-3.5 h-3.5" />
+                </span>
+                <span className="truncate">{area}</span>
               </li>
             ))}
           </ul>
