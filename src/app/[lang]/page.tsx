@@ -42,7 +42,7 @@ export async function generateMetadata({
   const locale = toLocale((await params).lang);
   const dict = await getDictionary(locale);
   const meta = pageMeta(locale, "", dict.meta.homeTitle, dict.meta.homeDescription);
-  return { ...meta, title: { absolute: `${dict.meta.homeTitle} | Smile Clean Thailand` } };
+  return { ...meta, title: { absolute: `Smile Clean Thailand — ${dict.meta.homeTitle}` } };
 }
 
 function Stars({ className = "w-4 h-4" }: { className?: string }) {
