@@ -3,7 +3,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 import PageHero from "@/components/PageHero";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
-import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, pageMeta, toLocale } from "@/lib/site";
+import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, PHONE_2_DISPLAY, PHONE_2_LINK, pageMeta, toLocale } from "@/lib/site";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import LineQr from "@/components/LineQr";
@@ -20,6 +20,7 @@ export default async function Contact({ params }: { params: Promise<{ lang: stri
   const dict = await getDictionary(locale);
   const rows = [
     { icon: IconPhone, label: PHONE_DISPLAY, href: PHONE_LINK, strong: true },
+    { icon: IconPhone, label: PHONE_2_DISPLAY, href: PHONE_2_LINK, strong: true },
     { icon: IconChat, label: `LINE: ${LINE_ID}`, href: LINE_URL, strong: true, external: true },
     { icon: IconMail, label: EMAIL, href: `mailto:${EMAIL}` },
     { icon: IconClock, label: dict.common.hours },

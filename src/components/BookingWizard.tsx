@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import type { Dict } from "@/dictionaries";
 import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId } from "@/lib/channels";
 import { validPhone } from "@/lib/booking";
-import { PHONE_DISPLAY } from "@/lib/site";
+import { PHONE_DISPLAY, SERVICE_STARTING_PRICES } from "@/lib/site";
 import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
 
 type ServiceOption = { slug: string; title: string; short: string; image: string };
@@ -77,6 +77,7 @@ export default function BookingWizard({
   termsHref: string;
 }) {
   const b = dict.booking;
+  const isTh = locale === "th";
   // Links on service pages pass ?service=slug to pre-select it.
   const preset = useSearchParams().get("service") ?? "";
   const presetValid = services.some((s) => s.slug === preset);
@@ -111,11 +112,14 @@ export default function BookingWizard({
   const today = new Date().toISOString().slice(0, 10);
 
   const selected = services.find((s) => s.slug === service);
+  const selectedPrice = service ? SERVICE_STARTING_PRICES[service] : undefined;
   const channelName = (id: ChannelId) =>
     id === "line" ? "LINE" : id === "whatsapp" ? "WhatsApp" : id === "telegram" ? "Telegram" : id === "sms" ? "SMS" : id === "email" ? b.emailName : b.callName;
 
+  const promoLabel = isTh ? "โปรโมชั่นลด 10% (พ.ย.)" : "10% November Promo";
   const rows: [string, string][] = [
     [b.steps[0], selected?.title ?? ""],
+    [isTh ? "สิทธิ์โปรโมชั่น" : "Promotion", promoLabel],
     [b.propertyType, propertyType],
     [b.size, size],
     [b.date, date],
@@ -163,7 +167,7 @@ export default function BookingWizard({
         body: JSON.stringify({
           locale,
           serviceSlug: service,
-          service: selected?.title ?? "",
+          service: selected?.title ? `${selected.title} (-10% Nov Promo)` : "",
           propertyType,
           size,
           date,
@@ -219,6 +223,20 @@ export default function BookingWizard({
 
   return (
     <div id="booking" className="card overflow-hidden scroll-mt-36">
+      {/* ACTIVE NOVEMBER 10% PROMO BANNER */}
+      <div className="bg-gradient-to-r from-red-600 via-red-500 to-amber-500 px-4 py-2.5 text-white flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-bold">
+        <div className="flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded-full bg-white text-red-600 font-black text-[11px] uppercase tracking-wider">
+            -10% OFF
+          </span>
+          <span>
+            {isTh
+              ? "🎉 คุณได้รับสิทธิ์โปรโมชั่นลด 10% ทุกบริการ (1–30 พ.ย.)"
+              : "🎉 10% November Promo automatically applied to your booking (Nov 1–30)"}
+          </span>
+        </div>
+      </div>
+
       {step < 3 && (
         <ol className="grid grid-cols-3 border-b border-slate-100">
           {b.steps.map((label, i) => (
@@ -248,29 +266,44 @@ export default function BookingWizard({
           <>
             <h2 className="text-xl font-bold text-ink">{b.chooseService}</h2>
             <div role="radiogroup" aria-label={b.chooseService} className="mt-6 grid sm:grid-cols-2 gap-3">
-              {services.map((s) => (
-                <button
-                  key={s.slug}
-                  type="button"
-                  role="radio"
-                  aria-checked={service === s.slug}
-                  onClick={() => {
-                    setService(s.slug);
-                    goTo(1);
-                  }}
-                  className={`group flex items-center gap-4 text-left rounded-2xl border p-3 pr-4 transition ${
-                    service === s.slug ? "border-sky-500 ring-2 ring-sky-500/20 bg-sky-50" : "border-slate-200 hover:border-sky-300"
-                  }`}
-                >
-                  <span className="relative w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-sky-50">
-                    <Image src={s.image} alt="" fill sizes="80px" unoptimized={s.image.endsWith(".svg")} className="object-cover" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block font-semibold text-ink">{s.title}</span>
-                    <span className="block text-xs text-slate-500 mt-0.5 line-clamp-2">{s.short}</span>
-                  </span>
-                </button>
-              ))}
+              {services.map((s) => {
+                const p = SERVICE_STARTING_PRICES[s.slug];
+                return (
+                  <button
+                    key={s.slug}
+                    type="button"
+                    role="radio"
+                    aria-checked={service === s.slug}
+                    onClick={() => {
+                      setService(s.slug);
+                      goTo(1);
+                    }}
+                    className={`group flex items-center gap-4 text-left rounded-2xl border p-3 pr-4 transition ${
+                      service === s.slug ? "border-sky-500 ring-2 ring-sky-500/20 bg-sky-50" : "border-slate-200 hover:border-sky-300"
+                    }`}
+                  >
+                    <span className="relative w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-sky-50">
+                      <Image src={s.image} alt="" fill sizes="80px" unoptimized={s.image.endsWith(".svg")} className="object-cover" />
+                      {p && (
+                        <span className="absolute top-1 right-1 px-1.5 py-0.5 rounded bg-red-600 text-white text-[9px] font-black">
+                          -10%
+                        </span>
+                      )}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-semibold text-ink">{s.title}</span>
+                      <span className="block text-xs text-slate-500 mt-0.5 line-clamp-1">{s.short}</span>
+                      {p && (
+                        <span className="mt-1 inline-flex items-baseline gap-1.5 text-xs">
+                          <span className="text-slate-400">{isTh ? "เริ่มต้น" : "From"}</span>
+                          <span className="font-black text-red-600">฿{p.promo.toLocaleString()}</span>
+                          <span className="text-[11px] text-slate-400 line-through">฿{p.normal.toLocaleString()}</span>
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </>
         )}
@@ -279,8 +312,16 @@ export default function BookingWizard({
         {step === 1 && (
           <div className="grid gap-6">
             {selected && (
-              <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-4 py-3">
-                <span className="font-semibold text-ink">{selected.title}</span>
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate-50 px-4 py-3 border border-slate-200/70">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-semibold text-ink">{selected.title}</span>
+                  {selectedPrice && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-600">
+                      <span>{isTh ? "เริ่มต้น" : "From"} ฿{selectedPrice.promo.toLocaleString()}</span>
+                      <span className="text-slate-400 line-through font-normal">฿{selectedPrice.normal.toLocaleString()}</span>
+                    </span>
+                  )}
+                </div>
                 <button type="button" onClick={() => goTo(0)} className="text-sm font-semibold text-sky-700 hover:underline">
                   {b.back}
                 </button>
@@ -428,7 +469,7 @@ export default function BookingWizard({
             <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
               <div className="font-semibold text-ink">{b.summary}</div>
               <dl className="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
-                {rows.slice(0, 8).filter(([, v]) => v.trim()).map(([k, v]) => (
+                {rows.slice(0, 9).filter(([, v]) => v.trim()).map(([k, v]) => (
                   <div key={k} className="flex gap-2 min-w-0">
                     <dt className="text-slate-500 shrink-0">{k}:</dt>
                     <dd className="text-ink font-medium truncate">{v}</dd>

@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
-import { pageMeta, toLocale } from "@/lib/site";
+import { SERVICE_STARTING_PRICES, pageMeta, toLocale } from "@/lib/site";
 import { SERVICES } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -33,19 +33,35 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
           {SERVICES.map((s, i) => {
             const t = s[locale];
             const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
+            const price = SERVICE_STARTING_PRICES[s.slug];
             return (
               <Reveal key={s.slug} delay={(i % 2) * 90}>
                 <Tilt max={5}>
                 <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
                   <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
+                    {price && (
+                      <span className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-xs font-black bg-red-600 text-white shadow-md">
+                        🔥 -10% {locale === "th" ? "โปร พ.ย." : "Nov Promo"}
+                      </span>
+                    )}
                     <ServiceImage service={s} alt={t.title} sizes="(min-width: 640px) 50vw, 100vw" className="group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-7 flex-1 flex flex-col">
-                    <div className="flex items-center gap-3">
-                      <span className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center ring-1 ring-sky-100 shrink-0">
-                        <Icon className="w-5 h-5" />
-                      </span>
-                      <div className="font-bold text-xl text-ink">{t.title}</div>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center ring-1 ring-sky-100 shrink-0">
+                          <Icon className="w-5 h-5" />
+                        </span>
+                        <div className="font-bold text-xl text-ink group-hover:text-sky-700 transition-colors">{t.title}</div>
+                      </div>
+                      {price && (
+                        <div className="text-right shrink-0">
+                          <div className="text-[11px] text-slate-400 line-through">฿{price.normal.toLocaleString()}</div>
+                          <div className="text-lg font-black text-red-600 leading-tight">
+                            ฿{price.promo.toLocaleString()}
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <p className="text-slate-600 mt-4 leading-relaxed">{t.short}</p>
                     <ul className="mt-5 grid gap-2.5 text-sm text-ink flex-1">

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, type Locale } from "@/lib/site";
+import { EMAIL, LINE_ID, LINE_URL, PHONE_DISPLAY, PHONE_LINK, PHONE_2_DISPLAY, PHONE_2_LINK, type Locale } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
 import { SERVICES } from "@/data";
 import { IconChat, IconClock, IconMail, IconPhone, IconPin } from "./icons";
@@ -65,9 +65,14 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dict }) {
               <IconPin className="w-4 h-4 mt-0.5 shrink-0 text-sky-200" />
               {dict.common.address}
             </li>
-            <li>
-              <a href={PHONE_LINK} className="inline-flex items-center gap-3 font-semibold text-white hover:text-sky-100 transition">
-                <IconPhone className="w-4 h-4 text-sky-200" /> {PHONE_DISPLAY}
+            <li className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <IconPhone className="w-4 h-4 text-sky-200 shrink-0 mr-1" />
+              <a href={PHONE_LINK} className="font-semibold text-white hover:text-sky-100 transition">
+                {PHONE_DISPLAY}
+              </a>
+              <span className="text-sky-200/60">,</span>
+              <a href={PHONE_2_LINK} className="font-semibold text-white hover:text-sky-100 transition">
+                {PHONE_2_DISPLAY}
               </a>
             </li>
             <li>

@@ -443,27 +443,27 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                     </div>
 
                     {/* Price Tag with 10% Discount */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
-                      <div>
+                    <div className="mt-4 pt-3 border-t border-slate-100">
+                      <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs text-slate-400 font-medium line-through">
+                          <span className="text-xs text-slate-400 font-medium line-through whitespace-nowrap">
                             ฿{item.startingPriceThb.toLocaleString()}
                           </span>
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-black bg-red-100 text-red-600 border border-red-200">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-black bg-red-100 text-red-600 border border-red-200 whitespace-nowrap">
                             -10%
                           </span>
                         </div>
-                        <div className="flex items-baseline gap-1 mt-0.5">
-                          <span className="text-xs text-slate-500 font-medium">{t.from}</span>
-                          <span className="text-2xl sm:text-3xl font-black text-red-600 tracking-tight">
-                            ฿{(item.promoPriceThb || Math.round(item.startingPriceThb * 0.9)).toLocaleString()}
-                          </span>
-                          <span className="text-xs text-slate-500 font-semibold">{t.baht}</span>
-                        </div>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-red-700 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
+                          🔥 {isEn ? "Nov Promo" : "โปร พ.ย."}
+                        </span>
                       </div>
-                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-red-700 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full">
-                        🔥 {isEn ? "Nov Promo" : "โปร พ.ย."}
-                      </span>
+                      <div className="flex items-baseline gap-1.5 mt-1">
+                        <span className="text-xs text-slate-500 font-medium whitespace-nowrap">{t.from}</span>
+                        <span className="text-2xl sm:text-3xl font-black text-red-600 tracking-tight whitespace-nowrap">
+                          ฿{(item.promoPriceThb || Math.round(item.startingPriceThb * 0.9)).toLocaleString()}
+                        </span>
+                        <span className="text-xs text-slate-500 font-semibold whitespace-nowrap">{t.baht}</span>
+                      </div>
                     </div>
 
                     {/* Scope & Time Badges */}
