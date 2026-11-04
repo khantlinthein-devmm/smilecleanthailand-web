@@ -220,6 +220,94 @@ export default async function Home({
         </div>
       </Parallax>
 
+      {/* SPECIAL PROMOTION (10% DISCOUNT - NOVEMBER WIDE BANNER) */}
+      <section id="promotion" className="relative container-x -mt-10 md:-mt-14 z-20 mb-6 md:mb-10">
+        <div className="rounded-3xl overflow-hidden bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_20px_50px_rgba(2,132,199,0.18)] p-4 md:p-6 transition-all duration-300 hover:shadow-[0_25px_60px_rgba(2,132,199,0.25)]">
+          {/* HEADER ROW */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
+            <div className="flex items-center gap-3">
+              <span className="w-10 h-10 rounded-2xl bg-gradient-to-br from-red-500 to-amber-500 text-white flex items-center justify-center text-xl shadow-md shadow-red-500/20 animate-pulse shrink-0">
+                🔥
+              </span>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-black text-slate-900 text-base md:text-lg tracking-tight">
+                    {locale === "th" ? "โปรโมชั่นพิเศษประจำเดือนพฤศจิกายน" : "Special November Promotion"}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-black text-xs shadow-sm">
+                    DISCOUNT 10%
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {locale === "th" ? "ลดทันที 10% ทุกบริการทำความสะอาด (01 - 30 พ.ย.)" : "Instant 10% off all cleaning services (Nov 1–30)"}
+                </p>
+              </div>
+            </div>
+
+            {/* ACTION PILLS */}
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <a
+                href={LINE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-sm bg-[#06C755] hover:bg-[#05b34c] text-white border-0 font-extrabold shadow-md shadow-[#06C755]/20 flex items-center justify-center gap-1.5 flex-1 sm:flex-initial"
+              >
+                <IconChat className="w-4 h-4" />
+                <span>{locale === "th" ? "จองคิวทาง LINE" : "Claim on LINE"}</span>
+              </a>
+              <a
+                href={PHONE_LINK}
+                className="btn btn-sm btn-outline text-slate-700 hidden sm:inline-flex items-center gap-1.5"
+              >
+                <IconPhone className="w-3.5 h-3.5" />
+                <span>{PHONE_DISPLAY}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* PROMOTION IMAGE */}
+          <div className="mt-4 relative rounded-2xl overflow-hidden ring-1 ring-slate-200/80 group">
+            <a
+              href="/promotion-horizontal.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              title={locale === "th" ? "คลิกเพื่อดูภาพขยายขนาดเต็ม" : "Click to view full size"}
+              className="block cursor-zoom-in relative"
+            >
+              <Image
+                src="/promotion-horizontal.jpg"
+                alt="Smile Clean Thailand 10% Promotion Discount - November 2026"
+                width={1024}
+                height={571}
+                sizes="(min-width: 1280px) 1200px, 100vw"
+                className="w-full h-auto aspect-[1024/571] object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/95 text-ink font-bold text-xs shadow-lg backdrop-blur-sm">
+                  🔍 {locale === "th" ? "คลิกเพื่อเปิดดูภาพขยายขนาดเต็ม" : "Click to view full size"}
+                </span>
+              </div>
+            </a>
+          </div>
+
+          {/* BOTTOM MICRO-COPY */}
+          <div className="mt-3 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1 text-emerald-600 font-semibold">
+              <IconCheckCircle className="w-3.5 h-3.5" />
+              {locale === "th" ? "ครอบคลุมครบ 12 บริการตามโปสเตอร์ด้านบน" : "Covers all 12 services shown in poster"}
+            </span>
+            <span className="text-slate-400 hidden sm:inline">
+              {locale === "th" ? "• ปรึกษาฟรี ไม่มีค่าใช้จ่ายแอบแฝง" : "• Free consult, no hidden fees"}
+            </span>
+            <span className="inline-flex items-center gap-1 text-sky-600 font-medium ml-auto">
+              <IconShield className="w-3.5 h-3.5" />
+              {locale === "th" ? "รับประกันความพึงพอใจ 100%" : "100% Satisfaction Guarantee"}
+            </span>
+          </div>
+        </div>
+      </section>
+
       {/* 1. STATS */}
       <section className="relative container-x -mt-14 md:-mt-16 z-10">
         <div className="rounded-3xl overflow-hidden bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100">
