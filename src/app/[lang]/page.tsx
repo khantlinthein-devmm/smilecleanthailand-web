@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
-import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, WHATSAPP_NUMBER, pageMeta, toLocale, type Locale } from "@/lib/site";
+import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, SERVICE_STARTING_PRICES, WHATSAPP_NUMBER, pageMeta, toLocale, type Locale } from "@/lib/site";
 import { SERVICES, POSTS, FAQS } from "@/data";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -22,6 +22,7 @@ import TrustStrip from "@/components/TrustStrip";
 import HomeReviews from "@/components/HomeReviews";
 import HomeFaq from "@/components/HomeFaq";
 import PricingSection from "@/components/PricingSection";
+import PromoBanner from "@/components/PromoBanner";
 import {
   IconArrow,
   IconCalendar,
@@ -220,8 +221,11 @@ export default async function Home({
         </div>
       </Parallax>
 
+      {/* SPECIAL PROMOTION (10% DISCOUNT - NOVEMBER WIDE BANNER + LIGHTBOX) */}
+      <PromoBanner locale={locale} />
+
       {/* 1. STATS */}
-      <section className="relative container-x -mt-14 md:-mt-16 z-10">
+      <section className="relative container-x mt-6 md:mt-8 z-10">
         <div className="rounded-3xl overflow-hidden bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100">
           {dict.stats.map((s) => (
             <div
@@ -260,6 +264,7 @@ export default async function Home({
               const t = s[locale];
               const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
               const badge = SERVICE_BADGES[s.slug]?.[locale];
+              const price = SERVICE_STARTING_PRICES[s.slug];
               return (
                 <Reveal key={s.slug} delay={(i % 4) * 70}>
                   <Tilt>
@@ -268,6 +273,11 @@ export default async function Home({
                       {badge && (
                         <span className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-md tracking-tight ${badge.style}`}>
                           {badge.label}
+                        </span>
+                      )}
+                      {price && (
+                        <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-black bg-red-600 text-white shadow-md">
+                          -10%
                         </span>
                       )}
                       <ServiceImage
@@ -288,9 +298,25 @@ export default async function Home({
                         </div>
                         <p className="text-sm text-slate-600 mt-3 leading-relaxed">{t.short}</p>
                       </div>
-                      <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-sky-600 group-hover:translate-x-1 transition-transform">
-                        <span>{dict.common.readMore}</span>
-                        <IconArrow className="w-3.5 h-3.5" />
+                      <div className="pt-4 mt-5 border-t border-slate-100 flex items-center justify-between gap-2">
+                        {price ? (
+                          <div className="flex items-baseline gap-1.5 whitespace-nowrap">
+                            <span className="text-xs text-slate-500 font-medium">
+                              {locale === "th" ? "เริ่มต้น" : "From"}
+                            </span>
+                            <span className="text-lg font-black text-red-600 tracking-tight">
+                              ฿{price.promo.toLocaleString()}
+                            </span>
+                            <span className="text-xs text-slate-400 line-through">
+                              ฿{price.normal.toLocaleString()}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-xs font-semibold text-sky-600">{dict.common.readMore}</span>
+                        )}
+                        <span className="w-8 h-8 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 group-hover:bg-sky-600 group-hover:text-white group-hover:translate-x-0.5 transition-all">
+                          <IconArrow className="w-4 h-4" />
+                        </span>
                       </div>
                     </div>
                   </Link>

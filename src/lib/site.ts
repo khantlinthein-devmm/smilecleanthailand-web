@@ -3,11 +3,26 @@ export const SITE_NAME = "Smile Clean Thailand";
 export const PHONE = "0922867433";
 export const PHONE_DISPLAY = "092-286-7433";
 export const PHONE_LINK = "tel:+66922867433";
+export const PHONE_2 = "0659245509";
+export const PHONE_2_DISPLAY = "065-924-5509";
+export const PHONE_2_LINK = "tel:+66659245509";
 export const LINE_URL = "https://lin.ee/xHXjraz";
 export const LINE_ID = "@smileclean";
 export const EMAIL = "smileclean.th@gmail.com";
 /** WhatsApp number in international format without "+" (the business phone). */
 export const WHATSAPP_NUMBER = "66922867433";
+
+/** Starting prices & November 10% promo prices mapped by main service slug */
+export const SERVICE_STARTING_PRICES: Record<string, { normal: number; promo: number }> = {
+  "condo-cleaning": { normal: 950, promo: 855 },
+  "house-cleaning": { normal: 1100, promo: 990 },
+  "deep-cleaning": { normal: 1300, promo: 1170 },
+  "move-in-move-out": { normal: 1400, promo: 1260 },
+  "after-renovation": { normal: 2000, promo: 1800 },
+  "junk-removal": { normal: 1500, promo: 1350 },
+  "office-cleaning": { normal: 1500, promo: 1350 },
+  "air-condition-services": { normal: 800, promo: 720 },
+};
 
 /** 1200×630 social-share image (LINE, Facebook, Google). */
 export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Smile Clean Thailand — Professional Cleaning Services in Bangkok" };
