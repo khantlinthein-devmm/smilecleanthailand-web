@@ -11,7 +11,7 @@ export interface PricingItem {
   id: string;
   category: "residence" | "deep" | "special";
   slug: string;
-  badge?: Record<Locale, string>;
+  badge?: Partial<Record<Locale, string>>;
   th: {
     title: string;
     subtitle: string;
@@ -27,6 +27,7 @@ export interface PricingItem {
     highlight: string;
   };
   startingPriceThb: number;
+  promoPriceThb?: number;
 }
 
 export const PRICING_ITEMS: PricingItem[] = [
@@ -56,6 +57,7 @@ export const PRICING_ITEMS: PricingItem[] = [
       highlight: "Dusting, vacuuming, mopping, bathroom & balcony sanitization",
     },
     startingPriceThb: 950,
+    promoPriceThb: 855,
   },
   {
     id: "condo-deep",
@@ -83,6 +85,7 @@ export const PRICING_ITEMS: PricingItem[] = [
       highlight: "Intensive lime-scale removal, glass, window tracks & tile grouts",
     },
     startingPriceThb: 1300,
+    promoPriceThb: 1170,
   },
   {
     id: "move-in-out",
@@ -110,6 +113,7 @@ export const PRICING_ITEMS: PricingItem[] = [
       highlight: "Inside cabinets, appliances, full sanitize for landlord inspection",
     },
     startingPriceThb: 1400,
+    promoPriceThb: 1260,
   },
   {
     id: "townhouse-basic",
@@ -118,18 +122,19 @@ export const PRICING_ITEMS: PricingItem[] = [
     th: {
       title: "ทาวน์เฮาส์ทำความสะอาดทั่วไป",
       subtitle: "Townhouse Basic",
-      scope: "พื้นที่ไม่เกิน 50 ตร.ม.",
+      scope: "พื้นที่ 10–20 ตร.ม.",
       duration: "3–5 ชั่วโมง",
       highlight: "ทำความสะอาดทุกชั้น พื้นที่ส่วนกลาง ห้องนอน และห้องน้ำครบ",
     },
     en: {
       title: "Townhouse Basic Cleaning",
       subtitle: "General Clean",
-      scope: "Up to 50 sq.m.",
+      scope: "Up to 10–20 sq.m.",
       duration: "3–5 hours",
       highlight: "Multi-floor sweeping, mopping, common areas, rooms & bathrooms",
     },
     startingPriceThb: 1100,
+    promoPriceThb: 990,
   },
   {
     id: "townhouse-deep",
@@ -138,18 +143,19 @@ export const PRICING_ITEMS: PricingItem[] = [
     th: {
       title: "ทาวน์เฮาส์บิ๊กคลีนนิ่ง",
       subtitle: "Townhouse Deep Cleaning",
-      scope: "พื้นที่ไม่เกิน 50 ตร.ม.",
+      scope: "พื้นที่ไม่เกิน 30 ตร.ม.",
       duration: "4–6 ชั่วโมง",
       highlight: "ขัดละเอียดทุกชั้น เช็ดบานหน้าต่าง ร่องประตู ขจัดคราบฝังลึก",
     },
     en: {
       title: "Townhouse Deep Cleaning",
       subtitle: "Full Restorative",
-      scope: "Up to 50 sq.m.",
+      scope: "Up to 30 sq.m.",
       duration: "4–6 hours",
       highlight: "Comprehensive detail clean, windows, door tracks, deep grime removal",
     },
     startingPriceThb: 1400,
+    promoPriceThb: 1260,
   },
   {
     id: "mattress-cleaning",
@@ -165,18 +171,19 @@ export const PRICING_ITEMS: PricingItem[] = [
     th: {
       title: "ซักอบฆ่าเชื้อที่นอน",
       subtitle: "Mattress Steam Cleaning",
-      scope: "ที่นอน 3.5 ฟุต (Single Bed)",
+      scope: "ที่นอน 3.5 ฟุตขึ้นไป",
       duration: "1–2 ชั่วโมง",
       highlight: "สกัดซักไอน้ำล้ำลึก ฆ่าเชื้อโรค กำจัดไรฝุ่น คราบเหงื่อไคลสะสม",
     },
     en: {
       title: "Mattress Sanitization",
       subtitle: "Steam Extraction",
-      scope: "3.5 ft Single Bed",
+      scope: "3.5 ft. mattress & up",
       duration: "1–2 hours",
       highlight: "Hot steam extraction, eliminates dust mites, sweat stains & allergens",
     },
     startingPriceThb: 800,
+    promoPriceThb: 720,
   },
   {
     id: "sofa-cleaning",
@@ -184,39 +191,141 @@ export const PRICING_ITEMS: PricingItem[] = [
     slug: "deep-cleaning",
     th: {
       title: "ซักทำความสะอาดโซฟา 2 ที่นั่ง",
-      subtitle: "Sofa Upholstery Cleaning",
-      scope: "โซฟา 2 ที่นั่ง (2-Seater)",
+      subtitle: "2-Seater Sofa Cleaning",
+      scope: "โซฟา 2 ที่นั่ง (2-Seat)",
       duration: "1–2 ชั่วโมง",
       highlight: "ฟื้นฟูเส้นใยผ้า ดูดฝุ่นและสกัดคราบฝังแน่น เชื้อราและกลิ่นอับ",
     },
     en: {
-      title: "Sofa Upholstery Cleaning",
+      title: "2-Seater Sofa Cleaning",
       subtitle: "Deep Extraction",
-      scope: "2-Seater Sofa",
+      scope: "2-Seat Sofa",
       duration: "1–2 hours",
       highlight: "Fabric fiber renewal, deep stain extraction, mold & odor neutralizer",
     },
     startingPriceThb: 900,
+    promoPriceThb: 810,
   },
   {
-    id: "bird-netting",
+    id: "bird-poop-cleaning",
     category: "special",
     slug: "deep-cleaning",
+    badge: {
+      th: "🕊️ ขจัดมูลนก",
+      en: "🕊️ Bird Poop",
+    },
     th: {
-      title: "ทำความสะอาดตาข่ายกันนก",
-      subtitle: "Bird Netting Cleaning",
-      scope: "ระเบียงไม่เกิน 10 ตร.ม.",
+      title: "ทำความสะอาดคราบมูลนก",
+      subtitle: "Balcony Bird Poop Cleaning",
+      scope: "ระเบียงต่ำกว่า 10 ตร.ม.",
       duration: "1–2 ชั่วโมง",
       highlight: "ขจัดมูลนก ฉีดล้างฆ่าเชื้อโรค คราบฝังแน่นบริเวณระเบียงห้อง",
     },
     en: {
-      title: "Bird Netting Cleaning",
+      title: "Bird Poop Cleaning",
       subtitle: "Balcony Sanitization",
-      scope: "Balcony up to 10 sq.m.",
+      scope: "Balcony area under 10 sq.m.",
       duration: "1–2 hours",
       highlight: "Safe bird droppings removal, disinfectant wash, stain eradication",
     },
-    startingPriceThb: 800,
+    startingPriceThb: 900,
+    promoPriceThb: 800,
+  },
+  {
+    id: "bird-netting-install",
+    category: "special",
+    slug: "deep-cleaning",
+    th: {
+      title: "บริการติดตั้งตาข่ายกันนก",
+      subtitle: "Install Bird Netting",
+      scope: "พื้นที่ต่ำกว่า 10 ตร.ม.",
+      duration: "2–3 ชั่วโมง",
+      highlight: "ติดตั้งตาข่ายกันนกเกรดทนทาน ป้องกันนกพิราบทำรังและถ่ายมูลถาวร",
+    },
+    en: {
+      title: "Install Bird Netting",
+      subtitle: "Pigeon Prevention",
+      scope: "Balcony area under 10 sq.m.",
+      duration: "2–3 hours",
+      highlight: "Durable netting installation to permanently prevent bird roosting",
+    },
+    startingPriceThb: 2000,
+    promoPriceThb: 1800,
+  },
+  {
+    id: "garden-cleaning",
+    category: "residence",
+    slug: "house-cleaning",
+    badge: {
+      th: "🌿 จัดสวนเคลียร์พื้นที่",
+      en: "🌿 Garden Pro",
+    },
+    th: {
+      title: "บริการทำความสะอาดสวน",
+      subtitle: "Garden Cleaning",
+      scope: "สวนไม่เกิน 50 ตร.ม.",
+      duration: "3–5 ชั่วโมง",
+      highlight: "ตัดหญ้า กวาดใบไม้ เก็บเศษวัชพืช ปรับภูมิทัศน์สวนรอบบ้านให้สะอาดน่ามอง",
+    },
+    en: {
+      title: "Garden Cleaning",
+      subtitle: "Outdoor Maintenance",
+      scope: "Small garden up to 50 sq.m.",
+      duration: "3–5 hours",
+      highlight: "Lawn mowing, leaf clearing, weed removal and outdoor landscaping cleanup",
+    },
+    startingPriceThb: 1500,
+    promoPriceThb: 1350,
+  },
+  {
+    id: "restaurant-kitchen",
+    category: "deep",
+    slug: "deep-cleaning",
+    badge: {
+      th: "🍳 มาตรฐานสุขอนามัย",
+      en: "🍳 Commercial Grade",
+    },
+    th: {
+      title: "ทำความสะอาดครัวร้านอาหาร",
+      subtitle: "Restaurant Kitchen Cleaning",
+      scope: "พื้นที่ไม่เกิน 25 ตร.ม.",
+      duration: "4–6 ชั่วโมง",
+      highlight: "ขจัดคราบไขมันสะสม หัวเตา ฮูดดูดควัน ผนังกระเบื้อง มาตรฐานสุขาภิบาล",
+    },
+    en: {
+      title: "Restaurant Kitchen Cleaning",
+      subtitle: "Commercial Degreasing",
+      scope: "Up to 25 sq.m.",
+      duration: "4–6 hours",
+      highlight: "Heavy grease breakdown, exhaust hood, burners, floors and tile degreasing",
+    },
+    startingPriceThb: 5500,
+    promoPriceThb: 4950,
+  },
+  {
+    id: "post-renovation",
+    category: "deep",
+    slug: "after-renovation",
+    badge: {
+      th: "🛠️ เก็บฝุ่นละเอียด",
+      en: "🛠️ Dust Extraction",
+    },
+    th: {
+      title: "ทำความสะอาดหลังรีโนเวท",
+      subtitle: "Post-Renovation Cleaning",
+      scope: "พื้นที่ไม่เกิน 30 ตร.ม.",
+      duration: "4–6 ชั่วโมง",
+      highlight: "ดูดฝุ่นปูนผงละเอียด ขจัดคราบสี รอยกาว คราบยาแนว ทำความสะอาดพร้อมเข้าอยู่",
+    },
+    en: {
+      title: "Post-Renovation Cleaning",
+      subtitle: "Builder Detail Clean",
+      scope: "Up to 30 sq.m.",
+      duration: "4–6 hours",
+      highlight: "Fine construction dust extraction, paint spot removal, grout cleanup & ready to live",
+    },
+    startingPriceThb: 2000,
+    promoPriceThb: 1800,
   },
 ];
 
@@ -225,7 +334,7 @@ const UI_TEXT = {
     eyebrow: "ราคาชัดเจน ไม่มีบวกเพิ่มหน้างาน",
     title: "อัตราค่าบริการมาตรฐาน",
     subtitle: "ราคาเริ่มต้นโปร่งใส บริการนำอุปกรณ์และน้ำยาเกรดพาณิชย์ไปเองครบชุด ลูกค้าไม่ต้องเตรียมอะไรไว้เลย",
-    all: "ทั้งหมด (8)",
+    all: "ทั้งหมด (12)",
     residence: "บ้าน & คอนโดทั่วไป",
     deep: "บิ๊กคลีนนิ่ง & ย้ายเข้า-ออก",
     special: "ซักเบาะ/ที่นอน & ตาข่าย",
@@ -247,7 +356,7 @@ const UI_TEXT = {
     eyebrow: "Transparent Pricing · No Hidden Fees",
     title: "Standard Service Rates",
     subtitle: "Clear starting rates. We bring all professional commercial equipment and supplies — you don't need to prepare anything.",
-    all: "All Services (8)",
+    all: "All Services (12)",
     residence: "Home & Condo Basic",
     deep: "Deep Clean & Move-in/out",
     special: "Mattress, Sofa & Specialty",
@@ -333,13 +442,28 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                       </div>
                     </div>
 
-                    {/* Price Tag */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline gap-1.5">
-                      <span className="text-xs text-slate-500 font-medium">{t.from}</span>
-                      <span className="text-2xl sm:text-3xl font-extrabold text-sky-600 tracking-tight">
-                        ฿{item.startingPriceThb.toLocaleString()}
+                    {/* Price Tag with 10% Discount */}
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-slate-400 font-medium line-through">
+                            ฿{item.startingPriceThb.toLocaleString()}
+                          </span>
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-black bg-red-100 text-red-600 border border-red-200">
+                            -10%
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-1 mt-0.5">
+                          <span className="text-xs text-slate-500 font-medium">{t.from}</span>
+                          <span className="text-2xl sm:text-3xl font-black text-red-600 tracking-tight">
+                            ฿{(item.promoPriceThb || Math.round(item.startingPriceThb * 0.9)).toLocaleString()}
+                          </span>
+                          <span className="text-xs text-slate-500 font-semibold">{t.baht}</span>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-red-700 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full">
+                        🔥 {isEn ? "Nov Promo" : "โปร พ.ย."}
                       </span>
-                      <span className="text-xs text-slate-500 font-semibold">{t.baht}</span>
                     </div>
 
                     {/* Scope & Time Badges */}
