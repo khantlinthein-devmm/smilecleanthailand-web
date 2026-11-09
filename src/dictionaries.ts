@@ -26,12 +26,12 @@ const en = {
   },
   meta: {
     serviceTitle: "{service} in Bangkok",
-    siteTitle: "Cleaning Services in Bangkok",
+    siteTitle: "Smile Clean Thailand | Professional Cleaning Services Bangkok",
     siteDescription:
-      "One-stop cleaning services in Bangkok: house, condo, deep cleaning, move in/out, office, after renovation. Eco-friendly, 100% guarantee. Book on LINE.",
-    homeTitle: "Cleaning Services Bangkok",
+      "Comprehensive cleaning services in Bangkok: daily maid, deep cleaning, move in/out, after renovation, office cleaning. Eco-friendly products. Free quote.",
+    homeTitle: "Smile Clean Thailand | Professional Cleaning Services Bangkok",
     homeDescription:
-      "House, condo, deep, move in/out, office & renovation cleaning in Bangkok. All equipment included. Free estimate on LINE.",
+      "Best cleaning services in Bangkok for house, condo, office, deep clean, and move-in/out. Fully vetted cleaners, eco-friendly supplies, 100% guarantee.",
     aboutDescription: "Vetted cleaners, eco-friendly products and a 100% satisfaction guarantee — learn about Smile Clean Thailand.",
     servicesDescription: "House, condo, deep, move in/out, after-renovation, office, junk removal and air-con services in Bangkok.",
     faqDescription: "Answers about booking, equipment, service areas and free estimates for cleaning in Bangkok.",
@@ -396,12 +396,12 @@ const th: Dict = {
   },
   meta: {
     serviceTitle: "{service} กรุงเทพฯ",
-    siteTitle: "บริการทำความสะอาดในกรุงเทพฯ",
+    siteTitle: "Smile Clean Thailand บริการทำความสะอาด แม่บ้านรายวัน Big Cleaning",
     siteDescription:
-      "บริการทำความสะอาดครบวงจรในกรุงเทพฯ: บ้าน คอนโด ดีพคลีน ย้ายเข้า/ออก ออฟฟิศ หลังรีโนเวท น้ำยารักษ์โลก รับประกัน 100% จองผ่าน LINE",
-    homeTitle: "บริการทำความสะอาดกรุงเทพฯ",
+      "บริการทำความสะอาดครบวงจรในกรุงเทพฯ จ้างแม่บ้านรายวัน แม่บ้านประจำ Big Cleaning ทำความสะอาดบ้าน คอนโด ออฟฟิศ ก่อนย้ายเข้า หลังรีโนเวท ประเมินราคาฟรี",
+    homeTitle: "Smile Clean Thailand บริการทำความสะอาด แม่บ้านรายวัน Big Cleaning",
     homeDescription:
-      "บริการทำความสะอาดบ้าน คอนโด ดีพคลีน ย้ายเข้า/ออก ออฟฟิศ หลังรีโนเวท พร้อมอุปกรณ์ครบ ประเมินราคาฟรีทาง LINE",
+      "บริการทำความสะอาดบ้าน คอนโด ออฟฟิศ กรุงเทพฯ จ้างแม่บ้านรายวัน แม่บ้านประจำ Big Cleaning ก่อนย้ายเข้า หลังรีโนเวท น้ำยารักษ์โลก ประเมินราคาฟรี",
     aboutDescription: "แม่บ้านผ่านการตรวจสอบ น้ำยารักษ์โลก รับประกันความพึงพอใจ 100% — รู้จัก Smile Clean Thailand",
     servicesDescription: "ทำความสะอาดบ้าน คอนโด ดีพคลีน ย้ายเข้า/ออก หลังรีโนเวท ออฟฟิศ ขนย้ายขยะ และบริการแอร์ในกรุงเทพฯ",
     faqDescription: "คำตอบเรื่องการจอง อุปกรณ์ พื้นที่ให้บริการ และการประเมินราคาฟรี",

@@ -100,7 +100,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
                 <div className="mb-5 pb-5 border-b border-slate-100 rounded-2xl bg-red-50/70 p-4 border border-red-100">
                   <div className="flex items-center justify-between gap-2">
                     <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-red-700 bg-white border border-red-200 px-2.5 py-0.5 rounded-full">
-                      🔥 {locale === "th" ? "โปรโมชั่นเดือน พ.ย." : "November Promo"}
+                      {locale === "th" ? "โปรโมชั่นเดือน พ.ย." : "November Promo"}
                     </span>
                     <span className="px-2 py-0.5 rounded text-xs font-black bg-red-600 text-white">
                       -10%

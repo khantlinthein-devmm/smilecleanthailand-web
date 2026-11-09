@@ -35,7 +35,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dict }) {
             href={`${base}#promotion`}
             className="hidden md:inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-500 hover:bg-red-600 text-white font-extrabold text-[11px] shadow-sm transition animate-pulse"
           >
-            <span>🎉 {lang === 'th' ? 'โปรโมชั่นลด 10% ทุกบริการ (1–30 พ.ย.)' : 'Special 10% Off All Services (Nov 1–30)'}</span>
+            <span>{lang === 'th' ? 'โปรโมชั่นลด 10% ทุกบริการ (1–30 พ.ย.)' : 'Special 10% Off All Services (Nov 1–30)'}</span>
           </Link>
           <a href={PHONE_LINK} className="font-semibold text-white whitespace-nowrap inline-flex items-center gap-1.5 hover:text-sky-100 transition">
             <IconPhone className="w-3.5 h-3.5" />
