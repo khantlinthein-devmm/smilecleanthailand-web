@@ -231,8 +231,8 @@ export default function BookingWizard({
           </span>
           <span>
             {isTh
-              ? "🎉 คุณได้รับสิทธิ์โปรโมชั่นลด 10% ทุกบริการ (1–30 พ.ย.)"
-              : "🎉 10% November Promo automatically applied to your booking (Nov 1–30)"}
+              ? "คุณได้รับสิทธิ์โปรโมชั่นลด 10% ทุกบริการ (1–30 พ.ย.)"
+              : "10% November Promo automatically applied to your booking (Nov 1–30)"}
           </span>
         </div>
       </div>

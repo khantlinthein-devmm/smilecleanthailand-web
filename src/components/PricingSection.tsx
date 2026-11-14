@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -64,11 +64,11 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "deep-cleaning",
     badge: {
-      th: "✨ ขัดล้ำลึก",
-      en: "✨ Deep Scrub",
-      zh: "✨ 深度清洁",
-      my: "✨ အထူးသန့်ရှင်း",
-      ru: "✨ Глубокая",
+      th: "ขัดล้ำลึก",
+      en: "Deep Scrub",
+      zh: "深度清洁",
+      my: "အထူးသန့်ရှင်း",
+      ru: "Глубокая",
     },
     th: {
       title: "คอนโดบิ๊กคลีนนิ่ง",
@@ -92,11 +92,11 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "move-in-move-out",
     badge: {
-      th: "🔑 การันตีตรวจผ่าน",
-      en: "🔑 Deposit Refund",
-      zh: "🔑 押金全退",
-      my: "🔑 အပ်နှံငွေရရှိ",
-      ru: "🔑 Для переезда",
+      th: "การันตีตรวจผ่าน",
+      en: "Deposit Refund",
+      zh: "押金全退",
+      my: "အပ်နှံငွေရရှိ",
+      ru: "Для переезда",
     },
     th: {
       title: "คลีนนิ่งย้ายเข้า / ย้ายออก",
@@ -162,11 +162,11 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "special",
     slug: "deep-cleaning",
     badge: {
-      th: "🛏️ ฆ่าไรฝุ่น",
-      en: "🛏️ Anti-Dustmite",
-      zh: "🛏️ 除螨杀菌",
-      my: "🛏️ ပိုးသတ်",
-      ru: "🛏️ Без пыли",
+      th: "ฆ่าไรฝุ่น",
+      en: "Anti-Dustmite",
+      zh: "除螨杀菌",
+      my: "ပိုးသတ်",
+      ru: "Без пыли",
     },
     th: {
       title: "ซักอบฆ่าเชื้อที่นอน",
@@ -211,8 +211,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "special",
     slug: "deep-cleaning",
     badge: {
-      th: "🕊️ ขจัดมูลนก",
-      en: "🕊️ Bird Poop",
+      th: "ขจัดมูลนก",
+      en: "Bird Poop",
     },
     th: {
       title: "ทำความสะอาดคราบมูลนก",
@@ -257,8 +257,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "residence",
     slug: "house-cleaning",
     badge: {
-      th: "🌿 จัดสวนเคลียร์พื้นที่",
-      en: "🌿 Garden Pro",
+      th: "จัดสวนเคลียร์พื้นที่",
+      en: "Garden Pro",
     },
     th: {
       title: "บริการทำความสะอาดสวน",
@@ -282,8 +282,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "deep-cleaning",
     badge: {
-      th: "🍳 มาตรฐานสุขอนามัย",
-      en: "🍳 Commercial Grade",
+      th: "มาตรฐานสุขอนามัย",
+      en: "Commercial Grade",
     },
     th: {
       title: "ทำความสะอาดครัวร้านอาหาร",
@@ -307,8 +307,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "after-renovation",
     badge: {
-      th: "🛠️ เก็บฝุ่นละเอียด",
-      en: "🛠️ Dust Extraction",
+      th: "เก็บฝุ่นละเอียด",
+      en: "Dust Extraction",
     },
     th: {
       title: "ทำความสะอาดหลังรีโนเวท",
@@ -454,7 +454,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                           </span>
                         </div>
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-red-700 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
-                          🔥 {isEn ? "Nov Promo" : "โปร พ.ย."}
+                          {isEn ? "Nov Promo" : "โปร พ.ย."}
                         </span>
                       </div>
                       <div className="flex items-baseline gap-1.5 mt-1">
