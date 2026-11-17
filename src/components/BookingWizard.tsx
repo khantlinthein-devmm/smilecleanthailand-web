@@ -8,6 +8,7 @@ import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId
 import { validPhone } from "@/lib/booking";
 import { PHONE_DISPLAY, SERVICE_STARTING_PRICES } from "@/lib/site";
 import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
+import { trackEvent } from "./Analytics";
 
 type ServiceOption = { slug: string; title: string; short: string; image: string };
 
@@ -197,6 +198,7 @@ export default function BookingWizard({
       }
       setBookingId(data.id);
       setOffline(false);
+      trackEvent("booking_submit", "booking_wizard", selected?.title || service);
     } catch (e) {
       setFailReason(e instanceof Error ? e.message : String(e));
       setOffline(true);
@@ -335,6 +337,21 @@ export default function BookingWizard({
               <label className="min-w-0">
                 <Label optional={b.optional}>{b.size}</Label>
                 <input value={size} onChange={(e) => setSize(e.target.value)} placeholder={b.sizePlaceholder} className={FIELD} />
+                {/* Quick Size Chips for Higher Conversion */}
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {["Studio (25-32 sqm)", "1 Bed (35-45 sqm)", "2 Bed (50-70 sqm)", "House/Villa (>100 sqm)"].map((sOption) => (
+                    <button
+                      key={sOption}
+                      type="button"
+                      onClick={() => setSize(sOption)}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition ${
+                        size === sOption ? "bg-sky-100 border-sky-400 text-sky-800 font-bold" : "bg-slate-50 border-slate-200 text-slate-600 hover:border-sky-300"
+                      }`}
+                    >
+                      {sOption}
+                    </button>
+                  ))}
+                </div>
               </label>
               <label className="min-w-0">
                 <Label optional={b.optional}>{b.date}</Label>
