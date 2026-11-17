@@ -553,6 +553,7 @@ export default function BookingWizard({
               <a
                 href={channelHref(channel, message, `${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`)}
                 {...(channel === "line" || channel === "whatsapp" || channel === "telegram" ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                onClick={() => trackEvent("booking_chat_click", "booking_flow", channel)}
                 className={offline ? "btn btn-lg text-white" : "btn btn-outline"}
                 style={offline ? { backgroundColor: CHANNELS.find((c) => c.id === channel)?.color } : undefined}
               >
