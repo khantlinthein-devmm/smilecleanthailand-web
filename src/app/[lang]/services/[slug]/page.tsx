@@ -18,7 +18,7 @@ import { IconArrow, IconCalendar, IconChat, IconCheckCircle, IconPhone, IconShie
 import type { Metadata } from "next";
 
 // Services where the "details we take care of" checklist applies.
-const CHECKLIST_SERVICES = ["house-cleaning", "condo-cleaning", "deep-cleaning", "move-in-move-out"];
+const CHECKLIST_SERVICES = ["house-cleaning", "condo-cleaning", "deep-cleaning", "move-in-move-out", "airbnb-turnover"];
 
 export function generateStaticParams() {
   const out: { lang: string; slug: string }[] = [];

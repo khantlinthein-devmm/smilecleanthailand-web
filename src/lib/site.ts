@@ -22,6 +22,9 @@ export const SERVICE_STARTING_PRICES: Record<string, { normal: number; promo: nu
   "junk-removal": { normal: 1500, promo: 1350 },
   "office-cleaning": { normal: 1500, promo: 1350 },
   "air-condition-services": { normal: 800, promo: 720 },
+  "balcony-cleaning": { normal: 1000, promo: 900 },
+  "upholstery-cleaning": { normal: 900, promo: 810 },
+  "airbnb-turnover": { normal: 850, promo: 765 },
 };
 
 /** 1200×630 social-share image (LINE, Facebook, Google). */

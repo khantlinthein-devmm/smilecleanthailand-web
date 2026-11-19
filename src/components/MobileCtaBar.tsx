@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { LINE_URL, PHONE_LINK, WHATSAPP_NUMBER, type Locale } from "@/lib/site";
 import type { Dict } from "@/dictionaries";
-import { IconCalendar, IconChat, IconPhone, IconWhatsApp } from "./icons";
+import { IconChat, IconPhone, IconWhatsApp } from "./icons";
 import { trackEvent } from "./Analytics";
 
 /** Smart adaptive LINE / WhatsApp / Call sticky bar shown on phones only. */

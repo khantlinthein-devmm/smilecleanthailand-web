@@ -2,10 +2,10 @@ import Script from "next/script";
 
 declare global {
   interface Window {
-    dataLayer?: any[];
-    gtag?: (...args: any[]) => void;
-    _lt?: (...args: any[]) => void;
-    _ltq?: any[];
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+    _lt?: (...args: unknown[]) => void;
+    _ltq?: unknown[];
   }
 }
 
