@@ -3,7 +3,6 @@ import { TESTIMONIALS } from "@/data";
 import { type Locale } from "@/lib/site";
 import { IconArrow, IconStar } from "./icons";
 import Reveal from "./Reveal";
-import SectionHeader from "./SectionHeader";
 
 const LABELS: Record<Locale, { eyebrow: string; title: string; subtitle: string; viewAll: string; verified: string; badge: string }> = {
   th: {

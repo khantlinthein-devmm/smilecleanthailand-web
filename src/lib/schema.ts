@@ -11,7 +11,7 @@ const TEL = `+66${PHONE.slice(1)}`;
 
 export function businessSchema(locale: Locale, dict: Dict) {
   return {
-    "@type": "LocalBusiness",
+    "@type": ["HomeAndConstructionBusiness", "CleaningService", "LocalBusiness"],
     "@id": BUSINESS_ID,
     name: SITE_NAME,
     description: dict.glance.summary,

@@ -41,7 +41,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
                   <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
                     {price && (
                       <span className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-xs font-black bg-red-600 text-white shadow-md">
-                        🔥 -10% {locale === "th" ? "โปร พ.ย." : "Nov Promo"}
+                        -10% {locale === "th" ? "โปร พ.ย." : "Nov Promo"}
                       </span>
                     )}
                     <ServiceImage service={s} alt={t.title} sizes="(min-width: 640px) 50vw, 100vw" className="group-hover:scale-105 transition-transform duration-500" />

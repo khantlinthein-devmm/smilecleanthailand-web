@@ -17,6 +17,7 @@ import {
   IconCheckCircle,
   IconPhone,
   IconShield,
+  IconSparkle,
 } from "./icons";
 
 export default function PromoBanner({ locale }: { locale: Locale }) {
@@ -39,8 +40,8 @@ export default function PromoBanner({ locale }: { locale: Locale }) {
           {/* HEADER ROW */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3.5 border-b border-slate-100">
             <div className="flex items-center gap-3">
-              <span className="w-10 h-10 rounded-2xl bg-gradient-to-br from-red-500 to-amber-500 text-white flex items-center justify-center text-xl shadow-md shadow-red-500/20 animate-pulse shrink-0">
-                🔥
+              <span className="w-10 h-10 rounded-2xl bg-gradient-to-br from-red-500 to-amber-500 text-white flex items-center justify-center text-xl shadow-md shadow-red-500/20 shrink-0">
+                <IconSparkle className="w-5 h-5" />
               </span>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -105,11 +106,11 @@ export default function PromoBanner({ locale }: { locale: Locale }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                 <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/95 text-ink font-bold text-xs shadow-lg backdrop-blur-sm">
-                  🔍 {isTh ? "คลิกเพื่อขยายดูภาพขนาดเต็ม" : "Click to enlarge poster"}
+                  {isTh ? "คลิกเพื่อขยายดูภาพขนาดเต็ม" : "Click to enlarge poster"}
                 </span>
               </div>
               <span className="sm:hidden absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900/75 text-white font-semibold text-[11px] backdrop-blur-sm">
-                🔍 {isTh ? "แตะเพื่อขยาย" : "Tap to zoom"}
+                {isTh ? "แตะเพื่อขยาย" : "Tap to zoom"}
               </span>
             </button>
           </div>
@@ -121,7 +122,10 @@ export default function PromoBanner({ locale }: { locale: Locale }) {
               {isTh ? "ครอบคลุมครบ 12 บริการตามโปสเตอร์ด้านบน" : "Covers all 12 services shown in poster"}
             </span>
             <span className="text-slate-500 hidden md:inline-flex items-center gap-2">
-              <span>📞 {isTh ? "โทรด่วน:" : "Call:"}</span>
+              <span className="inline-flex items-center gap-1">
+                <IconPhone className="w-3.5 h-3.5 text-sky-600" />
+                {isTh ? "โทรด่วน:" : "Call:"}
+              </span>
               <a href={PHONE_LINK} className="font-semibold text-slate-700 hover:text-sky-600 transition-colors">
                 {PHONE_DISPLAY}
               </a>

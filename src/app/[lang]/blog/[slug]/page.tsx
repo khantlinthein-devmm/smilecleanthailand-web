@@ -111,13 +111,37 @@ export default async function BlogPost({ params }: { params: Promise<{ lang: str
               </div>
             </div>
 
-            {/* Body Paragraphs */}
+            {/* Body Paragraphs & Structured Headings */}
             <div className="mt-8 space-y-6 text-base sm:text-lg text-slate-700 leading-[1.85]">
-              {t.body.map((para, i) => (
-                <p key={i} className={i === 0 ? "text-ink font-medium text-lg sm:text-[1.15rem]" : ""}>
-                  {para}
-                </p>
-              ))}
+              {t.body.map((para, i) => {
+                if (para.startsWith("## ")) {
+                  return (
+                    <h2 key={i} className="text-2xl sm:text-3xl font-extrabold text-ink mt-10 pt-6 border-t border-slate-100">
+                      {para.replace("## ", "")}
+                    </h2>
+                  );
+                }
+                if (para.startsWith("### ")) {
+                  return (
+                    <h3 key={i} className="text-xl sm:text-2xl font-bold text-ink mt-8 pt-2">
+                      {para.replace("### ", "")}
+                    </h3>
+                  );
+                }
+                if (para.startsWith("- ")) {
+                  return (
+                    <div key={i} className="flex items-start gap-2.5 ml-2">
+                      <span className="w-2 h-2 rounded-full bg-sky-500 mt-2.5 shrink-0" />
+                      <span className="text-slate-700 leading-relaxed">{para.replace("- ", "")}</span>
+                    </div>
+                  );
+                }
+                return (
+                  <p key={i} className={i === 0 ? "text-ink font-medium text-lg sm:text-[1.15rem]" : ""}>
+                    {para}
+                  </p>
+                );
+              })}
             </div>
 
             {/* Bottom Article Conversion Banner */}

@@ -1,6 +1,31 @@
 import Script from "next/script";
 
-// Set these in the hosting environment (e.g. Vercel → Settings → Environment Variables).
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+    _lt?: (...args: unknown[]) => void;
+    _ltq?: unknown[];
+  }
+}
+
+export function trackEvent(action: string, category: string, label?: string) {
+  if (typeof window !== "undefined") {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", action, {
+        event_category: category,
+        event_label: label,
+      });
+    }
+    if (typeof window._lt === "function") {
+      window._lt("send", "cv", {
+        type: action,
+      });
+    }
+  }
+}
+
+// Set these in the hosting environment (e.g. Vercel -> Settings -> Environment Variables).
 // Nothing loads until an ID is provided.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID; // Google Analytics 4, e.g. G-XXXXXXXXXX
 const LINE_TAG_ID = process.env.NEXT_PUBLIC_LINE_TAG_ID; // LINE Tag ID from LINE Ads Manager

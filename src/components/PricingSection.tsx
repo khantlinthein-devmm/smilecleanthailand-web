@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { LINE_URL, WHATSAPP_NUMBER, type Locale } from "@/lib/site";
+import { LINE_URL, type Locale } from "@/lib/site";
 import Reveal from "./Reveal";
 import SectionHeader from "./SectionHeader";
 import { IconArrow, IconCheckCircle, IconChat, IconClock, IconSparkle, IconShield } from "./icons";
@@ -64,11 +64,11 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "deep-cleaning",
     badge: {
-      th: "✨ ขัดล้ำลึก",
-      en: "✨ Deep Scrub",
-      zh: "✨ 深度清洁",
-      my: "✨ အထူးသန့်ရှင်း",
-      ru: "✨ Глубокая",
+      th: "ขัดล้ำลึก",
+      en: "Deep Scrub",
+      zh: "深度清洁",
+      my: "အထူးသန့်ရှင်း",
+      ru: "Глубокая",
     },
     th: {
       title: "คอนโดบิ๊กคลีนนิ่ง",
@@ -92,11 +92,11 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "move-in-move-out",
     badge: {
-      th: "🔑 การันตีตรวจผ่าน",
-      en: "🔑 Deposit Refund",
-      zh: "🔑 押金全退",
-      my: "🔑 အပ်နှံငွေရရှိ",
-      ru: "🔑 Для переезда",
+      th: "การันตีตรวจผ่าน",
+      en: "Deposit Refund",
+      zh: "押金全退",
+      my: "အပ်နှံငွေရရှိ",
+      ru: "Для переезда",
     },
     th: {
       title: "คลีนนิ่งย้ายเข้า / ย้ายออก",
@@ -160,13 +160,13 @@ export const PRICING_ITEMS: PricingItem[] = [
   {
     id: "mattress-cleaning",
     category: "special",
-    slug: "deep-cleaning",
+    slug: "upholstery-cleaning",
     badge: {
-      th: "🛏️ ฆ่าไรฝุ่น",
-      en: "🛏️ Anti-Dustmite",
-      zh: "🛏️ 除螨杀菌",
-      my: "🛏️ ပိုးသတ်",
-      ru: "🛏️ Без пыли",
+      th: "ฆ่าไรฝุ่น",
+      en: "Anti-Dustmite",
+      zh: "除螨杀菌",
+      my: "ပိုးသတ်",
+      ru: "Без пыли",
     },
     th: {
       title: "ซักอบฆ่าเชื้อที่นอน",
@@ -188,7 +188,7 @@ export const PRICING_ITEMS: PricingItem[] = [
   {
     id: "sofa-cleaning",
     category: "special",
-    slug: "deep-cleaning",
+    slug: "upholstery-cleaning",
     th: {
       title: "ซักทำความสะอาดโซฟา 2 ที่นั่ง",
       subtitle: "2-Seater Sofa Cleaning",
@@ -209,10 +209,10 @@ export const PRICING_ITEMS: PricingItem[] = [
   {
     id: "bird-poop-cleaning",
     category: "special",
-    slug: "deep-cleaning",
+    slug: "balcony-cleaning",
     badge: {
-      th: "🕊️ ขจัดมูลนก",
-      en: "🕊️ Bird Poop",
+      th: "ขจัดมูลนก",
+      en: "Bird Poop",
     },
     th: {
       title: "ทำความสะอาดคราบมูลนก",
@@ -234,7 +234,7 @@ export const PRICING_ITEMS: PricingItem[] = [
   {
     id: "bird-netting-install",
     category: "special",
-    slug: "deep-cleaning",
+    slug: "balcony-cleaning",
     th: {
       title: "บริการติดตั้งตาข่ายกันนก",
       subtitle: "Install Bird Netting",
@@ -257,8 +257,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "residence",
     slug: "house-cleaning",
     badge: {
-      th: "🌿 จัดสวนเคลียร์พื้นที่",
-      en: "🌿 Garden Pro",
+      th: "จัดสวนเคลียร์พื้นที่",
+      en: "Garden Pro",
     },
     th: {
       title: "บริการทำความสะอาดสวน",
@@ -282,8 +282,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "deep-cleaning",
     badge: {
-      th: "🍳 มาตรฐานสุขอนามัย",
-      en: "🍳 Commercial Grade",
+      th: "มาตรฐานสุขอนามัย",
+      en: "Commercial Grade",
     },
     th: {
       title: "ทำความสะอาดครัวร้านอาหาร",
@@ -307,8 +307,8 @@ export const PRICING_ITEMS: PricingItem[] = [
     category: "deep",
     slug: "after-renovation",
     badge: {
-      th: "🛠️ เก็บฝุ่นละเอียด",
-      en: "🛠️ Dust Extraction",
+      th: "เก็บฝุ่นละเอียด",
+      en: "Dust Extraction",
     },
     th: {
       title: "ทำความสะอาดหลังรีโนเวท",
@@ -403,7 +403,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
             <button
               key={tab.id}
               type="button"
-              onClick={() => setFilter(tab.id as any)}
+              onClick={() => setFilter(tab.id as "all" | "residence" | "deep" | "special")}
               className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all ${
                 filter === tab.id
                   ? "bg-sky-600 text-white shadow-md shadow-sky-600/25"
@@ -454,7 +454,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                           </span>
                         </div>
                         <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-red-700 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
-                          🔥 {isEn ? "Nov Promo" : "โปร พ.ย."}
+                          {isEn ? "Nov Promo" : "โปร พ.ย."}
                         </span>
                       </div>
                       <div className="flex items-baseline gap-1.5 mt-1">

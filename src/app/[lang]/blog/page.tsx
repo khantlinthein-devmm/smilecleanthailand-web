@@ -48,7 +48,7 @@ export default async function BlogIndex({ params }: { params: Promise<{ lang: st
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
                 <span className="absolute top-4 left-4 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-sky-600 text-white shadow-lg shadow-sky-600/30">
-                  {locale === "th" ? "⭐ บทความแนะนำล่าสุด" : "⭐ Featured Guide"}
+                  {locale === "th" ? "บทความแนะนำล่าสุด" : "Featured Guide"}
                 </span>
               </div>
               <div className="lg:col-span-5 p-7 sm:p-9 lg:p-10 flex flex-col justify-between">
