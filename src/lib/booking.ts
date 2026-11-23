@@ -19,6 +19,10 @@ export type BookingInput = {
   handle: string;
   /** Honeypot: real visitors never fill this in. */
   website?: string;
+  /** Optional quick zone tag */
+  zone?: string;
+  /** Optional care flags (pets, eco-cleaning, key handover, etc.) */
+  careFlags?: string[];
 };
 
 export type Booking = BookingInput & { id: string; createdAt: string };
@@ -26,7 +30,7 @@ export type Booking = BookingInput & { id: string; createdAt: string };
 const CONTACTS: ChannelId[] = ["line", "whatsapp", "telegram", "sms", "email", "call"];
 const LIMITS: Partial<Record<keyof BookingInput, number>> = {
   locale: 5, serviceSlug: 60, service: 120, propertyType: 60, size: 120, date: 10, time: 60,
-  frequency: 60, area: 200, notes: 1000, name: 100, phone: 40, handle: 100,
+  frequency: 60, area: 200, notes: 1000, name: 100, phone: 40, handle: 100, zone: 60,
 };
 
 /** Turns Thai, Burmese and other native digits (๐๙๒, ၀၉၂…) into 0-9. */
@@ -67,6 +71,8 @@ export function validateBooking(raw: unknown): { ok: true; data: BookingInput } 
     contact: CONTACTS.includes(r.contact as ChannelId) ? (r.contact as ChannelId) : "line",
     handle: asciiDigits(str("handle")),
     website: typeof r.website === "string" ? r.website : "",
+    zone: str("zone"),
+    careFlags: Array.isArray(r.careFlags) ? (r.careFlags as unknown[]).filter((x): x is string => typeof x === "string").map((s) => s.slice(0, 50)) : [],
   };
   if (data.website) return { ok: false, error: "spam" };
   if (!data.service || !data.area || !data.name) return { ok: false, error: "missing" };
@@ -89,7 +95,7 @@ export function newBookingId(now = new Date()) {
 const CONTACT_LABEL: Record<ChannelId, string> = { line: "LINE", whatsapp: "WhatsApp", telegram: "Telegram", sms: "SMS", email: "Email", call: "Phone call" };
 const HANDLE_LABEL: Partial<Record<ChannelId, string>> = { line: "LINE ID", whatsapp: "WhatsApp", telegram: "Telegram", email: "Email" };
 
-/** Plain-text notification for the team (LINE / Telegram / email). */
+/** Plain-text notification for the team (LINE / CRM). */
 export function teamMessage(b: Booking, siteUrl: string) {
   const sent = new Date(b.createdAt).toLocaleString("en-GB", { timeZone: "Asia/Bangkok" });
   const job = [
@@ -97,7 +103,8 @@ export function teamMessage(b: Booking, siteUrl: string) {
     `Property: ${b.propertyType}${b.size ? ` · ${b.size}` : ""}`,
     `Date: ${b.date || "not set"} · ${b.time}`,
     `Frequency: ${b.frequency}`,
-    `Area: ${b.area}`,
+    `Area: ${b.area}${b.zone ? ` [Zone: ${b.zone}]` : ""}`,
+    ...(b.careFlags && b.careFlags.length > 0 ? [`Special: ${b.careFlags.join(", ")}`] : []),
     ...(b.notes ? [`Notes: ${b.notes}`] : []),
   ];
   const customer = [

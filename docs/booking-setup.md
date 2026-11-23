@@ -3,9 +3,8 @@
 When a customer presses **Confirm booking**, the site calls `POST /api/booking`, which:
 
 1. gives the booking a number like `SC-260925-7K2Q`,
-2. saves it to a **Google Sheet**, and
-3. notifies the team on **LINE** (and optionally Telegram / email), and
-4. optionally adds it to **Smile Clean CRM → Leads**.
+2. notifies the team on **LINE Group Push**, and
+3. sends the request directly to **Smile Clean CRM → Leads** (HMAC-SHA256 signed).
 
 Each destination turns on when its environment variables exist in
 **Vercel → Project → Settings → Environment Variables**. After adding or changing

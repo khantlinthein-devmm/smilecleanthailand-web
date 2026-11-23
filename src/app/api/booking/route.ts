@@ -1,10 +1,7 @@
 // POST /api/booking — saves a booking and notifies the team.
-// Each destination switches on when its environment variables are set in Vercel:
-//   LINE:     LINE_CHANNEL_ACCESS_TOKEN + LINE_NOTIFY_TO (group/user IDs, comma-separated)
-//   Telegram: TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
-//   Email:    RESEND_API_KEY + BOOKING_EMAIL_TO (+ optional BOOKING_EMAIL_FROM)
-//   Sheet:    GOOGLE_SHEET_WEBHOOK_URL (+ GOOGLE_SHEET_SECRET), see docs/booking-setup.md
-//   CRM:      CRM_LEADS_URL + CRM_LEADS_SECRET (adds the request to Smile Clean CRM → Leads)
+// Destinations configured via Vercel environment variables:
+//   LINE: LINE_CHANNEL_ACCESS_TOKEN + LINE_NOTIFY_TO (group/user IDs, comma-separated)
+//   CRM:  CRM_LEADS_URL + CRM_LEADS_SECRET (adds request to Smile Clean CRM → Leads)
 // With nothing configured it answers 503 and the website falls back to opening
 // the customer's chat app, so no booking is lost.
 import { createHmac } from "node:crypto";
@@ -57,30 +54,6 @@ function destinations(b: Booking) {
     });
   }
 
-  if (env("TELEGRAM_BOT_TOKEN") && env("TELEGRAM_CHAT_ID")) {
-    jobs.push({
-      name: "telegram",
-      run: () => post(`https://api.telegram.org/bot${env("TELEGRAM_BOT_TOKEN")}/sendMessage`, { chat_id: env("TELEGRAM_CHAT_ID"), text }),
-    });
-  }
-
-  if (env("RESEND_API_KEY") && env("BOOKING_EMAIL_TO")) {
-    jobs.push({
-      name: "email",
-      run: () =>
-        post(
-          "https://api.resend.com/emails",
-          {
-            from: env("BOOKING_EMAIL_FROM") || "Smile Clean Bookings <onboarding@resend.dev>",
-            to: env("BOOKING_EMAIL_TO").split(",").map((s) => s.trim()),
-            subject: `New booking ${b.id} — ${b.service} — ${b.name}`,
-            text,
-          },
-          { Authorization: `Bearer ${env("RESEND_API_KEY")}` },
-        ),
-    });
-  }
-
   // The CRM checks an HMAC of the exact body, so sign the string that is sent.
   // Re-sending the same booking number never creates a second lead.
   if (env("CRM_LEADS_URL") && env("CRM_LEADS_SECRET")) {
@@ -94,17 +67,6 @@ function destinations(b: Booking) {
     });
   }
 
-  if (env("GOOGLE_SHEET_WEBHOOK_URL")) {
-    jobs.push({
-      name: "sheet",
-      run: () =>
-        post(env("GOOGLE_SHEET_WEBHOOK_URL"), {
-          secret: env("GOOGLE_SHEET_SECRET"),
-          ...b,
-          createdAtBangkok: new Date(b.createdAt).toLocaleString("en-GB", { timeZone: "Asia/Bangkok" }),
-        }),
-    });
-  }
   return jobs;
 }
 

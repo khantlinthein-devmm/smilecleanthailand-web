@@ -64,6 +64,22 @@ function Label({ children, optional }: { children: React.ReactNode; optional?: s
   );
 }
 
+const QUICK_ZONES = [
+  { id: "sukhumvit", label: "สุขุมวิท / อโศก / ทองหล่อ" },
+  { id: "sathorn-silom", label: "สาทร / สีลม" },
+  { id: "ratchada-rama9", label: "พระราม 9 / รัชดา" },
+  { id: "onnut-bangna", label: "อ่อนนุช / บางนา" },
+  { id: "ari-phahol", label: "อารีย์ / พหลโยธิน" },
+  { id: "other", label: "โซนอื่นๆ" },
+];
+
+const CARE_TAGS = [
+  { id: "pets", icon: "🐾", th: "มีสัตว์เลี้ยง", en: "Pets at home" },
+  { id: "key_guard", icon: "🔑", th: "ฝากกุญแจที่นิติ/รปภ.", en: "Key at juristic/guard" },
+  { id: "gentle_cleaner", icon: "🌿", th: "สูตรอ่อนโยน/แพ้สารเคมี", en: "Sensitive / gentle products" },
+  { id: "has_parking", icon: "🚗", th: "มีที่จอดรถให้", en: "Free parking available" },
+];
+
 export default function BookingWizard({
   dict,
   services,
@@ -89,6 +105,8 @@ export default function BookingWizard({
   const [date, setDate] = useState("");
   const [time, setTime] = useState(b.times[3]);
   const [frequency, setFrequency] = useState(b.frequencies[0]);
+  const [zone, setZone] = useState("");
+  const [careFlags, setCareFlags] = useState<string[]>([]);
   const [area, setArea] = useState("");
   const [notes, setNotes] = useState("");
   const [name, setName] = useState("");
@@ -126,7 +144,10 @@ export default function BookingWizard({
     [b.date, date],
     [b.time, time],
     [b.frequency.replace(/[?？]$/, ""), frequency],
-    [b.area, area],
+    [b.area, `${area}${zone ? ` (${QUICK_ZONES.find((q) => q.id === zone)?.label || zone})` : ""}`],
+    ...(careFlags.length > 0
+      ? [[isTh ? "เงื่อนไขพิเศษ" : "Special", careFlags.map((c) => CARE_TAGS.find((t) => t.id === c)?.[isTh ? "th" : "en"] || c).join(", ")] as [string, string]]
+      : []),
     [b.notes, notes],
     [b.name, name],
     [b.phone, phone],
@@ -136,7 +157,7 @@ export default function BookingWizard({
     () =>
       [`${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`, ...rows.filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`)].join("\n"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [service, propertyType, size, date, time, frequency, area, notes, name, phone, channel, handle, bookingId],
+    [service, propertyType, size, date, time, frequency, area, zone, careFlags, notes, name, phone, channel, handle, bookingId],
   );
 
   function goTo(next: number) {
@@ -174,6 +195,8 @@ export default function BookingWizard({
           date,
           time,
           frequency,
+          zone,
+          careFlags,
           area,
           notes,
           name,
@@ -366,6 +389,31 @@ export default function BookingWizard({
               <Label>{b.frequency}</Label>
               <Chips name={b.frequency} options={b.frequencies} value={frequency} onChange={setFrequency} />
             </div>
+            <div>
+              <Label optional={isTh ? "กดเลือกด่วน" : "Quick select"}>{isTh ? "โซนพื้นที่บริการ" : "Service Zone"}</Label>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {QUICK_ZONES.map((z) => (
+                  <button
+                    key={z.id}
+                    type="button"
+                    onClick={() => {
+                      const next = zone === z.id ? "" : z.id;
+                      setZone(next);
+                      if (next && (!area.trim() || QUICK_ZONES.some((q) => area === q.label))) {
+                        setArea(z.label);
+                      }
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                      zone === z.id
+                        ? "bg-navy-600 text-white border-navy-600 shadow-sm"
+                        : "bg-white text-gray-700 border-gray-200 hover:border-navy-300 hover:bg-navy-50/50"
+                    }`}
+                  >
+                    {z.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <label>
               <Label>{b.area} *</Label>
               <input
@@ -376,6 +424,32 @@ export default function BookingWizard({
                 className={`${FIELD} ${error && !area.trim() ? "border-red-400 ring-2 ring-red-400/20" : ""}`}
               />
             </label>
+            <div>
+              <Label optional={isTh ? "เลือกได้หลายข้อ" : "Multiple selection"}>{isTh ? "เงื่อนไข / สภาพแวดล้อมหน้างาน" : "Special Conditions"}</Label>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {CARE_TAGS.map((tag) => {
+                  const active = careFlags.includes(tag.id);
+                  return (
+                    <button
+                      key={tag.id}
+                      type="button"
+                      onClick={() => {
+                        setCareFlags((prev) =>
+                          active ? prev.filter((x) => x !== tag.id) : [...prev, tag.id]
+                        );
+                      }}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                        active
+                          ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                          : "bg-white text-gray-700 border-gray-200 hover:border-emerald-300 hover:bg-emerald-50/50"
+                      }`}
+                    >
+                      {tag.icon} {isTh ? tag.th : tag.en}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <label>
               <Label optional={b.optional}>{b.notes}</Label>
               <textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={b.notesPlaceholder} rows={3} className={FIELD} />
