@@ -13,14 +13,14 @@ export const CONDO_RATES: { id: "general" | "deep"; name: L10n; price: number; h
     name: { en: "General Cleaning", th: "ทำความสะอาดทั่วไป", my: "ပုံမှန် သန့်ရှင်းရေး", zh: "日常清洁", ru: "Стандартная уборка" },
     price: 1000,
     hours: 3,
-    overtime: 150,
+    overtime: 200,
   },
   {
     id: "deep",
     name: { en: "Deep Cleaning", th: "บิ๊กคลีนนิ่ง", my: "အသေးစိတ် သန့်ရှင်းရေး", zh: "深度清洁", ru: "Генеральная уборка" },
     price: 1400,
     hours: 5,
-    overtime: 200,
+    overtime: 230,
   },
 ];
 export const CONDO_SIZE = "25–50";
