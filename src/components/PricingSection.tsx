@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LINE_URL, type Locale } from "@/lib/site";
 import Reveal from "./Reveal";
 import SectionHeader from "./SectionHeader";
+import { TransportFees } from "./RateDetails";
 import { IconArrow, IconCheckCircle, IconChat, IconClock, IconSparkle, IconShield } from "./icons";
 
 export interface PricingItem {
@@ -45,24 +46,24 @@ export const PRICING_ITEMS: PricingItem[] = [
     th: {
       title: "คอนโดทำความสะอาดทั่วไป",
       subtitle: "Condo Basic",
-      scope: "พื้นที่ไม่เกิน 30 ตร.ม.",
-      duration: "2–4 ชั่วโมง",
+      scope: "พื้นที่ 25–50 ตร.ม.",
+      duration: "ไม่เกิน 3 ชั่วโมง",
       highlight: "กวาด ถู ดูดฝุ่น ทำความสะอาดห้องน้ำ ระเบียง จัดระเบียบห้องพัก",
     },
     en: {
       title: "Condo Basic Cleaning",
       subtitle: "General Clean",
-      scope: "Up to 30 sq.m.",
-      duration: "2–4 hours",
+      scope: "25–50 sq.m.",
+      duration: "Up to 3 hours",
       highlight: "Dusting, vacuuming, mopping, bathroom & balcony sanitization",
     },
-    startingPriceThb: 950,
-    promoPriceThb: 855,
+    startingPriceThb: 1000,
+    promoPriceThb: 900,
   },
   {
     id: "condo-deep",
     category: "deep",
-    slug: "deep-cleaning",
+    slug: "condo-cleaning",
     badge: {
       th: "ขัดล้ำลึก",
       en: "Deep Scrub",
@@ -73,19 +74,46 @@ export const PRICING_ITEMS: PricingItem[] = [
     th: {
       title: "คอนโดบิ๊กคลีนนิ่ง",
       subtitle: "Condo Deep Cleaning",
-      scope: "พื้นที่ไม่เกิน 30 ตร.ม.",
-      duration: "3–5 ชั่วโมง",
+      scope: "พื้นที่ 25–50 ตร.ม.",
+      duration: "ไม่เกิน 5 ชั่วโมง",
       highlight: "ขัดล้ำลึกทุกซอกมุม คราบหินปูน กระจก ขอบหน้าต่าง ร่องยาแนว",
     },
     en: {
       title: "Condo Deep Cleaning",
       subtitle: "Thorough Scrub",
-      scope: "Up to 30 sq.m.",
-      duration: "3–5 hours",
+      scope: "25–50 sq.m.",
+      duration: "Up to 5 hours",
       highlight: "Intensive lime-scale removal, glass, window tracks & tile grouts",
     },
-    startingPriceThb: 1300,
-    promoPriceThb: 1170,
+    startingPriceThb: 1400,
+    promoPriceThb: 1260,
+  },
+  {
+    id: "weekly-cleaning",
+    category: "residence",
+    slug: "weekly-cleaning",
+    badge: {
+      th: "รายสัปดาห์",
+      en: "Weekly",
+      zh: "每周",
+      my: "အပတ်စဉ်",
+      ru: "Еженедельно",
+    },
+    th: {
+      title: "แม่บ้านรายสัปดาห์",
+      subtitle: "Weekly Cleaning",
+      scope: "คอนโด / ออฟฟิศ / ยิม / ร้านอาหาร",
+      duration: "ขั้นต่ำ 3 ชั่วโมง",
+      highlight: "฿280–350 ต่อแม่บ้านต่อชั่วโมง จองแม่บ้าน 2 คนพร้อมกันรับราคาพิเศษ",
+    },
+    en: {
+      title: "Weekly Cleaning",
+      subtitle: "Regular Maintenance",
+      scope: "Condo / Office / Gym / Restaurant",
+      duration: "3-hour minimum",
+      highlight: "฿280–350 per cleaner per hour. Book 2 cleaners together for a special rate",
+    },
+    startingPriceThb: 840,
   },
   {
     id: "move-in-out",
@@ -334,7 +362,7 @@ const UI_TEXT = {
     eyebrow: "ราคาชัดเจน ไม่มีบวกเพิ่มหน้างาน",
     title: "อัตราค่าบริการมาตรฐาน",
     subtitle: "ราคาเริ่มต้นโปร่งใส บริการนำอุปกรณ์และน้ำยาเกรดพาณิชย์ไปเองครบชุด ลูกค้าไม่ต้องเตรียมอะไรไว้เลย",
-    all: "ทั้งหมด (12)",
+    all: "ทั้งหมด",
     residence: "บ้าน & คอนโดทั่วไป",
     deep: "บิ๊กคลีนนิ่ง & ย้ายเข้า-ออก",
     special: "ซักเบาะ/ที่นอน & ตาข่าย",
@@ -356,7 +384,7 @@ const UI_TEXT = {
     eyebrow: "Transparent Pricing · No Hidden Fees",
     title: "Standard Service Rates",
     subtitle: "Clear starting rates. We bring all professional commercial equipment and supplies — you don't need to prepare anything.",
-    all: "All Services (12)",
+    all: "All Services",
     residence: "Home & Condo Basic",
     deep: "Deep Clean & Move-in/out",
     special: "Mattress, Sofa & Specialty",
@@ -395,7 +423,7 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
         {/* Filter Pills */}
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           {[
-            { id: "all", label: t.all },
+            { id: "all", label: `${t.all} (${PRICING_ITEMS.length})` },
             { id: "residence", label: t.residence },
             { id: "deep", label: t.deep },
             { id: "special", label: t.special },
@@ -442,8 +470,9 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                       </div>
                     </div>
 
-                    {/* Price Tag with 10% Discount */}
+                    {/* Price Tag with 10% Discount (items without promoPriceThb show the plain price) */}
                     <div className="mt-4 pt-3 border-t border-slate-100">
+                      {item.promoPriceThb && (
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-1.5">
                           <span className="text-xs text-slate-400 font-medium line-through whitespace-nowrap">
@@ -457,10 +486,11 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
                           {isEn ? "Nov Promo" : "โปร พ.ย."}
                         </span>
                       </div>
+                      )}
                       <div className="flex items-baseline gap-1.5 mt-1">
                         <span className="text-xs text-slate-500 font-medium whitespace-nowrap">{t.from}</span>
-                        <span className="text-2xl sm:text-3xl font-black text-red-600 tracking-tight whitespace-nowrap">
-                          ฿{(item.promoPriceThb || Math.round(item.startingPriceThb * 0.9)).toLocaleString()}
+                        <span className={`text-2xl sm:text-3xl font-black tracking-tight whitespace-nowrap ${item.promoPriceThb ? "text-red-600" : "text-sky-700"}`}>
+                          ฿{(item.promoPriceThb ?? item.startingPriceThb).toLocaleString()}
                         </span>
                         <span className="text-xs text-slate-500 font-semibold whitespace-nowrap">{t.baht}</span>
                       </div>
@@ -509,6 +539,11 @@ export default function PricingSection({ lang = "th" }: { lang: Locale }) {
               </Reveal>
             );
           })}
+        </div>
+
+        {/* Transportation fee */}
+        <div className="mt-12 max-w-2xl mx-auto">
+          <TransportFees locale={lang} />
         </div>
 
         {/* Guarantee Banner */}

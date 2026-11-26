@@ -6,7 +6,17 @@ import { useMemo, useState } from "react";
 import type { Dict } from "@/dictionaries";
 import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId } from "@/lib/channels";
 import { validPhone } from "@/lib/booking";
-import { PHONE_DISPLAY, SERVICE_STARTING_PRICES } from "@/lib/site";
+import { PHONE_DISPLAY, SERVICE_STARTING_PRICES, hasPromo, toLocale } from "@/lib/site";
+import {
+  CONDO_EXTRA_HOURS,
+  CONDO_RATES,
+  RATE_TEXT,
+  WEEKLY_HOUR_CHOICES,
+  WEEKLY_PAIR_DISCOUNT,
+  WEEKLY_RATES,
+  condoPromoPrice,
+  weeklyVisitPrice,
+} from "@/lib/rates";
 import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
 import { trackEvent } from "./Analytics";
 
@@ -64,6 +74,46 @@ function Label({ children, optional }: { children: React.ReactNode; optional?: s
   );
 }
 
+const baht = (n: number) => `฿${n.toLocaleString("en-US")}`;
+const fill = (s: string, n: number | string) => s.replace(/\{\w+\}/, String(n));
+
+/** A selectable card (radio) used for packages. */
+function OptionCard({
+  active,
+  onClick,
+  title,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  title: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={active}
+      onClick={onClick}
+      className={`text-left rounded-2xl border p-4 transition ${
+        active ? "border-sky-500 ring-2 ring-sky-500/20 bg-sky-50" : "border-slate-200 bg-white hover:border-sky-300"
+      }`}
+    >
+      <span className="flex items-center justify-between gap-2">
+        <span className="font-semibold text-ink">{title}</span>
+        <span
+          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            active ? "border-sky-600 bg-sky-600 text-white" : "border-slate-300"
+          }`}
+        >
+          {active && <IconCheck className="w-3 h-3" />}
+        </span>
+      </span>
+      {children && <span className="mt-1.5 block text-sm text-slate-600">{children}</span>}
+    </button>
+  );
+}
+
 const QUICK_ZONES = [
   { id: "sukhumvit", label: "สุขุมวิท / อโศก / ทองหล่อ" },
   { id: "sathorn-silom", label: "สาทร / สีลม" },
@@ -104,7 +154,13 @@ export default function BookingWizard({
   const [size, setSize] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState(b.times[3]);
-  const [frequency, setFrequency] = useState(b.frequencies[0]);
+  const [frequency, setFrequency] = useState(presetValid && preset === "weekly-cleaning" ? b.frequencies[1] : b.frequencies[0]);
+  // Package options for services with a detailed price list (condo / weekly).
+  const [condoPkg, setCondoPkg] = useState<(typeof CONDO_RATES)[number]["id"]>("general");
+  const [extraHours, setExtraHours] = useState(0);
+  const [weeklyType, setWeeklyType] = useState<(typeof WEEKLY_RATES)[number]["id"]>("condo");
+  const [cleaners, setCleaners] = useState<1 | 2>(1);
+  const [weeklyHours, setWeeklyHours] = useState(WEEKLY_HOUR_CHOICES[0]);
   const [zone, setZone] = useState("");
   const [careFlags, setCareFlags] = useState<string[]>([]);
   const [area, setArea] = useState("");
@@ -132,14 +188,39 @@ export default function BookingWizard({
 
   const selected = services.find((s) => s.slug === service);
   const selectedPrice = service ? SERVICE_STARTING_PRICES[service] : undefined;
+  const loc = toLocale(locale);
+  const rt = RATE_TEXT[loc];
+  const isCondo = service === "condo-cleaning";
+  const isWeekly = service === "weekly-cleaning";
+  const condoRate = CONDO_RATES.find((r) => r.id === condoPkg)!;
+  const weeklyRate = WEEKLY_RATES.find((r) => r.id === weeklyType)!;
+  const estimate = isCondo
+    ? condoPromoPrice(condoRate.price) + extraHours * condoRate.overtime
+    : isWeekly
+      ? weeklyVisitPrice(weeklyRate.hourly, cleaners, weeklyHours)
+      : 0;
+  // What the customer picked, in their language (summary / chat message) and in English (team / CRM).
+  const packageLabel = isCondo
+    ? `${condoRate.name[loc]}${extraHours ? ` + ${fill(rt.hours, extraHours)}` : ""}`
+    : isWeekly
+      ? `${weeklyRate.name[loc]} · ${fill(rt.bkCleaner, cleaners)} × ${fill(rt.hours, weeklyHours)}`
+      : "";
+  const packageTeam = isCondo
+    ? `${condoRate.name.en}${extraHours ? ` +${extraHours} h` : ""}, est. ${baht(estimate)} + transport`
+    : isWeekly
+      ? `${weeklyRate.name.en}, ${cleaners} cleaner${cleaners > 1 ? "s" : ""} x ${weeklyHours} h, est. ${baht(estimate)} + transport`
+      : "";
+  // Condo and weekly bookings already say the kind of place.
+  const placeType = isCondo ? b.propertyTypes[0] : isWeekly ? weeklyRate.name[loc] : propertyType;
   const channelName = (id: ChannelId) =>
     id === "line" ? "LINE" : id === "whatsapp" ? "WhatsApp" : id === "telegram" ? "Telegram" : id === "sms" ? "SMS" : id === "email" ? b.emailName : b.callName;
 
   const promoLabel = isTh ? "โปรโมชั่นลด 10% (พ.ย.)" : "10% November Promo";
   const rows: [string, string][] = [
     [b.steps[0], selected?.title ?? ""],
-    [isTh ? "สิทธิ์โปรโมชั่น" : "Promotion", promoLabel],
-    [b.propertyType, propertyType],
+    ...(packageLabel ? [[rt.bkPackage, packageLabel] as [string, string], [rt.bkEstimate, `${baht(estimate)} ${rt.bkPerVisit}`] as [string, string]] : []),
+    ...(selectedPrice && !hasPromo(selectedPrice) ? [] : [[isTh ? "สิทธิ์โปรโมชั่น" : "Promotion", promoLabel] as [string, string]]),
+    [b.propertyType, placeType],
     [b.size, size],
     [b.date, date],
     [b.time, time],
@@ -157,7 +238,7 @@ export default function BookingWizard({
     () =>
       [`${b.messageTitle}${bookingId ? ` ${bookingId}` : ""} — Smile Clean Thailand`, ...rows.filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`)].join("\n"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [service, propertyType, size, date, time, frequency, area, zone, careFlags, notes, name, phone, channel, handle, bookingId],
+    [service, placeType, packageLabel, estimate, size, date, time, frequency, area, zone, careFlags, notes, name, phone, channel, handle, bookingId],
   );
 
   function goTo(next: number) {
@@ -189,8 +270,12 @@ export default function BookingWizard({
         body: JSON.stringify({
           locale,
           serviceSlug: service,
-          service: selected?.title ? `${selected.title} (-10% Nov Promo)` : "",
-          propertyType,
+          service: !selected?.title
+            ? ""
+            : packageTeam
+              ? `${selected.title}: ${packageTeam}${selectedPrice && hasPromo(selectedPrice) ? " (-10% Nov Promo)" : ""}`
+              : `${selected.title} (-10% Nov Promo)`,
+          propertyType: placeType,
           size,
           date,
           time,
@@ -240,6 +325,9 @@ export default function BookingWizard({
     setBookingId("");
     setOffline(false);
     setService("");
+    setExtraHours(0);
+    setCleaners(1);
+    setWeeklyHours(WEEKLY_HOUR_CHOICES[0]);
     setSize("");
     setDate("");
     setArea("");
@@ -248,7 +336,8 @@ export default function BookingWizard({
 
   return (
     <div id="booking" className="card overflow-hidden scroll-mt-36">
-      {/* ACTIVE NOVEMBER 10% PROMO BANNER */}
+      {/* ACTIVE NOVEMBER 10% PROMO BANNER (not for services without a promo, e.g. weekly) */}
+      {!(selectedPrice && !hasPromo(selectedPrice)) && (
       <div className="bg-gradient-to-r from-red-600 via-red-500 to-amber-500 px-4 py-2.5 text-white flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-bold">
         <div className="flex items-center gap-2">
           <span className="px-2 py-0.5 rounded-full bg-white text-red-600 font-black text-[11px] uppercase tracking-wider">
@@ -261,6 +350,7 @@ export default function BookingWizard({
           </span>
         </div>
       </div>
+      )}
 
       {step < 3 && (
         <ol className="grid grid-cols-3 border-b border-slate-100">
@@ -301,6 +391,7 @@ export default function BookingWizard({
                     aria-checked={service === s.slug}
                     onClick={() => {
                       setService(s.slug);
+                      if (s.slug === "weekly-cleaning") setFrequency(b.frequencies[1]);
                       goTo(1);
                     }}
                     className={`group flex items-center gap-4 text-left rounded-2xl border p-3 pr-4 transition ${
@@ -309,7 +400,7 @@ export default function BookingWizard({
                   >
                     <span className="relative w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-sky-50">
                       <Image src={s.image} alt="" fill sizes="80px" unoptimized={s.image.endsWith(".svg")} className="object-cover" />
-                      {p && (
+                      {p && hasPromo(p) && (
                         <span className="absolute top-1 right-1 px-1.5 py-0.5 rounded bg-red-600 text-white text-[9px] font-black">
                           -10%
                         </span>
@@ -322,7 +413,7 @@ export default function BookingWizard({
                         <span className="mt-1 inline-flex items-baseline gap-1.5 text-xs">
                           <span className="text-slate-400">{isTh ? "เริ่มต้น" : "From"}</span>
                           <span className="font-black text-red-600">฿{p.promo.toLocaleString()}</span>
-                          <span className="text-[11px] text-slate-400 line-through">฿{p.normal.toLocaleString()}</span>
+                          {hasPromo(p) && <span className="text-[11px] text-slate-400 line-through">฿{p.normal.toLocaleString()}</span>}
                         </span>
                       )}
                     </span>
@@ -343,7 +434,7 @@ export default function BookingWizard({
                   {selectedPrice && (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-600">
                       <span>{isTh ? "เริ่มต้น" : "From"} ฿{selectedPrice.promo.toLocaleString()}</span>
-                      <span className="text-slate-400 line-through font-normal">฿{selectedPrice.normal.toLocaleString()}</span>
+                      {hasPromo(selectedPrice) && <span className="text-slate-400 line-through font-normal">฿{selectedPrice.normal.toLocaleString()}</span>}
                     </span>
                   )}
                 </div>
@@ -352,10 +443,91 @@ export default function BookingWizard({
                 </button>
               </div>
             )}
-            <div>
-              <Label>{b.propertyType}</Label>
-              <Chips name={b.propertyType} options={b.propertyTypes} value={propertyType} onChange={setPropertyType} />
-            </div>
+            {isCondo && (
+              <>
+                <div>
+                  <Label>{rt.bkPackage}</Label>
+                  <div role="radiogroup" aria-label={rt.bkPackage} className="grid sm:grid-cols-2 gap-3">
+                    {CONDO_RATES.map((r) => (
+                      <OptionCard key={r.id} active={condoPkg === r.id} onClick={() => setCondoPkg(r.id)} title={r.name[loc]}>
+                        <span className="flex items-baseline gap-2">
+                          <span className="text-lg font-black text-red-600">{baht(condoPromoPrice(r.price))}</span>
+                          <span className="text-xs text-slate-400 line-through">{baht(r.price)}</span>
+                        </span>
+                        <span className="block text-xs mt-0.5">
+                          {fill(rt.upToHours, r.hours)} · {fill(rt.bkExtraAfter, r.overtime)}
+                        </span>
+                      </OptionCard>
+                    ))}
+                  </div>
+                  <p className="mt-2 text-xs text-slate-500">{rt.bkLargeCondo}</p>
+                </div>
+                <div>
+                  <Label>{rt.bkExtraHours}</Label>
+                  <Chips
+                    name={rt.bkExtraHours}
+                    options={CONDO_EXTRA_HOURS.map((h) => (h ? `+${fill(rt.hours, h)}` : rt.bkNone))}
+                    value={extraHours ? `+${fill(rt.hours, extraHours)}` : rt.bkNone}
+                    onChange={(v) => setExtraHours(CONDO_EXTRA_HOURS.find((h) => (h ? `+${fill(rt.hours, h)}` : rt.bkNone) === v) ?? 0)}
+                  />
+                </div>
+              </>
+            )}
+            {isWeekly && (
+              <>
+                <div>
+                  <Label>{rt.bkPlaceType}</Label>
+                  <div role="radiogroup" aria-label={rt.bkPlaceType} className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {WEEKLY_RATES.map((r) => (
+                      <OptionCard key={r.id} active={weeklyType === r.id} onClick={() => setWeeklyType(r.id)} title={r.name[loc]}>
+                        {baht(r.hourly)} {rt.perHour}
+                      </OptionCard>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Label>{rt.bkCleaners}</Label>
+                  <div role="radiogroup" aria-label={rt.bkCleaners} className="grid grid-cols-2 gap-3">
+                    {([1, 2] as const).map((n) => (
+                      <OptionCard key={n} active={cleaners === n} onClick={() => setCleaners(n)} title={fill(rt.bkCleaner, n)}>
+                        {n === 2 ? (
+                          <span className="font-semibold text-emerald-600">{fill(rt.bkSpecial, WEEKLY_PAIR_DISCOUNT)}</span>
+                        ) : (
+                          `${baht(weeklyRate.hourly)} ${rt.perHour}`
+                        )}
+                      </OptionCard>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Label>{rt.bkHoursPerVisit}</Label>
+                  <Chips
+                    name={rt.bkHoursPerVisit}
+                    options={WEEKLY_HOUR_CHOICES.map((h) => fill(rt.hours, h))}
+                    value={fill(rt.hours, weeklyHours)}
+                    onChange={(v) => setWeeklyHours(WEEKLY_HOUR_CHOICES.find((h) => fill(rt.hours, h) === v) ?? WEEKLY_HOUR_CHOICES[0])}
+                  />
+                </div>
+              </>
+            )}
+            {(isCondo || isWeekly) && (
+              <div className="rounded-2xl bg-sky-50 border border-sky-100 p-4" aria-live="polite">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <span className="text-sm font-semibold text-ink">{rt.bkEstimate}</span>
+                  <span className="text-2xl font-black text-sky-700">
+                    {baht(estimate)} <span className="text-sm font-semibold text-slate-500">{rt.bkPerVisit}</span>
+                  </span>
+                </div>
+                <div className="mt-1 text-sm text-slate-600">{packageLabel}</div>
+                <p className="mt-2 text-xs text-slate-500">{rt.bkEstimateNote}</p>
+              </div>
+            )}
+            {!isCondo && !isWeekly && (
+              <div>
+                <Label>{b.propertyType}</Label>
+                <Chips name={b.propertyType} options={b.propertyTypes} value={propertyType} onChange={setPropertyType} />
+              </div>
+            )}
             <div className="grid sm:grid-cols-2 gap-4">
               <label className="min-w-0">
                 <Label optional={b.optional}>{b.size}</Label>
@@ -560,7 +732,7 @@ export default function BookingWizard({
             <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
               <div className="font-semibold text-ink">{b.summary}</div>
               <dl className="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm">
-                {rows.slice(0, 9).filter(([, v]) => v.trim()).map(([k, v]) => (
+                {rows.slice(0, packageLabel ? 11 : 9).filter(([, v]) => v.trim()).map(([k, v]) => (
                   <div key={k} className="flex gap-2 min-w-0">
                     <dt className="text-slate-500 shrink-0">{k}:</dt>
                     <dd className="text-ink font-medium truncate">{v}</dd>
