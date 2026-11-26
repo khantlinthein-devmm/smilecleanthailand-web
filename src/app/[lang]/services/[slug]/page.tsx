@@ -2,7 +2,9 @@ import WhatWeClean from "@/components/WhatWeClean";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { LINE_URL, LOCALES, LOCALE_META, PHONE_DISPLAY, PHONE_LINK, SERVICE_STARTING_PRICES, SITE_URL, pageMeta, toLocale } from "@/lib/site";
+import { LINE_URL, LOCALES, LOCALE_META, PHONE_DISPLAY, PHONE_LINK, SERVICE_STARTING_PRICES, SITE_URL, hasPromo, pageMeta, toLocale } from "@/lib/site";
+import RateDetails, { RATE_SLUGS } from "@/components/RateDetails";
+import { RATE_TEXT } from "@/lib/rates";
 import { BUSINESS_ID, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { serviceFaqs } from "@/lib/serviceFaq";
 import JsonLd from "@/components/JsonLd";
@@ -46,6 +48,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
   const t = s[locale];
   const Icon = SERVICE_ICONS[s.icon] ?? SERVICE_ICONS.house;
   const price = SERVICE_STARTING_PRICES[slug];
+  const hasRates = RATE_SLUGS.includes(slug);
   const faqs = serviceFaqs(s, locale, dict);
   const jsonLd = [
     {
@@ -96,7 +99,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
           </div>
           <aside className="lg:sticky lg:top-36 grid gap-4">
             <div className="card p-7">
-              {price && (
+              {price && hasPromo(price) && (
                 <div className="mb-5 pb-5 border-b border-slate-100 rounded-2xl bg-red-50/70 p-4 border border-red-100">
                   <div className="flex items-center justify-between gap-2">
                     <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-red-700 bg-white border border-red-200 px-2.5 py-0.5 rounded-full">
@@ -118,6 +121,17 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
                     </span>
                   </div>
                 </div>
+              )}
+              {price && !hasPromo(price) && (
+                <div className="mb-5 rounded-2xl bg-sky-50 p-4 border border-sky-100 flex items-baseline gap-2">
+                  <span className="text-xs text-slate-500 font-medium">{locale === "th" ? "เริ่มต้น" : "From"}</span>
+                  <span className="text-3xl font-black text-sky-700 tracking-tight">฿{price.normal.toLocaleString()}</span>
+                </div>
+              )}
+              {hasRates && (
+                <a href="#rates" className="-mt-2 mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-700 hover:underline">
+                  {RATE_TEXT[locale].priceList} <IconArrow className="w-3.5 h-3.5 rotate-90" />
+                </a>
               )}
               <div className="flex items-center gap-3">
                 <span className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0">
@@ -154,7 +168,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
           </aside>
         </div>
       </section>
-      <section className="section bg-slate-50 border-y border-slate-100">
+      <RateDetails slug={slug} locale={locale} />
+      <section className={`section ${hasRates ? "" : "bg-slate-50 border-y border-slate-100"}`}>
         <div className="container-x grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
           <SectionHeader eyebrow={t.title} title={dict.faqPage.title} />
           <div className="grid gap-3">
@@ -186,7 +201,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
               return (
                 <Link key={r.slug} href={`/${locale}/services/${r.slug}`} className="group card card-hover overflow-hidden">
                   <div className="relative aspect-[4/3] overflow-hidden bg-sky-50">
-                    {rPrice && (
+                    {rPrice && hasPromo(rPrice) && (
                       <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-black bg-red-600 text-white shadow-md">
                         -10%
                       </span>
@@ -200,7 +215,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ lang
                       <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-baseline gap-1.5">
                         <span className="text-[11px] text-slate-400">{locale === "th" ? "เริ่มต้น" : "From"}</span>
                         <span className="text-sm font-black text-red-600">฿{rPrice.promo.toLocaleString()}</span>
-                        <span className="text-[11px] text-slate-400 line-through">฿{rPrice.normal.toLocaleString()}</span>
+                        {hasPromo(rPrice) && <span className="text-[11px] text-slate-400 line-through">฿{rPrice.normal.toLocaleString()}</span>}
                       </div>
                     )}
                   </div>

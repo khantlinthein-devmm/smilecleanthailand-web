@@ -152,6 +152,7 @@ export const SERVICE_ICONS: Record<string, (p: P) => React.ReactNode> = {
   balcony: IconShield,
   mattress: IconSparkle,
   airbnb: IconHome,
+  weekly: IconCalendar,
 };
 
 export function IconWhatsApp({ className = "w-5 h-5" }: P) {

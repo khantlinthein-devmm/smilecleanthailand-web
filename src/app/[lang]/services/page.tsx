@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getDictionary } from "@/dictionaries";
-import { SERVICE_STARTING_PRICES, pageMeta, toLocale } from "@/lib/site";
+import { SERVICE_STARTING_PRICES, hasPromo, pageMeta, toLocale } from "@/lib/site";
 import { SERVICES } from "@/data";
 import CtaBand from "@/components/CtaBand";
 import Reveal from "@/components/Reveal";
@@ -39,7 +39,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
                 <Tilt max={5}>
                 <Link href={`${base}/services/${s.slug}`} className="group card card-hover flex flex-col overflow-hidden h-full">
                   <div className="relative aspect-[16/9] overflow-hidden bg-sky-50">
-                    {price && (
+                    {price && hasPromo(price) && (
                       <span className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full text-xs font-black bg-red-600 text-white shadow-md">
                         -10% {locale === "th" ? "โปร พ.ย." : "Nov Promo"}
                       </span>
@@ -56,7 +56,7 @@ export default async function ServicesIndex({ params }: { params: Promise<{ lang
                       </div>
                       {price && (
                         <div className="text-right shrink-0">
-                          <div className="text-[11px] text-slate-400 line-through">฿{price.normal.toLocaleString()}</div>
+                          {hasPromo(price) && <div className="text-[11px] text-slate-400 line-through">฿{price.normal.toLocaleString()}</div>}
                           <div className="text-lg font-black text-red-600 leading-tight">
                             ฿{price.promo.toLocaleString()}
                           </div>

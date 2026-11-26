@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/dictionaries";
-import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, SERVICE_STARTING_PRICES, WHATSAPP_NUMBER, pageMeta, toLocale, type Locale } from "@/lib/site";
+import { LINE_URL, PHONE_DISPLAY, PHONE_LINK, SERVICE_STARTING_PRICES, WHATSAPP_NUMBER, hasPromo, pageMeta, toLocale, type Locale } from "@/lib/site";
 import { SERVICES, POSTS, FAQS } from "@/data";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -275,7 +275,7 @@ export default async function Home({
                           {badge.label}
                         </span>
                       )}
-                      {price && (
+                      {price && hasPromo(price) && (
                         <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-black bg-red-600 text-white shadow-md">
                           -10%
                         </span>
@@ -307,9 +307,11 @@ export default async function Home({
                             <span className="text-lg font-black text-red-600 tracking-tight">
                               ฿{price.promo.toLocaleString()}
                             </span>
-                            <span className="text-xs text-slate-400 line-through">
-                              ฿{price.normal.toLocaleString()}
-                            </span>
+                            {hasPromo(price) && (
+                              <span className="text-xs text-slate-400 line-through">
+                                ฿{price.normal.toLocaleString()}
+                              </span>
+                            )}
                           </div>
                         ) : (
                           <span className="text-xs font-semibold text-sky-600">{dict.common.readMore}</span>

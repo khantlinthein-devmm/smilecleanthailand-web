@@ -12,9 +12,10 @@ export const EMAIL = "smileclean.th@gmail.com";
 /** WhatsApp number in international format without "+" (the business phone). */
 export const WHATSAPP_NUMBER = "66922867433";
 
-/** Starting prices & November 10% promo prices mapped by main service slug */
+/** Starting prices & November 10% promo prices mapped by main service slug (promo === normal means no promo) */
 export const SERVICE_STARTING_PRICES: Record<string, { normal: number; promo: number }> = {
-  "condo-cleaning": { normal: 950, promo: 855 },
+  "condo-cleaning": { normal: 1000, promo: 900 },
+  "weekly-cleaning": { normal: 840, promo: 840 },
   "house-cleaning": { normal: 1100, promo: 990 },
   "deep-cleaning": { normal: 1300, promo: 1170 },
   "move-in-move-out": { normal: 1400, promo: 1260 },
@@ -26,6 +27,8 @@ export const SERVICE_STARTING_PRICES: Record<string, { normal: number; promo: nu
   "upholstery-cleaning": { normal: 900, promo: 810 },
   "airbnb-turnover": { normal: 850, promo: 765 },
 };
+
+export const hasPromo = (p: { normal: number; promo: number }) => p.promo < p.normal;
 
 /** 1200×630 social-share image (LINE, Facebook, Google). */
 export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, alt: "Smile Clean Thailand — Professional Cleaning Services in Bangkok" };

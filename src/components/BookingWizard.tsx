@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import type { Dict } from "@/dictionaries";
 import { CHANNELS, HANDLE_CHANNELS, HANDLE_REQUIRED, channelHref, type ChannelId } from "@/lib/channels";
 import { validPhone } from "@/lib/booking";
-import { PHONE_DISPLAY, SERVICE_STARTING_PRICES } from "@/lib/site";
+import { PHONE_DISPLAY, SERVICE_STARTING_PRICES, hasPromo } from "@/lib/site";
 import { IconArrow, IconChat, IconCheck, IconMail, IconPhone, IconSms, IconTelegram, IconWhatsApp } from "./icons";
 import { trackEvent } from "./Analytics";
 
@@ -138,7 +138,7 @@ export default function BookingWizard({
   const promoLabel = isTh ? "โปรโมชั่นลด 10% (พ.ย.)" : "10% November Promo";
   const rows: [string, string][] = [
     [b.steps[0], selected?.title ?? ""],
-    [isTh ? "สิทธิ์โปรโมชั่น" : "Promotion", promoLabel],
+    ...(selectedPrice && !hasPromo(selectedPrice) ? [] : [[isTh ? "สิทธิ์โปรโมชั่น" : "Promotion", promoLabel] as [string, string]]),
     [b.propertyType, propertyType],
     [b.size, size],
     [b.date, date],
@@ -309,7 +309,7 @@ export default function BookingWizard({
                   >
                     <span className="relative w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-sky-50">
                       <Image src={s.image} alt="" fill sizes="80px" unoptimized={s.image.endsWith(".svg")} className="object-cover" />
-                      {p && (
+                      {p && hasPromo(p) && (
                         <span className="absolute top-1 right-1 px-1.5 py-0.5 rounded bg-red-600 text-white text-[9px] font-black">
                           -10%
                         </span>
@@ -322,7 +322,7 @@ export default function BookingWizard({
                         <span className="mt-1 inline-flex items-baseline gap-1.5 text-xs">
                           <span className="text-slate-400">{isTh ? "เริ่มต้น" : "From"}</span>
                           <span className="font-black text-red-600">฿{p.promo.toLocaleString()}</span>
-                          <span className="text-[11px] text-slate-400 line-through">฿{p.normal.toLocaleString()}</span>
+                          {hasPromo(p) && <span className="text-[11px] text-slate-400 line-through">฿{p.normal.toLocaleString()}</span>}
                         </span>
                       )}
                     </span>
@@ -343,7 +343,7 @@ export default function BookingWizard({
                   {selectedPrice && (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-xs font-bold text-red-600">
                       <span>{isTh ? "เริ่มต้น" : "From"} ฿{selectedPrice.promo.toLocaleString()}</span>
-                      <span className="text-slate-400 line-through font-normal">฿{selectedPrice.normal.toLocaleString()}</span>
+                      {hasPromo(selectedPrice) && <span className="text-slate-400 line-through font-normal">฿{selectedPrice.normal.toLocaleString()}</span>}
                     </span>
                   )}
                 </div>
