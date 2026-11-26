@@ -40,6 +40,13 @@ export const WEEKLY_RATES: { id: "condo" | "office" | "gym" | "restaurant"; name
 
 export const weeklyOneCleaner = (hourly: number) => hourly * WEEKLY_MIN_HOURS;
 export const weeklyTwoCleaners = (hourly: number) => hourly * WEEKLY_MIN_HOURS * 2 - WEEKLY_PAIR_DISCOUNT;
+/** Visit price for any number of hours (≥ 3): extra hours are at the standard rate per cleaner. */
+export const weeklyVisitPrice = (hourly: number, cleaners: 1 | 2, hours: number) =>
+  hourly * hours * cleaners - (cleaners === 2 ? WEEKLY_PAIR_DISCOUNT : 0);
+
+/** Choices offered in the booking form. */
+export const CONDO_EXTRA_HOURS = [0, 1, 2, 3];
+export const WEEKLY_HOUR_CHOICES = [3, 4, 5, 6];
 
 /** Transportation fee by Google Maps driving distance from the Smile Clean base. */
 export const TRANSPORT_FEES: { range: string; fee: number }[] = [
@@ -129,6 +136,19 @@ export const RATE_TEXT: Record<
     outsideArea: string;
     transportNotes: string[];
     transportPerVisit: string[];
+    bkPackage: string;
+    bkExtraHours: string;
+    bkNone: string;
+    bkPlaceType: string;
+    bkCleaners: string;
+    bkCleaner: string;
+    bkHoursPerVisit: string;
+    bkEstimate: string;
+    bkPerVisit: string;
+    bkExtraAfter: string;
+    bkSpecial: string;
+    bkEstimateNote: string;
+    bkLargeCondo: string;
   }
 > = {
   en: {
@@ -200,6 +220,19 @@ export const RATE_TEXT: Record<
       "Charged once per visit, not per cleaner.",
       "Parking fees and expressway tolls are charged separately at actual cost.",
     ],
+    bkPackage: "Cleaning type",
+    bkExtraHours: "Extra hours",
+    bkNone: "None",
+    bkPlaceType: "Type of place",
+    bkCleaners: "Number of cleaners",
+    bkCleaner: "{n} cleaner(s)",
+    bkHoursPerVisit: "Hours per visit",
+    bkEstimate: "Estimated price",
+    bkPerVisit: "/ visit",
+    bkExtraAfter: "then +฿{n} / hour",
+    bkSpecial: "Special −฿{n}",
+    bkEstimateNote: "Plus transportation fee by distance (free within 8 km). Our team confirms the final price before the visit.",
+    bkLargeCondo: "Condo larger than 50 sq.m.? Tell us the size and we'll send a separate quote.",
   },
   th: {
     priceList: "ตารางราคา",
@@ -267,6 +300,19 @@ export const RATE_TEXT: Record<
     outsideArea: "นอกพื้นที่ให้บริการ",
     transportNotes: ["ฟรีค่าเดินทางภายใน 8 กม.", "ระยะให้บริการสูงสุด 15 กม."],
     transportPerVisit: ["คิดครั้งเดียวต่อการเข้าบริการ ไม่ใช่ต่อแม่บ้าน", "ค่าจอดรถและค่าทางด่วนคิดตามจริงแยกต่างหาก"],
+    bkPackage: "ประเภทการทำความสะอาด",
+    bkExtraHours: "ชั่วโมงเพิ่มเติม",
+    bkNone: "ไม่เพิ่ม",
+    bkPlaceType: "ประเภทสถานที่",
+    bkCleaners: "จำนวนแม่บ้าน",
+    bkCleaner: "แม่บ้าน {n} คน",
+    bkHoursPerVisit: "จำนวนชั่วโมงต่อครั้ง",
+    bkEstimate: "ราคาประเมิน",
+    bkPerVisit: "/ ครั้ง",
+    bkExtraAfter: "เกินคิด +฿{n} / ชั่วโมง",
+    bkSpecial: "ราคาพิเศษ −฿{n}",
+    bkEstimateNote: "ยังไม่รวมค่าเดินทางตามระยะทาง (ฟรีภายใน 8 กม.) ทีมงานจะยืนยันราคาสุดท้ายก่อนเข้าบริการ",
+    bkLargeCondo: "คอนโดใหญ่กว่า 50 ตร.ม.? แจ้งขนาดห้อง เราจะประเมินราคาแยกให้",
   },
   my: {
     priceList: "ဈေးနှုန်းဇယား",
@@ -337,6 +383,19 @@ export const RATE_TEXT: Record<
       "ဝန်ထမ်းတစ်ဦးချင်းမဟုတ်ဘဲ တစ်ကြိမ်လျှင် တစ်ခါသာ ကောက်ခံပါသည်။",
       "ကားပါကင်ခနှင့် အမြန်လမ်းခကို အမှန်တကယ်ကုန်ကျသလောက် သီးခြား ကောက်ခံပါသည်။",
     ],
+    bkPackage: "သန့်ရှင်းရေး အမျိုးအစား",
+    bkExtraHours: "အပို နာရီ",
+    bkNone: "မထည့်ပါ",
+    bkPlaceType: "နေရာ အမျိုးအစား",
+    bkCleaners: "ဝန်ထမ်း အရေအတွက်",
+    bkCleaner: "ဝန်ထမ်း {n} ဦး",
+    bkHoursPerVisit: "တစ်ကြိမ်လျှင် နာရီ",
+    bkEstimate: "ခန့်မှန်းဈေး",
+    bkPerVisit: "/ တစ်ကြိမ်",
+    bkExtraAfter: "ကျော်ပါက +฿{n} / နာရီ",
+    bkSpecial: "အထူးဈေး −฿{n}",
+    bkEstimateNote: "အကွာအဝေးအလိုက် ခရီးစရိတ် မပါသေးပါ (၈ ကီလိုမီတာအတွင်း အခမဲ့)။ နောက်ဆုံးဈေးကို ကျွန်ုပ်တို့အဖွဲ့က မလာမီ အတည်ပြုပေးပါမည်။",
+    bkLargeCondo: "ကွန်ဒို ၅၀ စတုရန်းမီတာထက် ကြီးပါသလား? အရွယ်အစား ပြောပြပါ၊ သီးခြား ဈေးတွက်ပေးပါမည်။",
   },
   zh: {
     priceList: "价目表",
@@ -404,6 +463,19 @@ export const RATE_TEXT: Record<
     outsideArea: "超出服务范围",
     transportNotes: ["8 公里内免交通费。", "最远服务距离 15 公里。"],
     transportPerVisit: ["每次服务只收一次，不按人数计。", "停车费和高速公路费按实际费用另计。"],
+    bkPackage: "清洁类型",
+    bkExtraHours: "加时",
+    bkNone: "不加时",
+    bkPlaceType: "场所类型",
+    bkCleaners: "保洁员人数",
+    bkCleaner: "{n} 位保洁员",
+    bkHoursPerVisit: "每次时长",
+    bkEstimate: "预估价格",
+    bkPerVisit: "/ 次",
+    bkExtraAfter: "超时 +฿{n} / 小时",
+    bkSpecial: "优惠 −฿{n}",
+    bkEstimateNote: "另加按距离计算的交通费（8 公里内免费）。最终价格由我们的团队在上门前确认。",
+    bkLargeCondo: "公寓超过 50 平米？告诉我们面积，我们另行报价。",
   },
   ru: {
     priceList: "Прайс-лист",
@@ -474,5 +546,18 @@ export const RATE_TEXT: Record<
       "Взимается один раз за визит, а не за каждого клинера.",
       "Парковка и платные дороги оплачиваются отдельно по факту.",
     ],
+    bkPackage: "Тип уборки",
+    bkExtraHours: "Дополнительные часы",
+    bkNone: "Без доп. часов",
+    bkPlaceType: "Тип объекта",
+    bkCleaners: "Количество клинеров",
+    bkCleaner: "{n} клинер(а)",
+    bkHoursPerVisit: "Часов за визит",
+    bkEstimate: "Ориентировочная цена",
+    bkPerVisit: "/ визит",
+    bkExtraAfter: "далее +฿{n} / час",
+    bkSpecial: "Спеццена −฿{n}",
+    bkEstimateNote: "Плюс транспортный сбор по расстоянию (бесплатно до 8 км). Итоговую цену команда подтвердит до визита.",
+    bkLargeCondo: "Кондо больше 50 кв.м? Укажите площадь — мы рассчитаем цену отдельно.",
   },
 };
